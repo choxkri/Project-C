@@ -1,0 +1,81 @@
+﻿
+.rectangle {
+    width: 465px;
+    height: 653px;
+    padding: 8px 8px 8px 8px;
+    background: #ffffff;
+    border-color: #000000;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 52px 52px 52px 52px;
+
+    position: relative;
+    top: 20px; 
+    left: 10px; 
+}
+
+.welcome {
+    width: 270px;
+    height: 82px;
+    color: #232323;
+    font-family: "Helvetica";
+    font-weight: 700;
+    font-size: 17px;
+    text-align: center;
+
+    position: relative;
+    left: 75px;
+}
+body {
+    background: rgb(0,202,235);
+    background: radial-gradient(circle, rgba(0,202,235,1) 0%, rgba(33,116,158,1) 100%);
+}
+
+.visconlogo{
+    
+    
+    position:absolute;
+    top: 150px;
+    left: 960px;
+    
+}
+
+.loginbutton {
+    width: 302px;
+    height: 39px;
+    padding: 0px 10px 0px 10px;
+    background: #ed1c24;
+    color: #ffffff;
+    border-color: #ffffff;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 20px 20px 20px 20px;
+    font-family: "Helvetica";
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+
+    position: relative;
+    top: 150px;
+    left: 70px;
+}
+
+.textinputbutton {
+    width: 302px;
+    height: 39px;
+    padding: 0px 10px 0px 10px;
+    background: #c0c0c0;
+    color: #ffffff;
+    border-color: #ffffff;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 20px 20px 20px 20px;
+    font-family: "Helvetica";
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+    top: 50px;
+    left: 70px;
+    margin-bottom: 25px;
+}
