@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\NewFolder2\" />
+    <Folder Include="ClientApp\src\images\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
