@@ -1,47 +1,63 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import './LogInPage.css';
-import logo1 from '../NewFolder2/viscon-group-logo.png';
-import logo2 from '../NewFolder2/viscon-logo.png';
+import logo1 from '../images/viscon-group-logo.png';
+import logo2 from '../images/viscon-logo.png';
+import { Link, useNavigate } from 'react-router-dom';
 
-export class LogInPage extends Component
-{
-    static displayName = LogInPage.name;
+export function LogInPage() {
+    const navigate = useNavigate();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-    render() {
-        return (
-            <div>
-                <div className="visconlogo">
-                    <img src={logo2} alt="Viscon Logo" style={{ width: 387, height: 387 }} />
+    const handleLogin = () => {
+        // Check if the username and password match your criteria
+        if (username === 'a' && password === 'a') {
+            // If they match, navigate to the "AdminMenu" page
+            navigate('/AdminMenu');
+        }
+    };
+
+    return (
+        <div>
+            <div className="visconlogo">
+                <img src={logo2} alt="Viscon Logo" style={{ width: 387, height: 387 }} />
+            </div>
+
+            <div className="rectangle">
+                <img src={logo1} alt="Viscon Group Logo" style={{ width: 410, height: 223 }} />
+                <div className="welcome">
+                    <p>Welcome to Viscon Platform:</p>
                 </div>
-                
-                <div className="rectangle">
-                   
-                    <img src={logo1} alt="Viscon Group Logo" style={{ width: 410, height: 223 }} />
-                    <div className="welcome">
-                        <p>Welcome to Viscon Platform:</p>
+
+                <form>
+                    <div>
+                        <input
+                            type="text"
+                            name="username"
+                            id="username"
+                            className="textinputbutton"
+                            placeholder="Enter your username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="password"
+                            name="password"
+                            id="passw"
+                            className="textinputbutton"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                     </div>
 
-                    <form action="">
-                        <div>
-                            
-                            <input type="text" name="username" id="username" className="textinputbutton"
-                                placeholder="Enter your username"/>
-                        </div>
-                        <div>
-                           
-                            <input type="text" name="passw" id="passw" className="textinputbutton"
-                                placeholder="Enter your password"/>
-                        </div>
-                        
-                        <button type="submit" className="loginbutton" >Login</button>
-                       
-
-                    </form>
-                </div>
-                
-              
-
+                    <button type="button" className="loginbutton" onClick={handleLogin}>
+                        Login
+                    </button>
+                </form>
             </div>
-        );
-    }
+        </div>
+    );
 }
