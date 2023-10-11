@@ -1,19 +1,23 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import './LogInPage.css';
 import logo1 from '../images/viscon-group-logo.png';
 import logo2 from '../images/viscon-logo.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export function LogInPage() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleLogin = () => {
         // Check if the username and password match your criteria
         if (username === 'a' && password === 'a') {
             // If they match, navigate to the "AdminMenu" page
             navigate('/AdminMenu');
+        } else {
+            // If the credentials are incorrect, set an error message
+            setErrorMessage('Invalid username or password. Please try again.');
         }
     };
 
@@ -53,10 +57,14 @@ export function LogInPage() {
                         />
                     </div>
 
+
+
                     <button type="button" className="loginbutton" onClick={handleLogin}>
                         Login
                     </button>
+
                 </form>
+                <p >{errorMessage}</p>
             </div>
         </div>
     );
