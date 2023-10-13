@@ -13,10 +13,7 @@ public class VisconContext : DbContext
 
 
 
-
-        
-
-    public DbSet<AccountCustomer> AccountCustomers { get; set; } = null!;
+    public DbSet<AccountCustomer> AccountCustomers { get; set; }
     public DbSet<AccountViscon> AccountViscon { get; set; }
     public DbSet<Department> Department { get; set; }
     public DbSet<CustCompany> CustCompany { get; set; }
