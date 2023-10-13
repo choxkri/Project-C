@@ -13,6 +13,24 @@ html {
   }
 }
 
+.navthingy {
+   
+    display: flex;
+    border-bottom: 1px solid #ffffff; 
+    margin-bottom: 3px;
+}
+
+.navthingy2 {
+    display: inline-flex;
+    flex-direction: row-reverse;
+}
+
+.navthingy3{
+
+}
+
+
+
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }

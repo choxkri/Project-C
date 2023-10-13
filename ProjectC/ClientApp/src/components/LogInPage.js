@@ -10,13 +10,22 @@ export function LogInPage() {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
+
+    //This thing should handle the login. It should get the employee from the database that correspons with the inputted username and password.
+    //then it will be sent to the correct path (based on user type)
     const handleLogin = () => {
         // Check if the username and password match your criteria
         if (username === 'a' && password === 'a') {
-            // If they match, navigate to the "AdminMenu" page
+            
             navigate('/AdminMenu');
+        }
+        else if (username === 'f' && password === 'f') {
+            navigate('/FieldEmployeeMenu');
+        }
+        else if (username === 's' && password === 's') {
+            navigate('/ServiceEmployeeMenu');
         } else {
-            // If the credentials are incorrect, set an error message
+            // If it is incorrect, set an error message
             setErrorMessage('Invalid username or password. Please try again.');
         }
     };

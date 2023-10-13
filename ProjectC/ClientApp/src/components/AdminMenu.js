@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavMenu } from './NavMenu';
+import { AdminNavMenu } from './AdminNavMenu';
 export function AdminMenu() {
     //test on how to get data from database to screen.
     const [forecasts, setForecasts] = useState([]);
@@ -49,7 +49,7 @@ export function AdminMenu() {
 
     return (
         <div>
-            <NavMenu />
+            <AdminNavMenu />
             <h1 id="tableLabel">Admin</h1>
             <p>This component demonstrates fetching data from the server.</p>
             {contents}
