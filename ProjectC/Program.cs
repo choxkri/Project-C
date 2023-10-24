@@ -19,7 +19,8 @@ app.UseRouting();
 
 var seeder = new Seeder();
 
-seeder.Clear();
+//seeder.Seed();
+//seeder.Clear();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");

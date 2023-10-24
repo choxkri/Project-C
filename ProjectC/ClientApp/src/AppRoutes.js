@@ -1,5 +1,7 @@
 import { AdminMenu } from "./components/AdminMenu";
 import { Counter } from "./components/Counter";
+import { MakeTicket } from "./components/F-MakeTicket";
+import { SeeFAQ } from "./components/F-SeeFAQ";
 import { FetchData } from "./components/FetchData";
 import { FieldEmployeeMenu } from "./components/FieldEmployeeMenu";
 import { Home } from "./components/Home";
@@ -34,6 +36,14 @@ const AppRoutes = [
   {
     path: '/ServiceEmployeeMenu',
     element: <ServiceEmployeeMenu />
+    },
+  {
+    path: '/F-MakeTicket',
+    element: <MakeTicket />
+  },
+  {
+    path: '/F-SeeFAQ',
+    element: <SeeFAQ />
   }
 ];
 
