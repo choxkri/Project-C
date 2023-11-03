@@ -14,7 +14,7 @@ export function AdminNavMenu() {
                 <Collapse className="navthingy2" navbar>
                     <ul className="navbar-nav">
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/">NOT IMPLEMENTED</NavLink>
+                            <NavLink tag={Link} className="text-dark" to="/A-MakeAccount">Make Account</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} className="text-dark" to="/">NOT IMPLEMENTE</NavLink>

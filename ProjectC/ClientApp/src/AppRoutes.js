@@ -1,3 +1,5 @@
+import { MakeAccount } from "./components/A-MakeAccount";
+import { AccountInfo } from "./components/AccountInfo";
 import { AdminMenu } from "./components/AdminMenu";
 import { Counter } from "./components/Counter";
 import { MakeTicket } from "./components/F-MakeTicket";
@@ -44,7 +46,15 @@ const AppRoutes = [
   {
     path: '/F-SeeFAQ',
     element: <SeeFAQ />
-  }
+    },
+  {
+    path: '/AccountInfo',
+    element: <AccountInfo />
+  },
+  {
+    path: '/A-MakeAccount',
+    element: <MakeAccount    />
+    }
 ];
 
 export default AppRoutes;

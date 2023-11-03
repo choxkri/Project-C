@@ -3,6 +3,7 @@ import { Collapse, Navbar, NavbarBrand, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import logo from '../images/viscon-logo.png';
+import user from '../images/User.png';
 
 export function ServiceEmployeeNavMenu() {
    
@@ -24,7 +25,7 @@ export function ServiceEmployeeNavMenu() {
                             <NavLink tag={Link} className="text-dark" to="/">NOT IMPLEMENTED</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/">NOT IMPLEMENTE</NavLink>
+                            <NavLink tag={Link} className="text-dark" to="/AccountInfo"> <img src={user} alt="Viscon Logo" style={{ width: 38, height: 38 }} /></NavLink>
                         </NavItem>
                     </ul>
                 </Collapse>
