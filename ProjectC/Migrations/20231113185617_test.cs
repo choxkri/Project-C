@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ProjectC.Migrations
 {
     /// <inheritdoc />
-    public partial class test1231214 : Migration
+    public partial class test : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,82 +52,57 @@ namespace ProjectC.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AccountCustomers",
-                columns: table => new
-                {
-                    AccountCustomer_ID = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    AccountCustomer_Name = table.Column<string>(type: "text", nullable: false),
-                    AccountCustomer_Password = table.Column<string>(type: "text", nullable: false),
-                    AccountCustomer_Email = table.Column<string>(type: "text", nullable: true),
-                    AccountCustomer_Phone = table.Column<string>(type: "text", nullable: true),
-                    CustCompany_ID = table.Column<int>(type: "integer", nullable: false),
-                    TypeAccountID = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AccountCustomers", x => x.AccountCustomer_ID);
-                    table.ForeignKey(
-                        name: "FK_AccountCustomers_CustCompany_CustCompany_ID",
-                        column: x => x.CustCompany_ID,
-                        principalTable: "CustCompany",
-                        principalColumn: "CustCompany_ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AccountCustomers_TypeAccounts_TypeAccountID",
-                        column: x => x.TypeAccountID,
-                        principalTable: "TypeAccounts",
-                        principalColumn: "Type_ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AccountViscon",
-                columns: table => new
-                {
-                    AccountViscon_ID = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    AccountViscon_Name = table.Column<string>(type: "text", nullable: false),
-                    AccountViscon_Password = table.Column<string>(type: "text", nullable: false),
-                    AccountViscon_Email = table.Column<string>(type: "text", nullable: true),
-                    AccountViscon_Phone = table.Column<string>(type: "text", nullable: true),
-                    DepartmentID = table.Column<int>(type: "integer", nullable: false),
-                    TypeAccountID = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AccountViscon", x => x.AccountViscon_ID);
-                    table.ForeignKey(
-                        name: "FK_AccountViscon_Department_DepartmentID",
-                        column: x => x.DepartmentID,
-                        principalTable: "Department",
-                        principalColumn: "Department_ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AccountViscon_TypeAccounts_TypeAccountID",
-                        column: x => x.TypeAccountID,
-                        principalTable: "TypeAccounts",
-                        principalColumn: "Type_ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Machines",
                 columns: table => new
                 {
                     Machine_ID = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Machine_Name = table.Column<string>(type: "text", nullable: false),
-                    AccountCustomer_ID = table.Column<int>(type: "integer", nullable: true)
+                    CustCompany_ID = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Machines", x => x.Machine_ID);
                     table.ForeignKey(
-                        name: "FK_Machines_AccountCustomers_AccountCustomer_ID",
-                        column: x => x.AccountCustomer_ID,
-                        principalTable: "AccountCustomers",
-                        principalColumn: "AccountCustomer_ID");
+                        name: "FK_Machines_CustCompany_CustCompany_ID",
+                        column: x => x.CustCompany_ID,
+                        principalTable: "CustCompany",
+                        principalColumn: "CustCompany_ID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Accounts",
+                columns: table => new
+                {
+                    Account_ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Account_Name = table.Column<string>(type: "text", nullable: false),
+                    Account_Password = table.Column<string>(type: "text", nullable: false),
+                    Account_Email = table.Column<string>(type: "text", nullable: true),
+                    Account_Phone = table.Column<string>(type: "text", nullable: true),
+                    DepartmentID = table.Column<int>(type: "integer", nullable: true),
+                    CustCompanyID = table.Column<int>(type: "integer", nullable: true),
+                    TypeAccountID = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Accounts", x => x.Account_ID);
+                    table.ForeignKey(
+                        name: "FK_Accounts_CustCompany_CustCompanyID",
+                        column: x => x.CustCompanyID,
+                        principalTable: "CustCompany",
+                        principalColumn: "CustCompany_ID");
+                    table.ForeignKey(
+                        name: "FK_Accounts_Department_DepartmentID",
+                        column: x => x.DepartmentID,
+                        principalTable: "Department",
+                        principalColumn: "Department_ID");
+                    table.ForeignKey(
+                        name: "FK_Accounts_TypeAccounts_TypeAccountID",
+                        column: x => x.TypeAccountID,
+                        principalTable: "TypeAccounts",
+                        principalColumn: "Type_ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -137,6 +112,7 @@ namespace ProjectC.Migrations
                     Ticket_ID = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Ticket_Name = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false),
                     Ticket_Message = table.Column<string>(type: "text", nullable: false),
                     Ticket_Photo = table.Column<string>(type: "text", nullable: false),
                     AccountCustomerID = table.Column<int>(type: "integer", nullable: false),
@@ -148,16 +124,16 @@ namespace ProjectC.Migrations
                 {
                     table.PrimaryKey("PK_Tickets", x => x.Ticket_ID);
                     table.ForeignKey(
-                        name: "FK_Tickets_AccountCustomers_AccountCustomerID",
+                        name: "FK_Tickets_Accounts_AccountCustomerID",
                         column: x => x.AccountCustomerID,
-                        principalTable: "AccountCustomers",
-                        principalColumn: "AccountCustomer_ID",
+                        principalTable: "Accounts",
+                        principalColumn: "Account_ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tickets_AccountViscon_AccountVisconID",
+                        name: "FK_Tickets_Accounts_AccountVisconID",
                         column: x => x.AccountVisconID,
-                        principalTable: "AccountViscon",
-                        principalColumn: "AccountViscon_ID",
+                        principalTable: "Accounts",
+                        principalColumn: "Account_ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tickets_Machines_MachineID",
@@ -168,29 +144,24 @@ namespace ProjectC.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AccountCustomers_CustCompany_ID",
-                table: "AccountCustomers",
-                column: "CustCompany_ID");
+                name: "IX_Accounts_CustCompanyID",
+                table: "Accounts",
+                column: "CustCompanyID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AccountCustomers_TypeAccountID",
-                table: "AccountCustomers",
-                column: "TypeAccountID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AccountViscon_DepartmentID",
-                table: "AccountViscon",
+                name: "IX_Accounts_DepartmentID",
+                table: "Accounts",
                 column: "DepartmentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AccountViscon_TypeAccountID",
-                table: "AccountViscon",
+                name: "IX_Accounts_TypeAccountID",
+                table: "Accounts",
                 column: "TypeAccountID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Machines_AccountCustomer_ID",
+                name: "IX_Machines_CustCompany_ID",
                 table: "Machines",
-                column: "AccountCustomer_ID");
+                column: "CustCompany_ID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_AccountCustomerID",
@@ -215,7 +186,7 @@ namespace ProjectC.Migrations
                 name: "Tickets");
 
             migrationBuilder.DropTable(
-                name: "AccountViscon");
+                name: "Accounts");
 
             migrationBuilder.DropTable(
                 name: "Machines");
@@ -224,13 +195,10 @@ namespace ProjectC.Migrations
                 name: "Department");
 
             migrationBuilder.DropTable(
-                name: "AccountCustomers");
+                name: "TypeAccounts");
 
             migrationBuilder.DropTable(
                 name: "CustCompany");
-
-            migrationBuilder.DropTable(
-                name: "TypeAccounts");
         }
     }
 }

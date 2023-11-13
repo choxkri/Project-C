@@ -25,11 +25,11 @@ namespace ProjectC.Controllers
 
         [HttpGet("{name}/{password}")]
 
-        public AccountViscon LogIn(string name, string password)
+        public Account LogIn(string name, string password)
         {
             using (var context = new VisconContext())
             {
-                List<AccountViscon> user = context.AccountViscon.Where(_ => _.AccountViscon_Name == name && _.AccountViscon_Password == password).ToList();
+                List<Account> user = context.Accounts.Where(_ => _.Account_Name == name && _.Account_Password == password).ToList();
                 if (user.Count == 0)
                 {
                     return null;
@@ -47,9 +47,9 @@ namespace ProjectC.Controllers
         {
             using (var context = new VisconContext())
             {
-                string type = (from acc in context.AccountViscon
+                string type = (from acc in context.Accounts
                                join typse in context.TypeAccounts on acc.TypeAccountID equals typse.Type_ID
-                               where acc.AccountViscon_ID == id
+                               where acc.Account_ID == id
                                select typse.Type_Name).FirstOrDefault()!;
                 return type;
                 
@@ -62,17 +62,17 @@ namespace ProjectC.Controllers
         {
             using(var context = new VisconContext())
             {
-                var allInfo = from acc in context.AccountViscon
+                var allInfo = from acc in context.Accounts
                               join typ in context.TypeAccounts on acc.TypeAccountID equals typ.Type_ID
                               join dep in context.Department on acc.DepartmentID equals dep.Department_ID
-                              where acc.AccountViscon_ID == myid
+                              where acc.Account_ID == myid
                               select new
                               {
-                                  id = acc.AccountViscon_ID,
-                                  name = acc.AccountViscon_Name,
-                                  password = acc.AccountViscon_Password,
-                                  number = acc.AccountViscon_Phone,
-                                  email = acc.AccountViscon_Email,
+                                  id = acc.Account_ID,
+                                  name = acc.Account_Name,
+                                  password = acc.Account_Password,
+                                  number = acc.Account_Phone,
+                                  email = acc.Account_Email,
                                   department = dep.Department_Name,
                                   type = typ.Type_Name,
                               };

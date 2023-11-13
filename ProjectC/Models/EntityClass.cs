@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.PortableExecutable;
 
 public class Department
 {
@@ -18,9 +19,16 @@ public class TypeAccount
 
 public class CustCompany
 {
+    public CustCompany()
+    {
+        Machines = new HashSet<Machine>();
+    }
+    
     [Key]
     public int CustCompany_ID { get; set; }
     public string CustCompany_Name { get;  set; }
+
+    public virtual ICollection<Machine> Machines { get; set; }
 
 }
 
@@ -31,54 +39,30 @@ public class Machine
     public string Machine_Name { get; set; }
 }
 
-public class AccountViscon
+public class Account
 {
     [Key]
-    public int AccountViscon_ID { get; set; }
-    public string AccountViscon_Name { get; set; }
-    public string AccountViscon_Password { get; set; }
-    public string? AccountViscon_Email { get; set; }
-    public string? AccountViscon_Phone { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Column("Account_ID")]
+    public int Account_ID { get; set; }
+    public string Account_Name { get; set; }
+    public string Account_Password { get; set; }
+    public string? Account_Email { get; set; }
+    public string? Account_Phone { get; set; }
 
 
-    public int DepartmentID { get; set; }
-
+    public int? DepartmentID { get; set; }
     // Define navigation property
     [ForeignKey("DepartmentID")]
-    public Department Department { get; set; }
+    public Department? Department { get; set; }
+
+    public int? CustCompanyID { get; set; }
+    [ForeignKey("CustCompanyID")]
+    public CustCompany? CustCompany { get; set; }
 
     public int TypeAccountID { get; set; }
     [ForeignKey("TypeAccountID")]
     public TypeAccount? TypeAccount { get; set; }
-}
-
-public class AccountCustomer
-{
-    
-    public AccountCustomer()
-    {
-        Machines = new HashSet<Machine>();
-    }
-    [Key]
-    public int AccountCustomer_ID { get; set; }
-    public string AccountCustomer_Name { get; set; }
-    public string AccountCustomer_Password { get; set; }
-    public string? AccountCustomer_Email { get; set; }
-    public string? AccountCustomer_Phone { get; set; }
-
-
-    public int CustCompany_ID { get; set; }
-
-    // Define navigation property
-    [ForeignKey("CustCompany_ID")]
-    public CustCompany CustCompany { get; set; }
-
-
-    public int TypeAccountID { get; set; }
-    [ForeignKey("TypeAccountID")]
-    public TypeAccount? TypeAccount { get; set; }
-
-    public virtual ICollection<Machine> Machines { get; set; }
 }
 
 public class Ticket
@@ -86,12 +70,14 @@ public class Ticket
     [Key]
     public int Ticket_ID { get; set; }
     public string Ticket_Name { get; set; }
+
+    public bool Status { get; set; }
     public string Ticket_Message {  get; set; }
     public string Ticket_Photo { get; set; }
 
     public int AccountCustomerID { get; set; }
     [ForeignKey("AccountCustomerID")]
-    public AccountCustomer? AccountCustomer { get; set; }
+    public Account? AccountCustomer { get; set; }
 
     public int MachineID { get; set; }
     [ForeignKey("MachineID")]
@@ -99,7 +85,8 @@ public class Ticket
 
     public int AccountVisconID { get; set; }
     [ForeignKey("AccountVisconID")]
-    public AccountViscon? AccountViscon { get; set; }
+    public Account? AccountViscon { get; set; }
+    
     public DateTime? Ticket_Date { get; set; }
 }
 
