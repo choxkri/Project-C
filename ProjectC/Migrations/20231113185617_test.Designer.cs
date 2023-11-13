@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ProjectC.Migrations
 {
     [DbContext(typeof(VisconContext))]
-    [Migration("20231013195510_ProjectC")]
-    partial class ProjectC
+    [Migration("20231113185617_test")]
+    partial class test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,78 +24,47 @@ namespace ProjectC.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("AccountCustomer", b =>
+            modelBuilder.Entity("Account", b =>
                 {
-                    b.Property<int>("AccountCustomer_ID")
+                    b.Property<int>("Account_ID")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("Account_ID");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Account_ID"));
+
+                    b.Property<string>("Account_Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Account_Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Account_Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Account_Phone")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("CustCompanyID")
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AccountCustomer_ID"));
-
-                    b.Property<string>("AccountCustomer_Email")
-                        .HasColumnType("text");
-
-                    b.Property<string>("AccountCustomer_Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("AccountCustomer_Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("AccountCustomer_Phone")
-                        .HasColumnType("text");
-
-                    b.Property<int>("CustCompany_ID")
+                    b.Property<int?>("DepartmentID")
                         .HasColumnType("integer");
 
                     b.Property<int>("TypeAccountID")
                         .HasColumnType("integer");
 
-                    b.HasKey("AccountCustomer_ID");
+                    b.HasKey("Account_ID");
 
-                    b.HasIndex("CustCompany_ID");
-
-                    b.HasIndex("TypeAccountID");
-
-                    b.ToTable("AccountCustomers");
-                });
-
-            modelBuilder.Entity("AccountViscon", b =>
-                {
-                    b.Property<int>("AccountViscon_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AccountViscon_ID"));
-
-                    b.Property<string>("AccountViscon_Email")
-                        .HasColumnType("text");
-
-                    b.Property<string>("AccountViscon_Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("AccountViscon_Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("AccountViscon_Phone")
-                        .HasColumnType("text");
-
-                    b.Property<int>("DepartmentID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TypeAccountID")
-                        .HasColumnType("integer");
-
-                    b.HasKey("AccountViscon_ID");
+                    b.HasIndex("CustCompanyID");
 
                     b.HasIndex("DepartmentID");
 
                     b.HasIndex("TypeAccountID");
 
-                    b.ToTable("AccountViscon");
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("CustCompany", b =>
@@ -140,7 +109,7 @@ namespace ProjectC.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Machine_ID"));
 
-                    b.Property<int?>("AccountCustomer_ID")
+                    b.Property<int?>("CustCompany_ID")
                         .HasColumnType("integer");
 
                     b.Property<string>("Machine_Name")
@@ -149,7 +118,7 @@ namespace ProjectC.Migrations
 
                     b.HasKey("Machine_ID");
 
-                    b.HasIndex("AccountCustomer_ID");
+                    b.HasIndex("CustCompany_ID");
 
                     b.ToTable("Machines");
                 });
@@ -170,6 +139,9 @@ namespace ProjectC.Migrations
 
                     b.Property<int>("MachineID")
                         .HasColumnType("integer");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("Ticket_Date")
                         .HasColumnType("timestamp with time zone");
@@ -214,13 +186,15 @@ namespace ProjectC.Migrations
                     b.ToTable("TypeAccounts");
                 });
 
-            modelBuilder.Entity("AccountCustomer", b =>
+            modelBuilder.Entity("Account", b =>
                 {
                     b.HasOne("CustCompany", "CustCompany")
                         .WithMany()
-                        .HasForeignKey("CustCompany_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustCompanyID");
+
+                    b.HasOne("Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentID");
 
                     b.HasOne("TypeAccount", "TypeAccount")
                         .WithMany()
@@ -230,23 +204,6 @@ namespace ProjectC.Migrations
 
                     b.Navigation("CustCompany");
 
-                    b.Navigation("TypeAccount");
-                });
-
-            modelBuilder.Entity("AccountViscon", b =>
-                {
-                    b.HasOne("Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TypeAccount", "TypeAccount")
-                        .WithMany()
-                        .HasForeignKey("TypeAccountID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Department");
 
                     b.Navigation("TypeAccount");
@@ -254,20 +211,20 @@ namespace ProjectC.Migrations
 
             modelBuilder.Entity("Machine", b =>
                 {
-                    b.HasOne("AccountCustomer", null)
+                    b.HasOne("CustCompany", null)
                         .WithMany("Machines")
-                        .HasForeignKey("AccountCustomer_ID");
+                        .HasForeignKey("CustCompany_ID");
                 });
 
             modelBuilder.Entity("Ticket", b =>
                 {
-                    b.HasOne("AccountCustomer", "AccountCustomer")
+                    b.HasOne("Account", "AccountCustomer")
                         .WithMany()
                         .HasForeignKey("AccountCustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AccountViscon", "AccountViscon")
+                    b.HasOne("Account", "AccountViscon")
                         .WithMany()
                         .HasForeignKey("AccountVisconID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -286,7 +243,7 @@ namespace ProjectC.Migrations
                     b.Navigation("Machine");
                 });
 
-            modelBuilder.Entity("AccountCustomer", b =>
+            modelBuilder.Entity("CustCompany", b =>
                 {
                     b.Navigation("Machines");
                 });

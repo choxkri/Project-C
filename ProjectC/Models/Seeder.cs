@@ -32,39 +32,39 @@ public class Seeder
             department1 , department2 , department3
         });
 
-        CustCompany Company1 = new CustCompany { CustCompany_ID = 1, CustCompany_Name = "CustCompany1" };
-        CustCompany Company2 = new CustCompany { CustCompany_ID = 2, CustCompany_Name = "CustCompany2" };
-        CustCompany Company3 = new CustCompany { CustCompany_ID = 3, CustCompany_Name = "CustCompany3" };
+        CustCompany Company1 = new CustCompany { CustCompany_ID = 1, CustCompany_Name = "CustCompany1", Machines = { Machine1, Machine2 } };
+        CustCompany Company2 = new CustCompany { CustCompany_ID = 2, CustCompany_Name = "CustCompany2", Machines = { Machine1, Machine3 } };
+        CustCompany Company3 = new CustCompany { CustCompany_ID = 3, CustCompany_Name = "CustCompany3", Machines = { Machine2, Machine3 } };
 
         db.CustCompany.AddRange(new[]
         {
            Company1, Company2, Company3
         });
 
-        db.AccountViscon.AddRange(new[]
+        db.Accounts.AddRange(new[]
         {
-            new AccountViscon { AccountViscon_ID = 1, AccountViscon_Name = "Jeff", AccountViscon_Email = "VisconJeffMail@.Vis", AccountViscon_Phone = "125512124", AccountViscon_Password = "JeffPassword", Department = department1, TypeAccount = Type1},
-            new AccountViscon { AccountViscon_ID = 2, AccountViscon_Name = "Jim", AccountViscon_Email = "VisconJimMail@.Vis", AccountViscon_Phone = "125512124", AccountViscon_Password = "JimPassword", Department = department1, TypeAccount = Type1},
-            new AccountViscon { AccountViscon_ID = 3, AccountViscon_Name = "Jank", AccountViscon_Email = "VisconJankMail@.Vis", AccountViscon_Phone = "125512124", AccountViscon_Password = "JankPassword", Department = department1, TypeAccount = Type3},
-            new AccountViscon { AccountViscon_ID = 4, AccountViscon_Name = "Sara", AccountViscon_Email = "VisconSaraMail@.Vis", AccountViscon_Phone = "125512124", AccountViscon_Password = "Sara", Department = department2, TypeAccount = Type1},
-            new AccountViscon { AccountViscon_ID = 5, AccountViscon_Name = "Sem", AccountViscon_Email = "VisconSemMail@.Vis", AccountViscon_Phone = "125512124", AccountViscon_Password = "SemPassword", Department = department2, TypeAccount = Type1},
-            new AccountViscon { AccountViscon_ID = 6, AccountViscon_Name = "Seff", AccountViscon_Email = "VisconSeffMail@.Vis", AccountViscon_Phone = "125512124", AccountViscon_Password = "SeffPassword", Department = department2, TypeAccount = Type3},
-            new AccountViscon { AccountViscon_ID = 7, AccountViscon_Name = "Tim", AccountViscon_Email = "VisconTimMail@.Vis", AccountViscon_Phone = "125512124", AccountViscon_Password = "TimPassword", Department = department3, TypeAccount = Type1},
-            new AccountViscon { AccountViscon_ID = 8, AccountViscon_Name = "Tom", AccountViscon_Email = "VisconTomMail@.Vis", AccountViscon_Phone = "125512124", AccountViscon_Password = "TomPassword", Department = department3, TypeAccount = Type1},
-            new AccountViscon { AccountViscon_ID = 9, AccountViscon_Name = "Tap", AccountViscon_Email = "VisconTapMail@.Vis", AccountViscon_Phone = "125512124", AccountViscon_Password = "TapPassword", Department = department3, TypeAccount = Type3}
+            new Account {  Account_Name = "Jeff", Account_Email = "VisconJeffMail@.Vis", Account_Phone = "125512124", Account_Password = "JeffPassword",CustCompanyID =null, Department = department1, TypeAccount = Type1},
+            new Account {  Account_Name = "Jim", Account_Email = "VisconJimMail@.Vis", Account_Phone = "125512124", Account_Password = "JimPassword",CustCompanyID =null, Department = department1, TypeAccount = Type1},
+            new Account {  Account_Name = "Jank", Account_Email = "VisconJankMail@.Vis", Account_Phone = "125512124", Account_Password = "JankPassword",CustCompanyID =null, Department = department1, TypeAccount = Type3},
+            new Account {  Account_Name = "Sara", Account_Email = "VisconSaraMail@.Vis", Account_Phone = "125512124", Account_Password = "SaraPassword",CustCompanyID =null, Department = department2, TypeAccount = Type1},
+            new Account {  Account_Name = "Sem", Account_Email = "VisconSemMail@.Vis", Account_Phone = "125512124", Account_Password = "SemPassword",CustCompanyID =null, Department = department2, TypeAccount = Type1},
+            new Account {  Account_Name = "Seff", Account_Email = "VisconSeffMail@.Vis", Account_Phone = "125512124", Account_Password = "SeffPassword",CustCompanyID =null, Department = department2, TypeAccount = Type3},
+            new Account {  Account_Name = "Tim", Account_Email = "VisconTimMail@.Vis", Account_Phone = "125512124", Account_Password = "TimPassword",CustCompanyID =null, Department = department3, TypeAccount = Type1},
+            new Account {  Account_Name = "Tom", Account_Email = "VisconTomMail@.Vis", Account_Phone = "125512124", Account_Password = "TomPassword",CustCompanyID =null, Department = department3, TypeAccount = Type1},
+            new Account {  Account_Name = "Tap", Account_Email = "VisconTapMail@.Vis", Account_Phone = "125512124", Account_Password = "TapPassword",CustCompanyID =null, Department = department3, TypeAccount = Type3}
         });
 
-        db.AccountCustomers.AddRange(new[]
+        db.Accounts.AddRange(new[]
         {
-            new AccountCustomer { AccountCustomer_ID = 1, AccountCustomer_Name = "Umar", AccountCustomer_Password = "UmarPassword", Machines = { Machine1,Machine2},AccountCustomer_Phone = "0123456789" ,AccountCustomer_Email = "UmarCompain@.Comp", CustCompany_ID = 1, TypeAccount = Type1},
-            new AccountCustomer { AccountCustomer_ID = 2, AccountCustomer_Name = "Henk", AccountCustomer_Password = "HenkPassword", Machines = { Machine1,Machine2},AccountCustomer_Phone = "0123456789"  ,AccountCustomer_Email = "HenkCompain@.Comp", CustCompany_ID = 1, TypeAccount = Type1},
-            new AccountCustomer { AccountCustomer_ID = 3, AccountCustomer_Name = "Bink", AccountCustomer_Password = "BinkPassword", Machines = { Machine1,Machine2},AccountCustomer_Phone = "0123456789"  ,AccountCustomer_Email = "BinkCompain@.Comp", CustCompany_ID = 1, TypeAccount = Type3},
-            new AccountCustomer { AccountCustomer_ID = 4, AccountCustomer_Name = "Piet", AccountCustomer_Password = "PietPassword", Machines = { Machine3,Machine2},AccountCustomer_Phone = "0123456789"  ,AccountCustomer_Email = "PietCompain@.Comp", CustCompany_ID = 2, TypeAccount = Type1},
-            new AccountCustomer { AccountCustomer_ID = 5, AccountCustomer_Name = "Sam", AccountCustomer_Password = "SamPassword", Machines = { Machine3,Machine2} ,AccountCustomer_Phone = "0123456789" ,AccountCustomer_Email = "SamCompain@.Comp", CustCompany_ID = 2, TypeAccount = Type1},
-            new AccountCustomer { AccountCustomer_ID = 6, AccountCustomer_Name = "Sem", AccountCustomer_Password = "SemPassword", Machines = { Machine3,Machine2} ,AccountCustomer_Phone = "0123456789" ,AccountCustomer_Email = "SemCompain@.Comp", CustCompany_ID = 2, TypeAccount = Type3},
-            new AccountCustomer { AccountCustomer_ID = 7, AccountCustomer_Name = "Klaas", AccountCustomer_Password = "KlaasPassword", Machines = { Machine4,Machine2},AccountCustomer_Phone = "0123456789"  ,AccountCustomer_Email = "KlaasCompain@.Comp", CustCompany_ID = 3, TypeAccount = Type1},
-            new AccountCustomer { AccountCustomer_ID = 8, AccountCustomer_Name = "Siebe", AccountCustomer_Password = "SiebePassword", Machines = { Machine4,Machine2} ,AccountCustomer_Phone = "0123456789" ,AccountCustomer_Email = "SiebeCompain@.Comp", CustCompany_ID = 3, TypeAccount = Type1},
-            new AccountCustomer { AccountCustomer_ID = 9, AccountCustomer_Name = "Tymo", AccountCustomer_Password = "TymoPassword", Machines = { Machine4,Machine2} ,AccountCustomer_Phone = "0123456789" ,AccountCustomer_Email = "TymoCompain@.Comp", CustCompany_ID = 3, TypeAccount = Type3}
+            new Account {  Account_Name = "Umar", Account_Password = "UmarPassword",Account_Phone = "0123456789" ,Account_Email = "UmarCompain@.Comp",Department = null, CustCompanyID = 1, TypeAccount = Type1},
+            new Account {  Account_Name = "Henk", Account_Password = "HenkPassword",Account_Phone = "0123456789"  ,Account_Email = "HenkCompain@.Comp",Department = null, CustCompanyID = 1, TypeAccount = Type1},
+            new Account {  Account_Name = "Bink", Account_Password = "BinkPassword",Account_Phone = "0123456789"  ,Account_Email = "BinkCompain@.Comp",Department = null, CustCompanyID = 1, TypeAccount = Type3},
+            new Account {  Account_Name = "Piet", Account_Password = "PietPassword",Account_Phone = "0123456789"  ,Account_Email = "PietCompain@.Comp",Department = null, CustCompanyID = 2, TypeAccount = Type1},
+            new Account {  Account_Name = "Sam", Account_Password = "SamPassword" ,Account_Phone = "0123456789" ,Account_Email = "SamCompain@.Comp",Department = null, CustCompanyID = 2, TypeAccount = Type1},
+            new Account {  Account_Name = "Sem", Account_Password = "SemPassword" ,Account_Phone = "0123456789" ,Account_Email = "SemCompain@.Comp",Department = null, CustCompanyID = 2, TypeAccount = Type3},
+            new Account {  Account_Name = "Klaas", Account_Password = "KlaasPassword",Account_Phone = "0123456789"  ,Account_Email = "KlaasCompain@.Comp",Department = null, CustCompanyID = 3, TypeAccount = Type1},
+            new Account {  Account_Name = "Siebe", Account_Password = "SiebePassword" ,Account_Phone = "0123456789" ,Account_Email = "SiebeCompain@.Comp",Department = null, CustCompanyID = 3, TypeAccount = Type1},
+            new Account {  Account_Name = "Tymo", Account_Password = "TymoPassword" ,Account_Phone = "0123456789" ,Account_Email = "TymoCompain@.Comp",Department = null, CustCompanyID = 3, TypeAccount = Type3}
         });
 
         db.Tickets.AddRange(new[]
@@ -85,8 +85,7 @@ public class Seeder
     {
         var db = new VisconContext();
 
-        db.AccountCustomers.RemoveRange(db.AccountCustomers);
-        db.AccountViscon.RemoveRange(db.AccountViscon);
+        db.Accounts.RemoveRange(db.Accounts);
         db.Tickets.RemoveRange(db.Tickets);
         db.TypeAccounts.RemoveRange(db.TypeAccounts);
         db.Department.RemoveRange(db.Department);
