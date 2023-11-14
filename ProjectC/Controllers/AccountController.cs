@@ -83,7 +83,7 @@ namespace ProjectC.Controllers
             }
         }
 
-        [HttpGet("{name}/{password}/{phone}/{email}/{companyid}/{departmentid}/{typeaccount}")]
+        [HttpGet("{name}/{password}/{phone}/{email}/{companyid}/{departmentid}/{typeaccountid}")]
         public string AddAccount(string name, string password, string phone, string email, int? companyid, int? departmentid, int typeaccountid)
         {
             using (var context = new VisconContext())
