@@ -72,6 +72,8 @@ public class Account
 public class Ticket
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Column("Ticket_ID")]
     public int Ticket_ID { get; set; }
     public string Ticket_Name { get; set; }
 
