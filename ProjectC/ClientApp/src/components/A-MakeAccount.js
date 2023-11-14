@@ -16,6 +16,7 @@ export function MakeAccount() {
 
     const [allCompanies, setAllCompanies] = useState([]);
     const [allDepartments, setAllDepartments] = useState([]);
+    const [allTypes, setAllTypes] = useState([]);
     const creatteAccount = () => {
  
         console.log(username);
@@ -51,13 +52,25 @@ export function MakeAccount() {
         }
     };
 
+    const getTypes = async () => {
+        try {
+            const response = await fetch(`typeaccount`);
+            const data = await response.json();
+            if (data) {
+                setAllTypes(data);
+            }
+        } catch (error) {
+            console.error('Error fetching account data:', error);
+        }
+    };
+
     const createAccount = async () => { 
         try {
-            //{ password } /{phone}/{ email } /{companyid}/{ departmentid } /{typeaccount}")]
+            // Constructing the endpoint with correct parameters
             const response = await fetch(`account/${username}/${password}/${number}/${email}/${company}/${department}/${userType}`);
             const data = await response.text();
             setErrorMessage(data);
-        } catch(error) {
+        } catch (error) {
             console.error('Error fetching account data:', error);
         }
     }
@@ -65,6 +78,7 @@ export function MakeAccount() {
     useEffect(() => {
         getCompanies();
         getDepartment();
+        getTypes();
     }, []); 
     return (
         <div>
@@ -109,11 +123,23 @@ export function MakeAccount() {
                         />
                     </div>
                     <div>
-                        <p>Type of User: </p>
-                        <select value={userType} onChange={(e) => setUserType(e.target.value)}>
-                            <option value="Field Employee">Field Employee</option>
-                            <option value="Service Employee">Service Employee</option>
-                            <option value="admin">Admin</option>
+                        <p>User Type: </p>
+                        <select onChange={(e) => setUserType(e.target.value)}>
+                            {allTypes.map((type, index) => (
+                                <option key={index} value={type.type_ID}>
+                                    {type.type_Name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <p>Department: </p>
+                        <select onChange={(e) => setDepartment(e.target.value)}>
+                            {allDepartments.map((department, index) => (
+                                <option key={index} value={department.department_ID}>
+                                    {department.department_Name}
+                                </option>
+                            ))}
                         </select>
                     </div>
                     <div>
@@ -126,16 +152,7 @@ export function MakeAccount() {
                             ))}
                         </select>
                     </div>
-                    <div>
-                        <p> Department: </p>
-                        <select  onChange={(e) => setDepartment(e.target.value)}>
-                            {allDepartments.map((department, index) => (
-                                <option key={index} value={department.Department_ID}>
-                                    {department.department_Name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                    
 
                     
                     <button type="button" className="" onClick={createAccount}>

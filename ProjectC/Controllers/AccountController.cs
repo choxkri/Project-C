@@ -83,17 +83,17 @@ namespace ProjectC.Controllers
             }
         }
 
-        //[HttpGet("{name}/{password}/{phone}/{email}/{companyid}/{departmentid}/{typeaccount}")]
-        //public string AddAccount(string name, string password, string phone, string email, int? companyid, int? departmentid, int typeaccountid)
-        //{
-        //    using (var context = new VisconContext())
-        //    {
-        //        context.Accounts.Add(new Account { Account_Name = name, Account_Password = password, Account_Email = email, Account_Phone = phone, CustCompanyID = companyid, DepartmentID = departmentid, TypeAccountID = typeaccountid });
-        //        var amount = context.SaveChanges();
-        //        if (amount > 0) { return "Added the account"; }
-        //        else { return "Error occured"; }
-        //    }
-        //}
+        [HttpGet("{name}/{password}/{phone}/{email}/{companyid}/{departmentid}/{typeaccount}")]
+        public string AddAccount(string name, string password, string phone, string email, int? companyid, int? departmentid, int typeaccountid)
+        {
+            using (var context = new VisconContext())
+            {
+                context.Accounts.Add(new Account { Account_Name = name, Account_Password = password, Account_Email = email, Account_Phone = phone, CustCompanyID = companyid, DepartmentID = departmentid, TypeAccountID = typeaccountid });
+                var amount = context.SaveChanges();
+                if (amount > 0) { return "Added the account"; }
+                else { return "Error occured"; }
+            }
+        }
 
         //[HttpGet("{id}")]
         //public string Deleteee(int id)

@@ -9,6 +9,7 @@ const context = [
     "/department",
     "/account",
     "/custcompany",
+    "/typeaccount",
 ];
 
 const onError = (err, req, resp, target) => {
