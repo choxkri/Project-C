@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.PortableExecutable;
+using System.Text.RegularExpressions;
 
 public class Department
 {
     [Key]
-    public int Department_ID {  get; set; }
+    public int Department_ID { get; set; }
     public string Department_Name { get; set; }
 
 }
@@ -23,10 +24,10 @@ public class CustCompany
     {
         Machines = new HashSet<Machine>();
     }
-    
+
     [Key]
     public int CustCompany_ID { get; set; }
-    public string CustCompany_Name { get;  set; }
+    public string CustCompany_Name { get; set; }
 
     public virtual ICollection<Machine> Machines { get; set; }
 
@@ -63,6 +64,9 @@ public class Account
     public int TypeAccountID { get; set; }
     [ForeignKey("TypeAccountID")]
     public TypeAccount? TypeAccount { get; set; }
+
+    public List<Ticket> CustTicket { get; set; }
+    public List<Ticket> ViscTicket { get; set; }
 }
 
 public class Ticket
@@ -72,26 +76,21 @@ public class Ticket
     public string Ticket_Name { get; set; }
 
     public bool Status { get; set; }
-    public string Ticket_Message {  get; set; }
+    public string Ticket_Message { get; set; }
     public string Ticket_Photo { get; set; }
 
-
-    public int Account_ID { get; set; }
-    [ForeignKey("Account_ID")]
-    public Account? Account { get; set; }
-
-    //public int AccountCustomerID { get; set; }
-    //[ForeignKey("AccountCustomerID")]
-    //public Account? AccountCustomer { get; set; }
+    public int? CreatorID { get; set; }
+    [ForeignKey("CreatorID"), Column(Order = 0)]
+    public Account Creator { get; set; }
 
     public int MachineID { get; set; }
     [ForeignKey("MachineID")]
     public Machine? Machine { get; set; }
 
-    //public int AccountVisconID { get; set; }
-    //[ForeignKey("AccountVisconID")]
-    //public Account? AccountViscon { get; set; }
-    
+    public int? SolverID { get; set; }
+    [ForeignKey("SolverID"), Column(Order = 1)]
+    public Account Solver { get; set; }
+
     public DateTime? Ticket_Date { get; set; }
 }
 
