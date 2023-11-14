@@ -128,10 +128,15 @@ namespace ProjectC.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Ticket_ID"));
 
-                    b.Property<int>("Account_ID")
+                    b.Property<int?>("CreatorID")
+                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<int>("MachineID")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("SolverID")
+                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<bool>("Status")
@@ -154,9 +159,11 @@ namespace ProjectC.Migrations
 
                     b.HasKey("Ticket_ID");
 
-                    b.HasIndex("Account_ID");
+                    b.HasIndex("CreatorID");
 
                     b.HasIndex("MachineID");
+
+                    b.HasIndex("SolverID");
 
                     b.ToTable("Tickets");
                 });
@@ -210,9 +217,9 @@ namespace ProjectC.Migrations
 
             modelBuilder.Entity("Ticket", b =>
                 {
-                    b.HasOne("Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("Account_ID")
+                    b.HasOne("Account", "Creator")
+                        .WithMany("CustTicket")
+                        .HasForeignKey("CreatorID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -222,9 +229,24 @@ namespace ProjectC.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Account");
+                    b.HasOne("Account", "Solver")
+                        .WithMany("ViscTicket")
+                        .HasForeignKey("SolverID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
 
                     b.Navigation("Machine");
+
+                    b.Navigation("Solver");
+                });
+
+            modelBuilder.Entity("Account", b =>
+                {
+                    b.Navigation("CustTicket");
+
+                    b.Navigation("ViscTicket");
                 });
 
             modelBuilder.Entity("CustCompany", b =>

@@ -55,7 +55,7 @@ export function LogInPage() {
 
             if (data === "Employee") {
                 console.log("emp");
-                navigate('/ServiceEmployeeMenu');
+                navigate('/FieldEmployeeMenu');
             } else if (data === "Admin") {
                 console.log("adm");
                 navigate('/AdminMenu');

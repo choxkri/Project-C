@@ -115,16 +115,23 @@ namespace ProjectC.Migrations
                     Status = table.Column<bool>(type: "boolean", nullable: false),
                     Ticket_Message = table.Column<string>(type: "text", nullable: false),
                     Ticket_Photo = table.Column<string>(type: "text", nullable: false),
-                    Account_ID = table.Column<int>(type: "integer", nullable: false),
+                    CreatorID = table.Column<int>(type: "integer", nullable: false),
                     MachineID = table.Column<int>(type: "integer", nullable: false),
+                    SolverID = table.Column<int>(type: "integer", nullable: false),
                     Ticket_Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tickets", x => x.Ticket_ID);
                     table.ForeignKey(
-                        name: "FK_Tickets_Accounts_Account_ID",
-                        column: x => x.Account_ID,
+                        name: "FK_Tickets_Accounts_CreatorID",
+                        column: x => x.CreatorID,
+                        principalTable: "Accounts",
+                        principalColumn: "Account_ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Accounts_SolverID",
+                        column: x => x.SolverID,
                         principalTable: "Accounts",
                         principalColumn: "Account_ID",
                         onDelete: ReferentialAction.Cascade);
@@ -157,14 +164,19 @@ namespace ProjectC.Migrations
                 column: "CustCompany_ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_Account_ID",
+                name: "IX_Tickets_CreatorID",
                 table: "Tickets",
-                column: "Account_ID");
+                column: "CreatorID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_MachineID",
                 table: "Tickets",
                 column: "MachineID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_SolverID",
+                table: "Tickets",
+                column: "SolverID");
         }
 
         /// <inheritdoc />

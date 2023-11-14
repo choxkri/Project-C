@@ -159,10 +159,11 @@ export function MakeAccount() {
                         Create Account
                     </button>
 
-                    <button type="button" className="" onClick={creatteAccount}>
-                        get companies test
-                    </button>
+                    {/*<button type="button" className="" onClick={creatteAccount}>*/}
+                    {/*    get companies test*/}
+                    {/*</button>*/}
                 </form>
+                <p> { errorMessage}</p>
             </div>
         </div>
     );
