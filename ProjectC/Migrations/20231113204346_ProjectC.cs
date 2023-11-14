@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ProjectC.Migrations
 {
     /// <inheritdoc />
-    public partial class test : Migration
+    public partial class ProjectC : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -115,23 +115,16 @@ namespace ProjectC.Migrations
                     Status = table.Column<bool>(type: "boolean", nullable: false),
                     Ticket_Message = table.Column<string>(type: "text", nullable: false),
                     Ticket_Photo = table.Column<string>(type: "text", nullable: false),
-                    AccountCustomerID = table.Column<int>(type: "integer", nullable: false),
+                    Account_ID = table.Column<int>(type: "integer", nullable: false),
                     MachineID = table.Column<int>(type: "integer", nullable: false),
-                    AccountVisconID = table.Column<int>(type: "integer", nullable: false),
                     Ticket_Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tickets", x => x.Ticket_ID);
                     table.ForeignKey(
-                        name: "FK_Tickets_Accounts_AccountCustomerID",
-                        column: x => x.AccountCustomerID,
-                        principalTable: "Accounts",
-                        principalColumn: "Account_ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Tickets_Accounts_AccountVisconID",
-                        column: x => x.AccountVisconID,
+                        name: "FK_Tickets_Accounts_Account_ID",
+                        column: x => x.Account_ID,
                         principalTable: "Accounts",
                         principalColumn: "Account_ID",
                         onDelete: ReferentialAction.Cascade);
@@ -164,14 +157,9 @@ namespace ProjectC.Migrations
                 column: "CustCompany_ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_AccountCustomerID",
+                name: "IX_Tickets_Account_ID",
                 table: "Tickets",
-                column: "AccountCustomerID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tickets_AccountVisconID",
-                table: "Tickets",
-                column: "AccountVisconID");
+                column: "Account_ID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_MachineID",

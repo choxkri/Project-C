@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ProjectC.Migrations
 {
     [DbContext(typeof(VisconContext))]
-    [Migration("20231113185617_test")]
-    partial class test
+    [Migration("20231113204346_ProjectC")]
+    partial class ProjectC
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,10 +131,7 @@ namespace ProjectC.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Ticket_ID"));
 
-                    b.Property<int>("AccountCustomerID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("AccountVisconID")
+                    b.Property<int>("Account_ID")
                         .HasColumnType("integer");
 
                     b.Property<int>("MachineID")
@@ -160,9 +157,7 @@ namespace ProjectC.Migrations
 
                     b.HasKey("Ticket_ID");
 
-                    b.HasIndex("AccountCustomerID");
-
-                    b.HasIndex("AccountVisconID");
+                    b.HasIndex("Account_ID");
 
                     b.HasIndex("MachineID");
 
@@ -218,15 +213,9 @@ namespace ProjectC.Migrations
 
             modelBuilder.Entity("Ticket", b =>
                 {
-                    b.HasOne("Account", "AccountCustomer")
+                    b.HasOne("Account", "Account")
                         .WithMany()
-                        .HasForeignKey("AccountCustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Account", "AccountViscon")
-                        .WithMany()
-                        .HasForeignKey("AccountVisconID")
+                        .HasForeignKey("Account_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -236,9 +225,7 @@ namespace ProjectC.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AccountCustomer");
-
-                    b.Navigation("AccountViscon");
+                    b.Navigation("Account");
 
                     b.Navigation("Machine");
                 });

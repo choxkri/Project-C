@@ -19,20 +19,22 @@ export function LogInPage() {
     const handleLogin = async () => {
         try {
             setErrorMessage("Loading...");
-            const response = await fetch(`accountviscon/${username}/${password}`);
+            const response = await fetch(`account/${username}/${password}`);
             const toText = await response.text();
             if (toText === "") {
                 setErrorMessage("Invalid Credentials");
             } else {
                 const data = JSON.parse(toText);
                 setAccount(data);
+                console.log(data);
                 console.log(account);
-                Account.account = account;
-                console.log("yrs");
+                
                
-                console.log(Account.account);
+                
                 // Call handleLogin2 after setting the account
                 handleLogin2(data);
+                Account.account = data;
+                console.log(Account.account);
             }
         } catch (error) {
             console.error('Error fetching account data:', error);
@@ -46,7 +48,7 @@ export function LogInPage() {
                 return;
             }
 
-            const response = await fetch(`accountviscon/${accountData.accountViscon_ID}`);
+            const response = await fetch(`account/${accountData.account_ID}`);
             console.log(response);
             const data = await response.text();
             console.log(data);
@@ -61,6 +63,7 @@ export function LogInPage() {
                 console.log("cust");
                 navigate('/FieldEmployeeMenu');
             } else {
+                
                 console.log("Unknown path");
             }
         } catch (error) {

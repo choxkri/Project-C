@@ -56,26 +56,25 @@ public class Seeder
 
         db.Accounts.AddRange(new[]
         {
-            new Account {  Account_Name = "Umar", Account_Password = "UmarPassword",Account_Phone = "0123456789" ,Account_Email = "UmarCompain@.Comp",Department = null, CustCompanyID = 1, TypeAccount = Type1},
-            new Account {  Account_Name = "Henk", Account_Password = "HenkPassword",Account_Phone = "0123456789"  ,Account_Email = "HenkCompain@.Comp",Department = null, CustCompanyID = 1, TypeAccount = Type1},
-            new Account {  Account_Name = "Bink", Account_Password = "BinkPassword",Account_Phone = "0123456789"  ,Account_Email = "BinkCompain@.Comp",Department = null, CustCompanyID = 1, TypeAccount = Type3},
-            new Account {  Account_Name = "Piet", Account_Password = "PietPassword",Account_Phone = "0123456789"  ,Account_Email = "PietCompain@.Comp",Department = null, CustCompanyID = 2, TypeAccount = Type1},
-            new Account {  Account_Name = "Sam", Account_Password = "SamPassword" ,Account_Phone = "0123456789" ,Account_Email = "SamCompain@.Comp",Department = null, CustCompanyID = 2, TypeAccount = Type1},
-            new Account {  Account_Name = "Sem", Account_Password = "SemPassword" ,Account_Phone = "0123456789" ,Account_Email = "SemCompain@.Comp",Department = null, CustCompanyID = 2, TypeAccount = Type3},
-            new Account {  Account_Name = "Klaas", Account_Password = "KlaasPassword",Account_Phone = "0123456789"  ,Account_Email = "KlaasCompain@.Comp",Department = null, CustCompanyID = 3, TypeAccount = Type1},
-            new Account {  Account_Name = "Siebe", Account_Password = "SiebePassword" ,Account_Phone = "0123456789" ,Account_Email = "SiebeCompain@.Comp",Department = null, CustCompanyID = 3, TypeAccount = Type1},
-            new Account {  Account_Name = "Tymo", Account_Password = "TymoPassword" ,Account_Phone = "0123456789" ,Account_Email = "TymoCompain@.Comp",Department = null, CustCompanyID = 3, TypeAccount = Type3}
+            new Account {  Account_Name = "Umar", Account_Password = "UmarPassword",Account_Phone = "0123456789" ,Account_Email = "UmarCompain@.Comp",Department = null, CustCompanyID = 1, TypeAccount = Type2},
+            new Account {  Account_Name = "Henk", Account_Password = "HenkPassword",Account_Phone = "0123456789"  ,Account_Email = "HenkCompain@.Comp",Department = null, CustCompanyID = 1, TypeAccount = Type2},
+            new Account {  Account_Name = "Bink", Account_Password = "BinkPassword",Account_Phone = "0123456789"  ,Account_Email = "BinkCompain@.Comp",Department = null, CustCompanyID = 1, TypeAccount = Type2},
+            new Account {  Account_Name = "Piet", Account_Password = "PietPassword",Account_Phone = "0123456789"  ,Account_Email = "PietCompain@.Comp",Department = null, CustCompanyID = 2, TypeAccount = Type2},
+            new Account {  Account_Name = "Sam", Account_Password = "SamPassword" ,Account_Phone = "0123456789" ,Account_Email = "SamCompain@.Comp",Department = null, CustCompanyID = 2, TypeAccount = Type2},
+            new Account {  Account_Name = "Sem", Account_Password = "SemPassword" ,Account_Phone = "0123456789" ,Account_Email = "SemCompain@.Comp",Department = null, CustCompanyID = 2, TypeAccount = Type2},
+            new Account {  Account_Name = "Klaas", Account_Password = "KlaasPassword",Account_Phone = "0123456789"  ,Account_Email = "KlaasCompain@.Comp",Department = null, CustCompanyID = 3, TypeAccount = Type2},
+            new Account {  Account_Name = "Siebe", Account_Password = "SiebePassword" ,Account_Phone = "0123456789" ,Account_Email = "SiebeCompain@.Comp",Department = null, CustCompanyID = 3, TypeAccount = Type2},
+            new Account {  Account_Name = "Tymo", Account_Password = "TymoPassword" ,Account_Phone = "0123456789" ,Account_Email = "TymoCompain@.Comp",Department = null, CustCompanyID = 3, TypeAccount = Type2}
         });
 
         db.Tickets.AddRange(new[]
         {
-            new Ticket { Ticket_ID = 1, AccountCustomerID = 2, AccountVisconID = 3, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { Ticket_ID = 2, AccountCustomerID = 3, AccountVisconID = 1, MachineID = 1, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { Ticket_ID = 3, AccountCustomerID = 2, AccountVisconID = 8, MachineID = 1, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { Ticket_ID = 4, AccountCustomerID = 1, AccountVisconID = 6, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { Ticket_ID = 5, AccountCustomerID = 8, AccountVisconID = 5, MachineID = 3, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { Ticket_ID = 6, AccountCustomerID = 6, AccountVisconID = 4, MachineID = 4, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { Ticket_ID = 7, AccountCustomerID = 4, AccountVisconID = 3, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { Ticket_ID = 1, Account_ID = 10, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { Ticket_ID = 2, Account_ID = 10, MachineID = 1, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { Ticket_ID = 3, Account_ID = 10, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { Ticket_ID = 5, Account_ID = 15, MachineID = 3, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { Ticket_ID = 6, Account_ID = 15, MachineID = 4, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { Ticket_ID = 7, Account_ID = 11, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
         });
 
         db.SaveChanges();

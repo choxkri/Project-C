@@ -8,7 +8,7 @@ export function MakeTicket() {
         <div>
             <FieldEmployeeNavMenu />
             <h1>you will nowww be makiing a ticccckeekekeet</h1>
-            <p>not done</p>
+            
         </div>
     );
 }

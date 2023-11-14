@@ -24,9 +24,9 @@ export function FieldEmployeeNavMenu() {
                         <NavItem>
                             <NavLink tag={Link} className="text-dark" to="/">Machine's Ticket    </NavLink>
                         </NavItem>
-                        <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/AccountInfo"> <img src={user} alt="Viscon Logo" style={{ width: 38, height: 38 }} /></NavLink>
-                        </NavItem>
+                        {/*<NavItem>*/}
+                        {/*    <NavLink tag={Link} className="text-dark" to="/AccountInfo"> <img src={user} alt="Viscon Logo" style={{ width: 38, height: 38 }} /></NavLink>*/}
+                        {/*</NavItem>*/}
                       
                     </ul>
                 </Collapse>

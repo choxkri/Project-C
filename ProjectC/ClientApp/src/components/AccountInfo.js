@@ -7,7 +7,7 @@ export function AccountInfo() {
 
     const getInfo = async () => {
         try {
-            const response = await fetch(`accountviscon/GetAllInfoOfUser/${Account.account.accountViscon_ID}`);
+            const response = await fetch(`account/GetAllInfoOfUser/${Account.account.account_ID}`);
             const data = await response.json();
             if (data) {
                 setAccountInfo(data);
@@ -19,8 +19,8 @@ export function AccountInfo() {
 
     useEffect(() => {
         getInfo();
-        // Call getInfo when the component mounts
-    }, []); // Empty dependency array ensures it only runs once
+        
+    }, []); 
 
     return (
         <div>

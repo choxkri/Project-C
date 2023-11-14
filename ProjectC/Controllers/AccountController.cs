@@ -4,7 +4,7 @@ namespace ProjectC.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AccountVisconController : ControllerBase
+    public class AccountController : ControllerBase
     {
 
 
@@ -83,39 +83,33 @@ namespace ProjectC.Controllers
             }
         }
 
-        [HttpGet("{name}/{password}/{phone}/{email}/{companyid}/{departmentid}/{typeaccount}")]
-        public string AddAccount(string name,string password, string phone, string email,int? companyid, int? departmentid, int typeaccountid)
-        {
-            using (var context = new VisconContext())
-            {
-                context.Accounts.Add(new Account { Account_Name = name,Account_Password = password,Account_Email = email, Account_Phone = phone, CustCompanyID =companyid, DepartmentID = departmentid, TypeAccountID = typeaccountid });
+        //[HttpGet("{name}/{password}/{phone}/{email}/{companyid}/{departmentid}/{typeaccount}")]
+        //public string AddAccount(string name, string password, string phone, string email, int? companyid, int? departmentid, int typeaccountid)
+        //{
+        //    using (var context = new VisconContext())
+        //    {
+        //        context.Accounts.Add(new Account { Account_Name = name, Account_Password = password, Account_Email = email, Account_Phone = phone, CustCompanyID = companyid, DepartmentID = departmentid, TypeAccountID = typeaccountid });
+        //        var amount = context.SaveChanges();
+        //        if (amount > 0) { return "Added the account"; }
+        //        else { return "Error occured"; }
+        //    }
+        //}
 
-
-                var amount = context.SaveChanges();
-
-                if (amount > 0) { return "Added the account"; }
-                else { return "Error occured"; }
-            }
-        }
-
-        [HttpGet("{id}")]
-        public string Delete(int id)
-        {
-            using (var context = new VisconContext())
-            {
-                var accountToDelete = context.Accounts.Find(id);
-
-                if (accountToDelete != null)
-                {
-                    context.Accounts.Remove(accountToDelete);
-                }
-
-                var amount = context.SaveChanges();
-
-                if (amount > 0) { return "Deleted"; }
-                else { return "Not Found"; }
-            }
-        }
+        //[HttpGet("{id}")]
+        //public string Deleteee(int id)
+        //{
+        //    using (var context = new VisconContext())
+        //    {
+        //        var accountToDelete = context.Accounts.Find(id);
+        //        if (accountToDelete != null)
+        //        {
+        //            context.Accounts.Remove(accountToDelete);
+        //        }
+        //        var amount = context.SaveChanges();
+        //        if (amount > 0) { return "Deleted"; }
+        //        else { return "Not Found"; }
+        //    }
+        //}
     }
 
 

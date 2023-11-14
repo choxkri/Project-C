@@ -1,4 +1,4 @@
 
 
-const account = {}; // Your account object
+const account = {}; 
 

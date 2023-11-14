@@ -6,14 +6,25 @@ import { AdminNavMenu } from './AdminNavMenu';
 export function MakeAccount() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [userType, setUserType] = useState('');
-    const [company, setCompany] = useState('');
+    const [email, setEmail] = useState('');
+    const [number, setNumber] = useState('');
+    const [userType, setUserType] = useState(1);
+    const [company, setCompany] = useState(0);
+    const [department, setDepartment] = useState(0);
+
     const [errorMessage, setErrorMessage] = useState('');
 
     const [allCompanies, setAllCompanies] = useState([]);
-    const createAccount = () => {
-        console.log(userType);
+    const [allDepartments, setAllDepartments] = useState([]);
+    const creatteAccount = () => {
+ 
+        console.log(username);
+        console.log(password);
+        console.log(number);
+        console.log(email);
         console.log(company);
+        console.log(department);
+        console.log(userType);
     };
 
     const getCompanies = async () => {
@@ -28,8 +39,32 @@ export function MakeAccount() {
         }
     };
 
+    const getDepartment = async () => {
+        try {
+            const response = await fetch(`department`);
+            const data = await response.json();
+            if (data) {
+                setAllDepartments(data);
+            }
+        } catch (error) {
+            console.error('Error fetching account data:', error);
+        }
+    };
+
+    const createAccount = async () => { 
+        try {
+            //{ password } /{phone}/{ email } /{companyid}/{ departmentid } /{typeaccount}")]
+            const response = await fetch(`account/${username}/${password}/${number}/${email}/${company}/${department}/${userType}`);
+            const data = await response.text();
+            setErrorMessage(data);
+        } catch(error) {
+            console.error('Error fetching account data:', error);
+        }
+    }
+
     useEffect(() => {
         getCompanies();
+        getDepartment();
     }, []); 
     return (
         <div>
@@ -42,10 +77,7 @@ export function MakeAccount() {
                         <input
                             type="text"
                             name="username"
-                            id="username"
-                            className=""
                             placeholder="Enter your username"
-                            value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
@@ -54,11 +86,26 @@ export function MakeAccount() {
                         <input
                             type="password"
                             name="password"
-                            id="passw"
-                            className=""
                             placeholder="Enter your password"
-                            value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <p> E Mail: *</p>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <p>Phone number : *</p>
+                        <input
+                            type="text"
+                            name="number"
+                            placeholder="Enter your phone number"
+                            onChange={(e) => setNumber(e.target.value)}
                         />
                     </div>
                     <div>
@@ -71,7 +118,7 @@ export function MakeAccount() {
                     </div>
                     <div>
                         <p>Customer: </p>
-                        <select value={company} onChange={(e) => setCompany(e.target.value)}>
+                        <select  onChange={(e) => setCompany(e.target.value)}>
                             {allCompanies.map((company, index) => (
                                 <option key={index} value={company.custCompany_ID}>
                                     {company.custCompany_Name}
@@ -79,11 +126,23 @@ export function MakeAccount() {
                             ))}
                         </select>
                     </div>
+                    <div>
+                        <p> Department: </p>
+                        <select  onChange={(e) => setDepartment(e.target.value)}>
+                            {allDepartments.map((department, index) => (
+                                <option key={index} value={department.Department_ID}>
+                                    {department.department_Name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    
                     <button type="button" className="" onClick={createAccount}>
                         Create Account
                     </button>
 
-                    <button type="button" className="" onClick={getCompanies}>
+                    <button type="button" className="" onClick={creatteAccount}>
                         get companies test
                     </button>
                 </form>

@@ -75,17 +75,22 @@ public class Ticket
     public string Ticket_Message {  get; set; }
     public string Ticket_Photo { get; set; }
 
-    public int AccountCustomerID { get; set; }
-    [ForeignKey("AccountCustomerID")]
-    public Account? AccountCustomer { get; set; }
+
+    public int Account_ID { get; set; }
+    [ForeignKey("Account_ID")]
+    public Account? Account { get; set; }
+
+    //public int AccountCustomerID { get; set; }
+    //[ForeignKey("AccountCustomerID")]
+    //public Account? AccountCustomer { get; set; }
 
     public int MachineID { get; set; }
     [ForeignKey("MachineID")]
     public Machine? Machine { get; set; }
 
-    public int AccountVisconID { get; set; }
-    [ForeignKey("AccountVisconID")]
-    public Account? AccountViscon { get; set; }
+    //public int AccountVisconID { get; set; }
+    //[ForeignKey("AccountVisconID")]
+    //public Account? AccountViscon { get; set; }
     
     public DateTime? Ticket_Date { get; set; }
 }
