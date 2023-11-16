@@ -44,8 +44,8 @@ body {
     width: 302px;
     height: 39px;
     padding: 0px 10px 0px 10px;
-    background: #ed1c24;
-    color: #ffffff;
+    background: rgb(128, 128, 128);
+    color: #fffff;
     border-style: solid;
     border-radius: 20px 20px 20px 20px;
     font-family: "Helvetica";
@@ -76,4 +76,13 @@ body {
     top: 50px;
     left: 70px;
     margin-bottom: 25px;
+}
+.error-message {
+    text-align: center;
+    color: red; /* Default color for error messages */
+}
+
+.loading-message {
+    text-align: center;
+    color: black;
 }

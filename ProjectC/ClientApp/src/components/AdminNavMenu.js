@@ -23,7 +23,7 @@ export function AdminNavMenu() {
                             <NavLink tag={Link} className="text-dark" to="/">NOT IMPLEMENTED</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/">NOT IMPLEMENTE</NavLink>
+                            <NavLink tag={Link} className="text-dark" to="/LogInPage ">Log Out   </NavLink>
                         </NavItem>
                     </ul>
                 </Collapse>

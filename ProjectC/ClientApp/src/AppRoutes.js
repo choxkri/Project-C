@@ -2,7 +2,9 @@ import { MakeAccount } from "./components/A-MakeAccount";
 import { AccountInfo } from "./components/AccountInfo";
 import { AdminMenu } from "./components/AdminMenu";
 import { Counter } from "./components/Counter";
+import { MachineTickets } from "./components/F-MachineTickets";
 import { MakeTicket } from "./components/F-MakeTicket";
+import { MyTickets } from "./components/F-MyTickets";
 import { SeeFAQ } from "./components/F-SeeFAQ";
 import { FetchData } from "./components/FetchData";
 import { FieldEmployeeMenu } from "./components/FieldEmployeeMenu";
@@ -54,7 +56,15 @@ const AppRoutes = [
   {
     path: '/A-MakeAccount',
     element: <MakeAccount    />
-    }
+    },
+  {
+     path: '/F-MyTickets',
+     element: <MyTickets />
+    },
+  {
+     path: '/F-MachineTickets',
+     element: <MachineTickets />
+    },
 ];
 
 export default AppRoutes;

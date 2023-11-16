@@ -52,6 +52,23 @@ export function AdminMenu() {
             <AdminNavMenu />
             <h1 id="tableLabel">Admin</h1>
             <p>This component demonstrates fetching data from the server.</p>
+            <table className="table table-striped" aria-labelledby="tableLabel">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {forecasts.map(forecast =>
+                        //first letter of field must be NOT caps (even though it is in your class)
+                        <tr key={forecast.department_ID}>
+                            <td>{forecast.department_ID}</td>
+                            <td>{forecast.department_Name}</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
             {contents}
         </div>
     

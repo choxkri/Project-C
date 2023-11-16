@@ -28,7 +28,7 @@
 }
 .rectanglelong {
     width: 665px;
-    height: 1150px;
+    height: 850px;
     position: relative;
     padding: 8px;
     background: #FFFFFF;
@@ -37,7 +37,7 @@
     top: 50%;
     left: 25%;
     text-align: center;
-    margin-top: 100px;
+    margin-top: 50px;
     margin-bottom: 25px;
 }
 

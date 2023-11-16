@@ -88,6 +88,7 @@ namespace ProjectC.Controllers
         {
             using (var context = new VisconContext())
             {
+                if(departmentid == 0) { departmentid = null; }
                 context.Accounts.Add(new Account { Account_Name = name, Account_Password = password, Account_Email = email, Account_Phone = phone, CustCompanyID = companyid, DepartmentID = departmentid, TypeAccountID = typeaccountid });
                 var amount = context.SaveChanges();
                 if (amount > 0) { return "Added the account"; }
@@ -95,6 +96,19 @@ namespace ProjectC.Controllers
             }
         }
 
+        [HttpGet("GetMachinesFromUser/{id}")]
+
+        public Machine[] GetMachines(int id)
+        {
+            using (var context = new VisconContext())
+            {
+                var getMachines = (from acc in context.Accounts
+                                   join cus in context.CustCompany on acc.CustCompanyID equals cus.CustCompany_ID
+                                   where acc.Account_ID == id
+                                   select cus.Machines).FirstOrDefault()!.ToArray(); // materialize the query to an array
+                return getMachines;
+            }
+        }
         //[HttpGet("{id}")]
         //public string Deleteee(int id)
         //{

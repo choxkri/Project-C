@@ -19,10 +19,13 @@ export function FieldEmployeeNavMenu() {
                             <NavLink tag={Link} className="text-dark" to="/FieldEmployeeMenu">Make A Ticket</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/">My Tickets</NavLink>
+                            <NavLink tag={Link} className="text-dark" to="/F-MyTickets">My Tickets</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/">Machine's Ticket    </NavLink>
+                            <NavLink tag={Link} className="text-dark" to="/F-MachineTickets ">Machine's Ticket    </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} className="text-dark" to="/LogInPage ">Log Out   </NavLink>
                         </NavItem>
                         {/*<NavItem>*/}
                         {/*    <NavLink tag={Link} className="text-dark" to="/AccountInfo"> <img src={user} alt="Viscon Logo" style={{ width: 38, height: 38 }} /></NavLink>*/}

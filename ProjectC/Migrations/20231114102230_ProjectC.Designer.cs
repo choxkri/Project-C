@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ProjectC.Migrations
 {
     [DbContext(typeof(VisconContext))]
-    [Migration("20231114091628_ProjectC")]
+    [Migration("20231114102230_ProjectC")]
     partial class ProjectC
     {
         /// <inheritdoc />

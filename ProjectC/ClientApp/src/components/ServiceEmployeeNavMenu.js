@@ -24,6 +24,9 @@ export function ServiceEmployeeNavMenu() {
                         <NavItem>
                             <NavLink tag={Link} className="text-dark" to="/">NOT IMPLEMENTED</NavLink>
                         </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} className="text-dark" to="/LogInPage ">Log Out   </NavLink>
+                        </NavItem>
                         {/*<NavItem>*/}
                         {/*    <NavLink tag={Link} className="text-dark" to="/AccountInfo"> <img src={user} alt="Viscon Logo" style={{ width: 38, height: 38 }} /></NavLink>*/}
                         {/*</NavItem>*/}

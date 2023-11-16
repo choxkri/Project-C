@@ -17,27 +17,36 @@ export function LogInPage() {
 
     
     const handleLogin = async () => {
-        try {
-            setErrorMessage("Loading...");
-            const response = await fetch(`account/${username}/${password}`);
-            const toText = await response.text();
-            if (toText === "") {
-                setErrorMessage("Invalid Credentials");
-            } else {
-                const data = JSON.parse(toText);
-                setAccount(data);
-                console.log(data);
-                console.log(account);
-                
-               
-                
-                // Call handleLogin2 after setting the account
-                handleLogin2(data);
-                Account.account = data;
-                console.log(Account.account);
+        if (username == "") {
+            setErrorMessage("Username field must not be empty.");
+        }
+        else if (password == "") {
+            setErrorMessage("Password field must not be empty.")
+
+        }
+        else {
+            try {
+                setErrorMessage("Loading...");
+                const response = await fetch(`account/${username}/${password}`);
+                const toText = await response.text();
+                if (toText === "") {
+                    setErrorMessage("Invalid Credentials");
+                } else {
+                    const data = JSON.parse(toText);
+                    setAccount(data);
+                    console.log(data);
+                    console.log(account);
+
+
+
+                    // Call handleLogin2 after setting the account
+                    handleLogin2(data);
+                    Account.account = data;
+                    console.log(Account.account);
+                }
+            } catch (error) {
+                console.error('Error fetching account data:', error);
             }
-        } catch (error) {
-            console.error('Error fetching account data:', error);
         }
     };
 
@@ -55,7 +64,7 @@ export function LogInPage() {
 
             if (data === "Employee") {
                 console.log("emp");
-                navigate('/FieldEmployeeMenu');
+                navigate('/ServiceEmployeeMenu');
             } else if (data === "Admin") {
                 console.log("adm");
                 navigate('/AdminMenu');
@@ -151,7 +160,9 @@ export function LogInPage() {
                     </button>
 
                 </form>
-                <p >{errorMessage}</p>
+                <p className={errorMessage === 'Loading...' ? 'loading-message' : 'error-message'}>
+                    {errorMessage}
+                </p>
             </div>
         </div>
     );

@@ -2,30 +2,23 @@ import Account from './Account';
 import React, { useState, useEffect } from 'react';
 import { AdminNavMenu } from './AdminNavMenu';
 
-
 export function MakeAccount() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [number, setNumber] = useState('');
     const [userType, setUserType] = useState(1);
-    const [company, setCompany] = useState(0);
-    const [department, setDepartment] = useState(0);
+    const [company, setCompany] = useState(1);
+    const [department, setDepartment] = useState(1);
 
     const [errorMessage, setErrorMessage] = useState('');
 
     const [allCompanies, setAllCompanies] = useState([]);
     const [allDepartments, setAllDepartments] = useState([]);
     const [allTypes, setAllTypes] = useState([]);
+
     const creatteAccount = () => {
- 
-        console.log(username);
-        console.log(password);
-        console.log(number);
-        console.log(email);
-        console.log(company);
-        console.log(department);
-        console.log(userType);
+        console.log(username, password, number, email, company, department, userType);
     };
 
     const getCompanies = async () => {
@@ -64,67 +57,81 @@ export function MakeAccount() {
         }
     };
 
-    const createAccount = async () => { 
+    const checkFields = () => {
+        if (username === '') {
+            setErrorMessage('Username field is not allowed to be empty.');
+        } else if (password === '') {
+            setErrorMessage('Password field is not allowed to be empty.');
+        } else if (email === '') {
+            setErrorMessage('E-Mail field is not allowed to be empty.');
+        } else if (number === '') {
+            setErrorMessage('Phone Number field is not allowed to be empty.');
+        } else {
+            createAccount();
+        }
+    };
+
+    const createAccount = async () => {
         try {
-            // Constructing the endpoint with correct parameters
             const response = await fetch(`account/${username}/${password}/${number}/${email}/${company}/${department}/${userType}`);
             const data = await response.text();
             setErrorMessage(data);
         } catch (error) {
             console.error('Error fetching account data:', error);
         }
-    }
+    };
 
     useEffect(() => {
         getCompanies();
         getDepartment();
         getTypes();
-    }, []); 
+    }, []);
+
     return (
         <div>
             <AdminNavMenu />
             <div className="rectanglelong">
                 <h1>Create Account</h1>
                 <form>
-                    <div>
-                        <p>Username: *</p>
+                    <div className="col-md-4 mx-auto">
+                        <label className="form-label"><br></br>Username: *</label>
                         <input
                             type="text"
-                            name="username"
+                            className="form-control"
                             placeholder="Enter your username"
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
-                    <div>
-                        <p>Password: *</p>
+                    <div className="col-md-4 mx-auto">
+                        <label className="form-label"><br></br>Password: *</label>
                         <input
                             type="password"
-                            name="password"
+                            className="form-control"
                             placeholder="Enter your password"
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <div>
-                        <p> E Mail: *</p>
+                    <div className="col-md-4 mx-auto">
+                        <label className="form-label"><br></br>E-Mail: *</label>
                         <input
                             type="email"
-                            name="email"
+                            className="form-control"
                             placeholder="Enter your email"
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
-                    <div>
-                        <p>Phone number : *</p>
+                    <div className="col-md-4 mx-auto">
+                        <label className="form-label"><br></br>Phone Number: *</label>
                         <input
                             type="text"
-                            name="number"
+                            className="form-control"
                             placeholder="Enter your phone number"
                             onChange={(e) => setNumber(e.target.value)}
                         />
                     </div>
-                    <div>
-                        <p>User Type: </p>
-                        <select onChange={(e) => setUserType(e.target.value)}>
+                    <div className="col-md-4 mx-auto">
+                        <label className="form-label"><br></br>User Type:</label>
+                        <select className="form-select" onChange={(e) => setUserType(e.target.value)}>
                             {allTypes.map((type, index) => (
                                 <option key={index} value={type.type_ID}>
                                     {type.type_Name}
@@ -132,9 +139,9 @@ export function MakeAccount() {
                             ))}
                         </select>
                     </div>
-                    <div>
-                        <p>Department: </p>
-                        <select onChange={(e) => setDepartment(e.target.value)}>
+                    <div className="col-md-4 mx-auto">
+                        <label className="form-label"><br></br>Department:</label>
+                        <select className="form-select" onChange={(e) => setDepartment(e.target.value)}>
                             {allDepartments.map((department, index) => (
                                 <option key={index} value={department.department_ID}>
                                     {department.department_Name}
@@ -142,9 +149,11 @@ export function MakeAccount() {
                             ))}
                         </select>
                     </div>
-                    <div>
-                        <p>Customer: </p>
-                        <select  onChange={(e) => setCompany(e.target.value)}>
+                    
+                    <div className="col-md-4 mx-auto">
+                        <label className="form-label"><br></br>Customer:</label>
+
+                        <select className="form-select" onChange={(e) => setCompany(e.target.value)}>
                             {allCompanies.map((company, index) => (
                                 <option key={index} value={company.custCompany_ID}>
                                     {company.custCompany_Name}
@@ -152,18 +161,13 @@ export function MakeAccount() {
                             ))}
                         </select>
                     </div>
-                    
 
-                    
-                    <button type="button" className="" onClick={createAccount}>
+                    <button type="button" className="btn btn-primary mt-3" onClick={checkFields}>
                         Create Account
                     </button>
 
-                    {/*<button type="button" className="" onClick={creatteAccount}>*/}
-                    {/*    get companies test*/}
-                    {/*</button>*/}
                 </form>
-                <p> { errorMessage}</p>
+                <p className="mt-3 text-danger">{errorMessage}</p>
             </div>
         </div>
     );
