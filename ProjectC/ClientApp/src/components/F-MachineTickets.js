@@ -50,6 +50,12 @@ export function MachineTickets() {
     useEffect(() => {
         if (userData) {
             getTickets();
+            
+        }
+    }, [userData]);
+
+    useEffect(() => {
+        if (userData) {
             getMachines();
         }
     }, [userData]);
@@ -104,52 +110,54 @@ export function MachineTickets() {
     };
 
     const renderTicketsTable = () => {
-        const filteredTickets = myTickets.filter(ticket => ticket.machineID === machine.machine_ID);
-        return (
-            <table className="table  table-hover" aria-labelledby="tableLabel">
-                <thead className="thead-dark">
-                    <tr>
-                        <th onClick={() => sortTickets('ticket_ID')}>
-                            ID
-                            {sortColumn === 'ticket_ID' && <FaSort />}
-                        </th>
-                        <th onClick={() => sortTickets('ticket_Name')}>
-                            Name
-                            {sortColumn === 'ticket_Name' && <FaSort />}
-                        </th>
-                        <th onClick={() => sortTickets('status')}>
-                            Status
-                            {sortColumn === 'status' && <FaSort />}
-                        </th>
-                        <th onClick={() => sortTickets('machineID')}>
-                            Machine ID
-                            {sortColumn === 'machineID' && <FaSort />}
-                        </th>
-                        <th onClick={() => sortTickets('ticket_Date')}>
-                            Date
-                            {sortColumn === 'ticket_Date' && <FaSort />}
-                        </th>
-                        <th>See in Detail</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredTickets.map((ticket) => (
-                        <tr key={ticket.ticket_ID}>
-                            <td>{ticket.ticket_ID}</td>
-                            <td>{ticket.ticket_Name}</td>
-                            <td className={ticket.status ? 'text-success' : 'text-danger'}>
-                                {ticket.status ? 'Open' : 'Closed'}
-                            </td>
-                            <td>{ticket.machineID}</td>
-                            <td>{ticket.ticket_Date ? new Date(ticket.ticket_Date).toLocaleString() : 'N/A'}</td>
-                            <td>
-                                <button onClick={() => goToDetails(ticket)}>See Details<GoTriangleRight /></button>
-                            </td>
+        if (machine) {
+            const filteredTickets = myTickets.filter(ticket => ticket.machineID === machine.machine_ID);
+            return (
+                <table className="table  table-hover" aria-labelledby="tableLabel">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th onClick={() => sortTickets('ticket_ID')}>
+                                ID
+                                {sortColumn === 'ticket_ID' && <FaSort />}
+                            </th>
+                            <th onClick={() => sortTickets('ticket_Name')}>
+                                Name
+                                {sortColumn === 'ticket_Name' && <FaSort />}
+                            </th>
+                            <th onClick={() => sortTickets('status')}>
+                                Status
+                                {sortColumn === 'status' && <FaSort />}
+                            </th>
+                            <th onClick={() => sortTickets('machineID')}>
+                                Machine ID
+                                {sortColumn === 'machineID' && <FaSort />}
+                            </th>
+                            <th onClick={() => sortTickets('ticket_Date')}>
+                                Date
+                                {sortColumn === 'ticket_Date' && <FaSort />}
+                            </th>
+                            <th>See in Detail</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        );
+                    </thead>
+                    <tbody>
+                        {filteredTickets.map((ticket) => (
+                            <tr key={ticket.ticket_ID}>
+                                <td>{ticket.ticket_ID}</td>
+                                <td>{ticket.ticket_Name}</td>
+                                <td className={ticket.status ? 'text-success' : 'text-danger'}>
+                                    {ticket.status ? 'Open' : 'Closed'}
+                                </td>
+                                <td>{ticket.machineID}</td>
+                                <td>{ticket.ticket_Date ? new Date(ticket.ticket_Date).toLocaleString() : 'N/A'}</td>
+                                <td>
+                                    <button onClick={() => goToDetails(ticket)}>See Details<GoTriangleRight /></button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            );
+        }
     };
 
     const contents = loading
