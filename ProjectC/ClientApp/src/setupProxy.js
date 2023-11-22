@@ -10,6 +10,7 @@ const context = [
     "/account",
     "/custcompany",
     "/typeaccount",
+    "/ticket",
 ];
 
 const onError = (err, req, resp, target) => {

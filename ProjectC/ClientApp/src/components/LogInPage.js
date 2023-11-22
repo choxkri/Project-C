@@ -4,7 +4,6 @@ import './LogInPage.css';
 import logo1 from '../images/viscon-group-logo.png';
 import logo2 from '../images/viscon-logo.png';
 import { useNavigate } from 'react-router-dom';
-import Account from './Account';
 
 export function LogInPage() {
     const navigate = useNavigate();
@@ -41,8 +40,6 @@ export function LogInPage() {
 
                     // Call handleLogin2 after setting the account
                     handleLogin2(data);
-                    Account.account = data;
-                    console.log(Account.account);
                 }
             } catch (error) {
                 console.error('Error fetching account data:', error);
@@ -62,6 +59,7 @@ export function LogInPage() {
             const data = await response.text();
             console.log(data);
 
+            localStorage.setItem('user', JSON.stringify(accountData));
             if (data === "Employee") {
                 console.log("emp");
                 navigate('/ServiceEmployeeMenu');

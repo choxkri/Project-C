@@ -1,4 +1,4 @@
-import Account from './Account';
+
 import React, { useState, useEffect } from 'react';
 import { AdminNavMenu } from './AdminNavMenu';
 
@@ -85,6 +85,7 @@ export function MakeAccount() {
         getCompanies();
         getDepartment();
         getTypes();
+
     }, []);
 
     return (

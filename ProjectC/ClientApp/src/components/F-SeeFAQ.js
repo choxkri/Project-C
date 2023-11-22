@@ -1,7 +1,15 @@
 import { FieldEmployeeNavMenu } from './FieldEmployeeNavMenu';
-import { Link } from 'react-router-dom';
+import { Link , useLocation } from 'react-router-dom';
 
 export function SeeFAQ() {
+    const location = useLocation();
+    const machineParam = new URLSearchParams(location.search).get('machine');
+    const machine = machineParam ? JSON.parse(decodeURIComponent(machineParam)) : null;
+    const creatteAccount = () => {
+        console.log(machine);
+        console.log(machine.machine_Name);
+    };
+
     return (
         <div>
             <FieldEmployeeNavMenu />
@@ -32,11 +40,14 @@ export function SeeFAQ() {
 
                 <div className="d-flex flex-column align-items-center">
                     <div className="mb-3">
-                        <Link to="/F-MakeTicket" className="btn btn-primary">Make Ticket</Link>
+                        <Link to={`/F-MakeTicket`} className="btn btn-primary">Make Ticket</Link>
                     </div>
                     <div className="mb-3">
                         <Link to="/FieldEmployeeMenu" className="btn btn-secondary">Go Back</Link>
                     </div>
+                    <button type="button" className="btn btn-primary mt-3" onClick={creatteAccount}>
+                        console log test
+                    </button>
                 </div>
             </div>
         </div>

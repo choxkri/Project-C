@@ -97,7 +97,6 @@ namespace ProjectC.Controllers
         }
 
         [HttpGet("GetMachinesFromUser/{id}")]
-
         public Machine[] GetMachines(int id)
         {
             using (var context = new VisconContext())
@@ -105,10 +104,13 @@ namespace ProjectC.Controllers
                 var getMachines = (from acc in context.Accounts
                                    join cus in context.CustCompany on acc.CustCompanyID equals cus.CustCompany_ID
                                    where acc.Account_ID == id
-                                   select cus.Machines).FirstOrDefault()!.ToArray(); // materialize the query to an array
-                return getMachines;
+                                   select cus.Machines).FirstOrDefault(); // Get the Machines collection
+
+                // Check if getMachines is not null before converting to array
+                return getMachines?.ToArray() ?? Array.Empty<Machine>();
             }
         }
+
         //[HttpGet("{id}")]
         //public string Deleteee(int id)
         //{

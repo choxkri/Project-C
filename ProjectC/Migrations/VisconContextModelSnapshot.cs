@@ -124,7 +124,8 @@ namespace ProjectC.Migrations
                 {
                     b.Property<int>("Ticket_ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("Ticket_ID");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Ticket_ID"));
 

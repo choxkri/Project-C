@@ -10,6 +10,7 @@ import { FetchData } from "./components/FetchData";
 import { FieldEmployeeMenu } from "./components/FieldEmployeeMenu";
 import { Home } from "./components/Home";
 import { LogInPage } from "./components/LogInPage";
+import { SeeDetailsTicket } from "./components/SeeDetailsTicket";
 import { ServiceEmployeeMenu } from "./components/ServiceEmployeeMenu";
 
 const AppRoutes = [
@@ -65,6 +66,10 @@ const AppRoutes = [
      path: '/F-MachineTickets',
      element: <MachineTickets />
     },
+  {
+      path: '/SeeDetailsTicket',
+      element: <SeeDetailsTicket />
+  },
 ];
 
 export default AppRoutes;

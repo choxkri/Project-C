@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ProjectC.Migrations
 {
     [DbContext(typeof(VisconContext))]
-    [Migration("20231114102230_ProjectC")]
+    [Migration("20231121083906_ProjectC")]
     partial class ProjectC
     {
         /// <inheritdoc />
@@ -127,7 +127,8 @@ namespace ProjectC.Migrations
                 {
                     b.Property<int>("Ticket_ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("Ticket_ID");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Ticket_ID"));
 

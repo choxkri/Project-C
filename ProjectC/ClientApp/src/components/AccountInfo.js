@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './F.css';
-import Account from './Account';
 
 export function AccountInfo() {
+     const [userData, setUserData] = useState(null);
     const [accountInfo, setAccountInfo] = useState(null);
 
     const getInfo = async () => {
         try {
-            const response = await fetch(`account/GetAllInfoOfUser/${Account.account.account_ID}`);
+            const response = await fetch(`account/GetAllInfoOfUser/${userData.account_ID}`);
             const data = await response.json();
             if (data) {
                 setAccountInfo(data);
@@ -18,8 +18,14 @@ export function AccountInfo() {
     };
 
     useEffect(() => {
+
+        const storedUserData = JSON.parse(localStorage.getItem('user'));
+        setUserData(storedUserData);
+    }, []); 
+
+    useEffect(() => {
+
         getInfo();
-        
     }, []); 
 
     return (
