@@ -83,7 +83,7 @@ public class Ticket
 
     public int? CreatorID { get; set; }
     [ForeignKey("CreatorID"), Column(Order = 0)]
-    public Account Creator { get; set; }
+    public Account? Creator { get; set; }
 
     public int MachineID { get; set; }
     [ForeignKey("MachineID")]
@@ -91,7 +91,7 @@ public class Ticket
 
     public int? SolverID { get; set; }
     [ForeignKey("SolverID"), Column(Order = 1)]
-    public Account Solver { get; set; }
+    public Account? Solver { get; set; }
 
     public DateTime? Ticket_Date { get; set; }
 }
