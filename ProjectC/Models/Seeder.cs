@@ -54,15 +54,15 @@ public class Seeder
         Account Account7 = new Account { Account_Name = "Tim", Account_Email = "VisconTimMail@.Vis", Account_Phone = "125512124", Account_Password = "TimPassword", CustCompanyID = null, Department = department3, TypeAccount = Type1 };
         Account Account8 = new Account { Account_Name = "Tom", Account_Email = "VisconTomMail@.Vis", Account_Phone = "125512124", Account_Password = "TomPassword", CustCompanyID = null, Department = department3, TypeAccount = Type1 };
         Account Account9 = new Account { Account_Name = "Tap", Account_Email = "VisconTapMail@.Vis", Account_Phone = "125512124", Account_Password = "TapPassword", CustCompanyID = null, Department = department3, TypeAccount = Type3 };
-        Account Account10 = new Account { Account_Name = "Umar", Account_Password = "UmarPassword", Account_Phone = "0123456789", Account_Email = "UmarCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type1 };
-        Account Account11 = new Account { Account_Name = "Henk", Account_Password = "HenkPassword", Account_Phone = "0123456789", Account_Email = "HenkCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type1 };
-        Account Account12 = new Account { Account_Name = "Bink", Account_Password = "BinkPassword", Account_Phone = "0123456789", Account_Email = "BinkCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type3 };
-        Account Account13 = new Account { Account_Name = "Piet", Account_Password = "PietPassword", Account_Phone = "0123456789", Account_Email = "PietCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type1 };
-        Account Account14 = new Account { Account_Name = "Sam", Account_Password = "SamPassword", Account_Phone = "0123456789", Account_Email = "SamCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type1 };
-        Account Account15 = new Account { Account_Name = "Sem", Account_Password = "SemPassword", Account_Phone = "0123456789", Account_Email = "SemCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type3 };
-        Account Account16 = new Account { Account_Name = "Klaas", Account_Password = "KlaasPassword", Account_Phone = "0123456789", Account_Email = "KlaasCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type1 };
-        Account Account17 = new Account { Account_Name = "Siebe", Account_Password = "SiebePassword", Account_Phone = "0123456789", Account_Email = "SiebeCompain@.Comp", Department = null, CustCompany = Company3, TypeAccount = Type1 };
-        Account Account18 = new Account { Account_Name = "Tymo", Account_Password = "TymoPassword", Account_Phone = "0123456789", Account_Email = "TymoCompain@.Comp", Department = null, CustCompany = Company3, TypeAccount = Type3 };
+        Account Account10 = new Account { Account_Name = "Umar", Account_Password = "UmarPassword", Account_Phone = "0123456789", Account_Email = "UmarCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type2 };
+        Account Account11 = new Account { Account_Name = "Henk", Account_Password = "HenkPassword", Account_Phone = "0123456789", Account_Email = "HenkCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type2 };
+        Account Account12 = new Account { Account_Name = "Bink", Account_Password = "BinkPassword", Account_Phone = "0123456789", Account_Email = "BinkCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type2 };
+        Account Account13 = new Account { Account_Name = "Piet", Account_Password = "PietPassword", Account_Phone = "0123456789", Account_Email = "PietCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type2 };
+        Account Account14 = new Account { Account_Name = "Sam", Account_Password = "SamPassword", Account_Phone = "0123456789", Account_Email = "SamCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type2 };
+        Account Account15 = new Account { Account_Name = "Sem", Account_Password = "SemPassword", Account_Phone = "0123456789", Account_Email = "SemCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type2 };
+        Account Account16 = new Account { Account_Name = "Klaas", Account_Password = "KlaasPassword", Account_Phone = "0123456789", Account_Email = "KlaasCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type2 };
+        Account Account17 = new Account { Account_Name = "Siebe", Account_Password = "SiebePassword", Account_Phone = "0123456789", Account_Email = "SiebeCompain@.Comp", Department = null, CustCompany = Company3, TypeAccount = Type2 };
+        Account Account18 = new Account { Account_Name = "Tymo", Account_Password = "TymoPassword", Account_Phone = "0123456789", Account_Email = "TymoCompain@.Comp", Department = null, CustCompany = Company3, TypeAccount = Type2 };
 
         db.Accounts.AddRange(new[]
         {
@@ -78,13 +78,13 @@ public class Seeder
 
         db.Tickets.AddRange(new[]
         {
-            new Ticket { CreatorID = 10, SolverID = 1, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { CreatorID = 11, SolverID = 2, MachineID = 1, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { CreatorID = 12, SolverID = 3, MachineID = 1, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { CreatorID = 13, SolverID = 4, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { CreatorID = 14, SolverID = 5, MachineID = 3, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { CreatorID = 15, SolverID = 6, MachineID = 4, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { CreatorID = 16, SolverID = 7, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account10.Account_ID, SolverID = Account1.Account_ID, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account11.Account_ID, SolverID = Account2.Account_ID, MachineID = 1, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account12.Account_ID, SolverID = Account3.Account_ID, MachineID = 1, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account13.Account_ID, SolverID = Account4.Account_ID, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account14.Account_ID, SolverID = Account5.Account_ID, MachineID = 3, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account15.Account_ID, SolverID = Account6.Account_ID, MachineID = 4, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account16.Account_ID, SolverID = Account7.Account_ID, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
         });
 
         db.SaveChanges();
@@ -101,5 +101,11 @@ public class Seeder
         db.CustCompany.RemoveRange(db.CustCompany);
         db.Machines.RemoveRange(db.Machines);
         db.SaveChanges();
+    }
+
+    public void ResetDB()
+    {
+        Clear();
+        Seed();
     }
 }
