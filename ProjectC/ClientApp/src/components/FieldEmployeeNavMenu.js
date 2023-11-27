@@ -7,6 +7,11 @@ import user from '../images/User.png';
 
 export function FieldEmployeeNavMenu() {
     
+    const handleLogout = () => {
+
+        localStorage.setItem('user', JSON.stringify(null));
+
+    };
 
     return (
         <header>
@@ -25,7 +30,7 @@ export function FieldEmployeeNavMenu() {
                             <NavLink tag={Link} className="text-dark" to="/F-MachineTickets ">Machine's Ticket    </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/LogInPage ">Log Out   </NavLink>
+                            <NavLink tag={Link} className="text-dark" to="/LogInPage" onClick={handleLogout}>Log Out</NavLink>
                         </NavItem>
                         {/*<NavItem>*/}
                         {/*    <NavLink tag={Link} className="text-dark" to="/AccountInfo"> <img src={user} alt="Viscon Logo" style={{ width: 38, height: 38 }} /></NavLink>*/}

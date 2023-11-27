@@ -6,7 +6,11 @@ import logo from '../images/viscon-logo.png';
 import user from '../images/User.png';
 
 export function ServiceEmployeeNavMenu() {
-   
+
+    const handleLogout = () => {
+
+        localStorage.setItem('user', JSON.stringify(null));
+    };
 
     return (
         <header>
@@ -16,16 +20,14 @@ export function ServiceEmployeeNavMenu() {
                 <Collapse className="navthingy2" navbar>
                     <ul className="navbar-nav">
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/">NOT IMPLEMENTED</NavLink>
+                            <NavLink tag={Link} className="text-dark" to="/ServiceEmployeeMenu">My Tickets</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/">NOT IMPLEMENTE</NavLink>
+                            <NavLink tag={Link} className="text-dark" to="/S-UnassignedTickets">Unassigned Tickets</NavLink>
                         </NavItem>
+                     
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/">NOT IMPLEMENTED</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/LogInPage ">Log Out   </NavLink>
+                            <NavLink tag={Link} className="text-dark" to="/LogInPage" onClick={handleLogout}>Log Out</NavLink>
                         </NavItem>
                         {/*<NavItem>*/}
                         {/*    <NavLink tag={Link} className="text-dark" to="/AccountInfo"> <img src={user} alt="Viscon Logo" style={{ width: 38, height: 38 }} /></NavLink>*/}

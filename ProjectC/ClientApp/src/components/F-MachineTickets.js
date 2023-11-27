@@ -20,14 +20,18 @@ export function MachineTickets() {
     const navigate = useNavigate();
 
     const getTickets = async () => {
-        try {
-            const response = await fetch(`ticket/GetTicketsByAccountID/${userData.account_ID}`);
-            const data = await response.json();
-            setMyTickets(data);
-            setLoading(false);
+        if (machine) {
+            try {
+                console.log("yowzer");
+                console.log(machine.machine_ID);
+                const response = await fetch(`ticket/GetTicketsByMacineID/${machine.machine_ID}`);
+                const data = await response.json();
+                setMyTickets(data);
+                setLoading(false);
 
-        } catch (error) {
-            console.error('Error fetching account data:', error);
+            } catch (error) {
+                console.error('Error fetching account data:', error);
+            }
         }
     };
     const getMachines = async () => {
@@ -48,17 +52,18 @@ export function MachineTickets() {
     }, []);
 
     useEffect(() => {
-        if (userData) {
+        if (allMachines) {
             getTickets();
             
         }
-    }, [userData]);
+    }, [allMachines]);
 
     useEffect(() => {
         if (userData) {
             getMachines();
         }
     }, [userData]);
+
 
     const goToDetails = (ticket) => {
 
@@ -98,15 +103,17 @@ export function MachineTickets() {
         setMyTickets(sortedTickets);
     };
 
-    const handleMachineChange = (e) => {
-        const selectedMachineID = parseInt(e.target.value, 10); 
-        console.log(selectedMachineID);
-        console.log(typeof selectedMachineID);
+    const handleMachineChange = async (e) => {
+
+        console.log(machine.machine_ID);
+        const selectedMachineID = parseInt(e.target.value, 10);
         const selectedMachine = allMachines.find((machine) => machine.machine_ID === selectedMachineID);
-        console.log(selectedMachine);
-        console.log(allMachines);
+
         setMachine(selectedMachine);
         localStorage.setItem('machine', JSON.stringify(selectedMachine));
+        setLoading (true);
+        
+        await getTickets();
     };
 
     const renderTicketsTable = () => {

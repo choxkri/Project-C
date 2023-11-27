@@ -1,84 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { NavMenu } from './NavMenu';
 
 export function FetchData() {
-    const [forecasts, setForecasts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        async function populateWeatherData() {
-            try {
-                const response = await fetch('weatherforecast');
-                const data = await response.json();
-                setForecasts(data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            }
-        }
+        const user = JSON.parse(localStorage.getItem('user')) || {};
 
-        populateWeatherData();
+        console.log(user?.typeAccountID);
+        if (user) {
+            if (user.typeAccountID === 3) {
+                console.log('adm');
+                navigate('/AdminMenu');
+            } else if (user.typeAccountID === 1) {
+                console.log('emp');
+                navigate('/ServiceEmployeeMenu');
+            } else if (user.typeAccountID === 2) {
+                console.log('ter');
+                navigate('/FieldEmployeeMenu');
+            } else {
+                navigate('/LogInPage');
+            }
+        } else {
+            navigate('/LogInPage');
+        }
     }, []);
 
-    const renderForecastsTable = (forecasts) => {
-        return (
-            <table className="table table-striped" aria-labelledby="tableLabel">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Temp. (C)</th>
-                        <th>Temp. (F)</th>
-                        <th>Summary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {forecasts.map(forecast =>
-                        <tr key={forecast.date}>
-                            <td>{forecast.date}</td>
-                            <td>{forecast.temperatureC}</td>
-                            <td>{forecast.temperatureF}</td>
-                            <td>{forecast.summary}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        );
-    }
-
-    const contents = loading
-        ? <p><em>Loading...</em></p>
-        : renderForecastsTable(forecasts);
+    const handleGoBack = () => {
+        navigate(-1);
+    };
 
     return (
         <div>
             <NavMenu />
-            <h1 id="tableLabel">Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
-            {contents}
-            <div>
-                <table className="table table-striped" aria-labelledby="tableLabel">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Temp. (C)</th>
-                            <th>Temp. (F)</th>
-                            <th>Summary</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {forecasts.map(forecast =>
-                            <tr key={forecast.date}>
-                                <td>{forecast.date}</td>
-                                <td>{forecast.temperatureC}</td>
-                                <td>{forecast.temperatureF}</td>
-                                <td>{forecast.summary}</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
+            <h1 id="tableLabel">You are NOT supposed to be here!</h1>
+            <p>WTF YOU DOING, WHY ARE YOU EVEN HERE, NO PERMSISISIISI ONE</p>
+            <img src="https://media.tenor.com/fEgws0QEUxQAAAAC/no-nope.gif" alt="Nope" />
 
+            {/* Button to go back */}
+            <button onClick={handleGoBack}>Go Back</button>
         </div>
     );
 }

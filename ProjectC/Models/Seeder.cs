@@ -14,35 +14,54 @@ public class Seeder
            Type1, Type2, Type3
         });
 
-        Machine Machine1 = new Machine { Machine_ID = 1, Machine_Name = "Machine1" };
-        Machine Machine2 = new Machine { Machine_ID = 2, Machine_Name = "Machine2" };
-        Machine Machine3 = new Machine { Machine_ID = 3, Machine_Name = "Machine3" };
-        Machine Machine4 = new Machine { Machine_ID = 4, Machine_Name = "Machine4" };
-        Machine Machine5 = new Machine { Machine_ID = 5, Machine_Name = "Machine5" };
-        Machine Machine6 = new Machine { Machine_ID = 6, Machine_Name = "Machine6" };
+        Machine Machine1 = new Machine { Machine_ID = 1, Machine_Name = "SkibiMax" };
+        Machine Machine2 = new Machine { Machine_ID = 2, Machine_Name = "Trollobir" };
+        Machine Machine3 = new Machine { Machine_ID = 3, Machine_Name = "SuperX" };
+        Machine Machine4 = new Machine { Machine_ID = 4, Machine_Name = "RoboBlater" };
+        Machine Machine5 = new Machine { Machine_ID = 5, Machine_Name = "MaxMachin" };
+        Machine Machine6 = new Machine { Machine_ID = 6, Machine_Name = "SkibiPro" };
+        Machine Machine7 = new Machine { Machine_ID = 7, Machine_Name = "AutomatronX" };
+        Machine Machine8 = new Machine { Machine_ID = 8, Machine_Name = "CyberNexus" };
+        Machine Machine9 = new Machine { Machine_ID = 9, Machine_Name = "TechTronix" };
+        Machine Machine10 = new Machine { Machine_ID = 10, Machine_Name = "MechaForge" };
+        Machine Machine11 = new Machine { Machine_ID = 11, Machine_Name = "NanoMech" };
+        Machine Machine12 = new Machine { Machine_ID = 12, Machine_Name = "RoboMatic" };
+        Machine Machine13 = new Machine { Machine_ID = 13, Machine_Name = "ByteBlast" };
+        Machine Machine14 = new Machine { Machine_ID = 14, Machine_Name = "CircuitCraft" };
+        Machine Machine15 = new Machine { Machine_ID = 15, Machine_Name = "SteelSync" };
+        Machine Machine16 = new Machine { Machine_ID = 16, Machine_Name = "ElectroPulse" };
 
         db.Machines.AddRange(new[] {
-            Machine1 , Machine2 , Machine3 , Machine4
-        });
+    Machine1, Machine2, Machine3, Machine4, Machine5, Machine6,
+    Machine7, Machine8, Machine9, Machine10, Machine11, Machine12,
+    Machine13, Machine14, Machine15, Machine16
+                 });
 
-        Department department1 = new Department { Department_ID = 1, Department_Name = "Department1" };
-        Department department2 = new Department { Department_ID = 2, Department_Name = "Department2" };
-        Department department3 = new Department { Department_ID = 3, Department_Name = "Department3" };
-        Department department4 = new Department { Department_ID = 4, Department_Name = "Department4" };
+
+        Department department1 = new Department { Department_ID = 1, Department_Name = "Development" };
+        Department department2 = new Department { Department_ID = 2, Department_Name = "Flower and Plants" };
+        Department department3 = new Department { Department_ID = 3, Department_Name = "Fruit and Vegetables" };
+        Department department4 = new Department { Department_ID = 4, Department_Name = "Poultry" };
+        Department department5 = new Department { Department_ID = 5, Department_Name = "Insects" };
+        Department department6 = new Department { Department_ID = 6, Department_Name = "Production Logistics" };
+        Department department7 = new Department { Department_ID = 7, Department_Name = "Warehousing and Fulfillment" };
 
         db.Department.AddRange(new[]
         {
-            department1 , department2 , department3
-        });
+          department1, department2, department3, department4,
+          department5, department6, department7
+          });
 
         CustCompany Company1 = new CustCompany { CustCompany_ID = 1, CustCompany_Name = "CustCompany1", Machines = { Machine1, Machine2 } };
-        CustCompany Company2 = new CustCompany { CustCompany_ID = 2, CustCompany_Name = "CustCompany2", Machines = { Machine1, Machine3 } };
-        CustCompany Company3 = new CustCompany { CustCompany_ID = 3, CustCompany_Name = "CustCompany3", Machines = { Machine2, Machine3,Machine4 } };
-        CustCompany Company4 = new CustCompany { CustCompany_ID = 4, CustCompany_Name = "CustCompany4", Machines = { Machine6, Machine5  } };
+        CustCompany Company2 = new CustCompany { CustCompany_ID = 2, CustCompany_Name = "CustCompany2", Machines = { Machine3, Machine4 } };
+        CustCompany Company3 = new CustCompany { CustCompany_ID = 3, CustCompany_Name = "CustCompany3", Machines = { Machine5, Machine6,Machine7 , Machine8 } };
+        CustCompany Company4 = new CustCompany { CustCompany_ID = 4, CustCompany_Name = "CustCompany4", Machines = { Machine9, Machine10  } };
+        CustCompany Company5 = new CustCompany { CustCompany_ID = 5, CustCompany_Name = "CustCompany5", Machines = { Machine11,Machine12,Machine13,Machine14,Machine15 } };
+        CustCompany Company6 = new CustCompany { CustCompany_ID = 6, CustCompany_Name = "CustCompany6", Machines = { Machine16 } };
 
         db.CustCompany.AddRange(new[]
         {
-           Company1, Company2, Company3
+           Company1, Company2, Company3 , Company4, Company5, Company6
         });
 
         Account Account1 = new Account { Account_Name = "Jeff", Account_Email = "VisconJeffMail@.Vis", Account_Phone = "125512124", Account_Password = "JeffPassword", CustCompanyID = null, Department = department1, TypeAccount = Type1 };
@@ -54,15 +73,15 @@ public class Seeder
         Account Account7 = new Account { Account_Name = "Tim", Account_Email = "VisconTimMail@.Vis", Account_Phone = "125512124", Account_Password = "TimPassword", CustCompanyID = null, Department = department3, TypeAccount = Type1 };
         Account Account8 = new Account { Account_Name = "Tom", Account_Email = "VisconTomMail@.Vis", Account_Phone = "125512124", Account_Password = "TomPassword", CustCompanyID = null, Department = department3, TypeAccount = Type1 };
         Account Account9 = new Account { Account_Name = "Tap", Account_Email = "VisconTapMail@.Vis", Account_Phone = "125512124", Account_Password = "TapPassword", CustCompanyID = null, Department = department3, TypeAccount = Type3 };
-        Account Account10 = new Account { Account_Name = "Umar", Account_Password = "UmarPassword", Account_Phone = "0123456789", Account_Email = "UmarCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type1 };
-        Account Account11 = new Account { Account_Name = "Henk", Account_Password = "HenkPassword", Account_Phone = "0123456789", Account_Email = "HenkCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type1 };
-        Account Account12 = new Account { Account_Name = "Bink", Account_Password = "BinkPassword", Account_Phone = "0123456789", Account_Email = "BinkCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type3 };
-        Account Account13 = new Account { Account_Name = "Piet", Account_Password = "PietPassword", Account_Phone = "0123456789", Account_Email = "PietCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type1 };
-        Account Account14 = new Account { Account_Name = "Sam", Account_Password = "SamPassword", Account_Phone = "0123456789", Account_Email = "SamCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type1 };
-        Account Account15 = new Account { Account_Name = "Sem", Account_Password = "SemPassword", Account_Phone = "0123456789", Account_Email = "SemCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type3 };
-        Account Account16 = new Account { Account_Name = "Klaas", Account_Password = "KlaasPassword", Account_Phone = "0123456789", Account_Email = "KlaasCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type1 };
-        Account Account17 = new Account { Account_Name = "Siebe", Account_Password = "SiebePassword", Account_Phone = "0123456789", Account_Email = "SiebeCompain@.Comp", Department = null, CustCompany = Company3, TypeAccount = Type1 };
-        Account Account18 = new Account { Account_Name = "Tymo", Account_Password = "TymoPassword", Account_Phone = "0123456789", Account_Email = "TymoCompain@.Comp", Department = null, CustCompany = Company3, TypeAccount = Type3 };
+        Account Account10 = new Account { Account_Name = "Umar", Account_Password = "UmarPassword", Account_Phone = "0123456789", Account_Email = "UmarCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type2 };
+        Account Account11 = new Account { Account_Name = "Henk", Account_Password = "HenkPassword", Account_Phone = "0123456789", Account_Email = "HenkCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type2 };
+        Account Account12 = new Account { Account_Name = "Bink", Account_Password = "BinkPassword", Account_Phone = "0123456789", Account_Email = "BinkCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type2 };
+        Account Account13 = new Account { Account_Name = "Piet", Account_Password = "PietPassword", Account_Phone = "0123456789", Account_Email = "PietCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type2 };
+        Account Account14 = new Account { Account_Name = "Sam", Account_Password = "SamPassword", Account_Phone = "0123456789", Account_Email = "SamCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type2 };
+        Account Account15 = new Account { Account_Name = "Sem", Account_Password = "SemPassword", Account_Phone = "0123456789", Account_Email = "SemCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type2 };
+        Account Account16 = new Account { Account_Name = "Klaas", Account_Password = "KlaasPassword", Account_Phone = "0123456789", Account_Email = "KlaasCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type2 };
+        Account Account17 = new Account { Account_Name = "Siebe", Account_Password = "SiebePassword", Account_Phone = "0123456789", Account_Email = "SiebeCompain@.Comp", Department = null, CustCompany = Company3, TypeAccount = Type2 };
+        Account Account18 = new Account { Account_Name = "Tymo", Account_Password = "TymoPassword", Account_Phone = "0123456789", Account_Email = "TymoCompain@.Comp", Department = null, CustCompany = Company3, TypeAccount = Type2 };
 
         db.Accounts.AddRange(new[]
         {

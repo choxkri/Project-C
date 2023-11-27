@@ -5,7 +5,7 @@ import { FaSort } from 'react-icons/fa';
 import { FaAccessibleIcon } from "react-icons/fa";
 import { GoTriangleRight } from "react-icons/go";
 
-export function ServiceEmployeeMenu() {
+export function UnassignedTickets() {
     const [myTickets, setMyTickets] = useState([]);
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState(null);

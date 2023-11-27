@@ -12,11 +12,13 @@ import { Home } from "./components/Home";
 import { LogInPage } from "./components/LogInPage";
 import { SeeDetailsTicket } from "./components/SeeDetailsTicket";
 import { ServiceEmployeeMenu } from "./components/ServiceEmployeeMenu";
+import { UnassignedTickets } from "./components/S-UnassignedTickets";
 
+//For the required Roles: 1 = Employee, 2 = Customer, 3 = Admin
 const AppRoutes = [
   {
     index: true,
-    element: <Home />
+        element: <Home />
   },
   {
     path: '/counter',
@@ -32,23 +34,28 @@ const AppRoutes = [
     },
   {
     path: '/AdminMenu',
-    element: <AdminMenu />
+      element: <AdminMenu />,
+     requiredRole: 3, 
     },
   {
     path: '/FieldEmployeeMenu',
-    element: <FieldEmployeeMenu />
+      element: <FieldEmployeeMenu />,
+     requiredRole: 2,
     },
   {
     path: '/ServiceEmployeeMenu',
-    element: <ServiceEmployeeMenu />
+      element: <ServiceEmployeeMenu />,
+      requiredRole: 1,
     },
   {
     path: '/F-MakeTicket',
-    element: <MakeTicket />
+      element: <MakeTicket />,
+    requiredRole: 2,
   },
   {
     path: '/F-SeeFAQ',
-    element: <SeeFAQ />
+      element: <SeeFAQ />,
+      requiredRole: 2,
     },
   {
     path: '/AccountInfo',
@@ -56,19 +63,28 @@ const AppRoutes = [
   },
   {
     path: '/A-MakeAccount',
-    element: <MakeAccount    />
+      element: <MakeAccount />,
+      requiredRole: 3,
     },
   {
      path: '/F-MyTickets',
-     element: <MyTickets />
+      element: <MyTickets />,
+     requiredRole: 2,
     },
   {
      path: '/F-MachineTickets',
-     element: <MachineTickets />
+      element: <MachineTickets />,
+      requiredRole: 2,
     },
   {
       path: '/SeeDetailsTicket',
-      element: <SeeDetailsTicket />
+      element: <SeeDetailsTicket />,
+      requiredRole: [1, 2, 3], 
+  },
+    {
+        path: '/S-UnassignedTickets',
+        element: <UnassignedTickets />,
+        requiredRole: 1,
   },
 ];
 
