@@ -21,7 +21,7 @@ namespace ProjectC.Controllers
             }
         }
 
-    
+
         public Ticket[] GetTicketsByDepartmentID(int id)
         {
             using (var context = new VisconContext())
@@ -69,7 +69,7 @@ namespace ProjectC.Controllers
         }
 
         [HttpGet("{name}/{message}/{photo}/{creatorid}/{machineid}")]
-        public string CreateTicket(string name, string message, string photo, int creatorid,  int machineid)
+        public string CreateTicket(string name, string message, string photo, int creatorid, int machineid)
         {
             using (var context = new VisconContext())
             {
@@ -78,6 +78,18 @@ namespace ProjectC.Controllers
                 if (amount > 0) { return "Added the ticket"; }
                 else { return "Error occured"; }
             }
+        }
+
+        [HttpGet("{ticket}")]
+        public string EditTicket(Ticket ticket)
+        {
+            using (var context = new VisconContext())
+            {
+                context.Tickets.Update(ticket);
+                var amount = context.SaveChanges();
+                if (amount > 0) { return "Edited the ticket"; }
+                else { return "Error occured"; }
+            }  
         }
 
 

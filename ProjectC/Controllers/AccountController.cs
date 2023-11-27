@@ -111,6 +111,18 @@ namespace ProjectC.Controllers
             }
         }
 
+        [HttpGet("{account}")]
+        public string EditAccount(Account account)
+        {
+            using (var context = new VisconContext())
+            {
+                context.Accounts.Update(account);
+                var amount = context.SaveChanges();
+                if (amount > 0) { return "Edited the account"; }
+                else { return "Error occured"; }
+            }
+        }
+
         //[HttpGet("{id}")]
         //public string Deleteee(int id)
         //{

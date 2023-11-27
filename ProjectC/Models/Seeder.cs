@@ -97,13 +97,13 @@ public class Seeder
 
         db.Tickets.AddRange(new[]
         {
-            new Ticket { CreatorID = 10, SolverID = 1, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { CreatorID = 11, SolverID = 2, MachineID = 1, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { CreatorID = 12, SolverID = 3, MachineID = 1, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { CreatorID = 13, SolverID = 4, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { CreatorID = 14, SolverID = 5, MachineID = 3, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { CreatorID = 15, SolverID = 6, MachineID = 4, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
-            new Ticket { CreatorID = 16, SolverID = 7, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account10.Account_ID, SolverID = Account1.Account_ID, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account11.Account_ID, SolverID = Account2.Account_ID, MachineID = 1, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account12.Account_ID, SolverID = Account3.Account_ID, MachineID = 1, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account13.Account_ID, SolverID = Account4.Account_ID, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account14.Account_ID, SolverID = Account5.Account_ID, MachineID = 3, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account15.Account_ID, SolverID = Account6.Account_ID, MachineID = 4, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
+            new Ticket { CreatorID = Account16.Account_ID, SolverID = Account7.Account_ID, MachineID = 2, Ticket_Date = DateTime.UtcNow, Ticket_Photo = "None", Ticket_Name = "Some Problem" , Ticket_Message = "Ergens een probleem"},
         });
 
         db.SaveChanges();
@@ -120,5 +120,11 @@ public class Seeder
         db.CustCompany.RemoveRange(db.CustCompany);
         db.Machines.RemoveRange(db.Machines);
         db.SaveChanges();
+    }
+
+    public void ResetDB()
+    {
+        Clear();
+        Seed();
     }
 }
