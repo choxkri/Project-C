@@ -21,7 +21,28 @@ namespace ProjectC.Controllers
             }
         }
 
+        [HttpGet("GetUnassignedTickets")]
+        public Ticket[] GetUnassignedTickets()
+        {
+            using (var context = new VisconContext())
+            {
+                var querry = context.Tickets.Where(_ => _.SolverID == 1).ToArray();
+                return querry;
+            }
+        }
 
+        [HttpGet("AssignTicketToSelf/{accountid}/{ticketid}")]
+        public string AssignTicketToSelf(int accountid, int ticketid)
+        {
+            using (var context = new VisconContext())
+            {
+                var ticket = context.Tickets.Where(_ => _.Ticket_ID == ticketid).SingleOrDefault();
+                ticket.SolverID = accountid;
+                var amount = context.SaveChanges();
+                if (amount > 0) { return $"Ticket has been assigned"; }
+                else { return "Something went wrong"; }
+            }
+        }
         public Ticket[] GetTicketsByDepartmentID(int id)
         {
             using (var context = new VisconContext())
@@ -64,7 +85,7 @@ namespace ProjectC.Controllers
                 var amount = context.SaveChanges();
 
                 if (amount > 0) { return $"Status has changed to {status}"; }
-                else { return "Something went wrong"; }
+                else { return "nothing changed"; }
             }
         }
 
@@ -73,7 +94,7 @@ namespace ProjectC.Controllers
         {
             using (var context = new VisconContext())
             {
-                context.Tickets.Add(new Ticket { Ticket_Name = name, CreatorID = creatorid, Ticket_Message = message, Ticket_Photo = photo, Ticket_Date = DateTime.UtcNow, MachineID = machineid, SolverID = 1 });
+                context.Tickets.Add(new Ticket { Ticket_Name = name,  Status= true, CreatorID = creatorid, Ticket_Message = message, Ticket_Photo = photo, Ticket_Date = DateTime.UtcNow, MachineID = machineid, SolverID = 1 });
                 var amount = context.SaveChanges();
                 if (amount > 0) { return "Added the ticket"; }
                 else { return "Error occured"; }

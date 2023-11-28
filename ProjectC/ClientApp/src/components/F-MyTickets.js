@@ -132,8 +132,11 @@ export function MyTickets() {
     return (
         <div>
             <FieldEmployeeNavMenu />
+            
+               
             <p> Here you can see the tickets that you have made.</p><FaAccessibleIcon /><FaAccessibleIcon /><FaAccessibleIcon /><FaAccessibleIcon />
-            {contents}
+                    {contents}
+           
         </div>
     );
 }

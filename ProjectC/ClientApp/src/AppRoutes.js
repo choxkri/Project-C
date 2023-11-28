@@ -79,7 +79,7 @@ const AppRoutes = [
   {
       path: '/SeeDetailsTicket',
       element: <SeeDetailsTicket />,
-      requiredRole: [1, 2, 3], 
+      
   },
     {
         path: '/S-UnassignedTickets',

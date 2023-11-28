@@ -174,7 +174,7 @@ export function MachineTickets() {
     return (
         <div>
             <FieldEmployeeNavMenu />
-            <p> here you can see the tickets that are linked to one of your machines.</p>
+            <p> here you can see the tickets that are linked to one of your machines. not working properly yet.</p>
             <div className="col-md-4 mx-auto">
                 <label className="form-label"><br />Your Machine:</label>
                 <select className="form-select" onChange={handleMachineChange} >

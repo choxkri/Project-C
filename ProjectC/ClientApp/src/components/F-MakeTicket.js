@@ -33,6 +33,7 @@ export function MakeTicket() {
         } else {
             setErrorMessage('');
             createAccount();
+            
         }
     };
     const createAccount = async () => {
@@ -104,7 +105,7 @@ export function MakeTicket() {
                     {/*    Submit*/}
                     {/*</button>*/}
                     <button type="button" className="btn btn-primary mt-3" onClick={checkFields}>
-                        Create Account
+                        Create Ticket
                     </button>
                 </form>
                 <p className="mt-3 text-danger">{errorMessage}</p>

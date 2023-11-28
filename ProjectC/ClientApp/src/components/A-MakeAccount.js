@@ -152,7 +152,7 @@ export function MakeAccount() {
                     </div>
                     
                     <div className="col-md-4 mx-auto">
-                        <label className="form-label"><br></br>Customer:</label>
+                        <label className="form-label"><br></br>Company:</label>
 
                         <select className="form-select" onChange={(e) => setCompany(e.target.value)}>
                             {allCompanies.map((company, index) => (

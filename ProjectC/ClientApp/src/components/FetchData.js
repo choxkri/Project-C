@@ -36,8 +36,7 @@ export function FetchData() {
         <div>
             <NavMenu />
             <h1 id="tableLabel">You are NOT supposed to be here!</h1>
-            <p>WTF YOU DOING, WHY ARE YOU EVEN HERE, NO PERMSISISIISI ONE</p>
-            <img src="https://media.tenor.com/fEgws0QEUxQAAAAC/no-nope.gif" alt="Nope" />
+          
 
             {/* Button to go back */}
             <button onClick={handleGoBack}>Go Back</button>

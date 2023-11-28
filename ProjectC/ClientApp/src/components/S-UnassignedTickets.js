@@ -10,6 +10,8 @@ export function UnassignedTickets() {
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState(null);
 
+    const [successMessage, setSuccessMessage] = useState('');
+
     const [sortColumn, setSortColumn] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc');
 
@@ -17,7 +19,7 @@ export function UnassignedTickets() {
 
     const getTickets = async () => {
         try {
-            const response = await fetch(`ticket/GetTicketsByAccountID/${userData.account_ID}`);
+            const response = await fetch(`ticket/GetUnassignedTickets`);
             const data = await response.json();
             setMyTickets(data);
             setLoading(false);
@@ -49,19 +51,7 @@ export function UnassignedTickets() {
         const order = sortColumn === column && sortOrder === 'asc' ? 'desc' : 'asc';
         setSortColumn(column);
         setSortOrder(order);
-        if (column === 'status') {
-            sortedTickets = [...myTickets].sort((a, b) => {
-                const statusA = a[column] ? 'Open' : 'Closed';
-                const statusB = b[column] ? 'Open' : 'Closed';
-
-                if (sortOrder === 'asc') {
-                    return statusA < statusB ? 1 : -1; // Reverse the order here
-                } else {
-                    return statusA > statusB ? 1 : -1; // Reverse the order here
-                }
-            });
-        } else {
-            // For other columns, perform the generic sorting
+       
 
 
             sortedTickets = [...myTickets].sort((a, b) => {
@@ -71,11 +61,26 @@ export function UnassignedTickets() {
                     return a[column] < b[column] ? 1 : -1;
                 }
             });
-        }
+       
 
         setMyTickets(sortedTickets);
     };
 
+    
+
+    const assignTicket = async (ticketId) => {
+        try {
+            setSuccessMessage();
+            console.log(ticketId);
+            console.log(userData.account_ID);
+            const response = await fetch(`ticket/AssignTicketToSelf/${userData.account_ID}/${ticketId}`);
+            const data = await response.text();
+            setSuccessMessage(data);
+        } catch (error) {
+            console.error('Error fetching account data:', error);
+        }
+        await getTickets();
+    };
 
     const renderTicketsTable = () => {
         return (
@@ -90,10 +95,6 @@ export function UnassignedTickets() {
                             Name
                             {sortColumn === 'ticket_Name' && <FaSort />}
                         </th>
-                        <th onClick={() => sortTickets('status')}>
-                            Status
-                            {sortColumn === 'status' && <FaSort />}
-                        </th>
                         <th onClick={() => sortTickets('machineID')}>
                             Machine ID
                             {sortColumn === 'machineID' && <FaSort />}
@@ -101,6 +102,10 @@ export function UnassignedTickets() {
                         <th onClick={() => sortTickets('ticket_Date')}>
                             Date
                             {sortColumn === 'ticket_Date' && <FaSort />}
+                        </th>
+                        <th onClick={() => sortTickets('assign')}>
+                            Assign
+                            {sortColumn === 'assign' && <FaSort />}
                         </th>
                         <th>See in Detail</th>
                     </tr>
@@ -110,11 +115,11 @@ export function UnassignedTickets() {
                         <tr key={ticket.ticket_ID}>
                             <td>{ticket.ticket_ID}</td>
                             <td>{ticket.ticket_Name}</td>
-                            <td className={ticket.status ? 'text-success' : 'text-danger'}>
-                                {ticket.status ? 'Open' : 'Closed'}
-                            </td>
                             <td>{ticket.machineID}</td>
                             <td>{ticket.ticket_Date ? new Date(ticket.ticket_Date).toLocaleString() : 'N/A'}</td>
+                            <td>
+                                <button onClick={() => assignTicket(ticket.ticket_ID)}>Assign</button>
+                            </td>
                             <td>
                                 <button onClick={() => goToDetails(ticket)}>See Details<GoTriangleRight /></button>
                             </td>
@@ -132,8 +137,9 @@ export function UnassignedTickets() {
     return (
         <div>
             <ServiceEmployeeNavMenu />
-            <p> Here you can see the tickets that you are assigned to you.</p><FaAccessibleIcon /><FaAccessibleIcon /><FaAccessibleIcon /><FaAccessibleIcon />
+            <p> Here you can see the tickets that are unassigned.</p><FaAccessibleIcon /><FaAccessibleIcon /><FaAccessibleIcon /><FaAccessibleIcon />
             {contents}
+            <p className="mt-3 text-success">{successMessage}</p>
         </div>
     );
 }
