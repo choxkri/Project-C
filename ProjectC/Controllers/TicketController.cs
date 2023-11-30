@@ -36,7 +36,7 @@ namespace ProjectC.Controllers
         {
             using (var context = new VisconContext())
             {
-                var ticket = context.Tickets.Where(_ => _.Ticket_ID == ticketid).SingleOrDefault();
+                var ticket = context.Tickets.Where(_ => _.TicketID == ticketid).SingleOrDefault();
                 ticket.SolverID = accountid;
                 var amount = context.SaveChanges();
                 if (amount > 0) { return $"Ticket has been assigned"; }
@@ -50,7 +50,7 @@ namespace ProjectC.Controllers
 
                 List<int?> querry = context.Accounts
                     .Where(_ => _.DepartmentID == id)
-                    .Select(_ => (int?)_.Account_ID)
+                    .Select(_ => (int?)_.AccountID)
                     .ToList();
 
                 var querry1 = context.Tickets
@@ -80,7 +80,7 @@ namespace ProjectC.Controllers
         {
             using (var context = new VisconContext())
             {
-                var ticket = context.Tickets.Where(_ => _.Ticket_ID == id).SingleOrDefault();
+                var ticket = context.Tickets.Where(_ => _.TicketID == id).SingleOrDefault();
                 ticket.Status = status;
                 var amount = context.SaveChanges();
 
@@ -94,7 +94,7 @@ namespace ProjectC.Controllers
         {
             using (var context = new VisconContext())
             {
-                context.Tickets.Add(new Ticket { Ticket_Name = name,  Status= true, CreatorID = creatorid, Ticket_Message = message, Ticket_Photo = photo, Ticket_Date = DateTime.UtcNow, MachineID = machineid, SolverID = 1 });
+                context.Tickets.Add(new Ticket { TicketName = name,  Status= true, CreatorID = creatorid, TicketMessage = message, TicketPhoto = photo, TicketDate = DateTime.UtcNow, MachineID = machineid, SolverID = 1 });
                 var amount = context.SaveChanges();
                 if (amount > 0) { return "Added the ticket"; }
                 else { return "Error occured"; }

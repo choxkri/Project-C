@@ -17,7 +17,7 @@ export function ServiceEmployeeMenu() {
 
     const getTickets = async () => {
         try {
-            const response = await fetch(`ticket/GetTicketsByAccountID/${userData.account_ID}`);
+            const response = await fetch(`ticket/GetTicketsByAccountID/${userData.accountID}`);
             const data = await response.json();
             setMyTickets(data);
             setLoading(false);
@@ -82,13 +82,13 @@ export function ServiceEmployeeMenu() {
             <table className="table  table-hover" aria-labelledby="tableLabel">
                 <thead className="thead-dark">
                     <tr>
-                        <th onClick={() => sortTickets('ticket_ID')}>
+                        <th onClick={() => sortTickets('ticketID')}>
                             ID
-                            {sortColumn === 'ticket_ID' && <FaSort />}
+                            {sortColumn === 'ticketID' && <FaSort />}
                         </th>
-                        <th onClick={() => sortTickets('ticket_Name')}>
+                        <th onClick={() => sortTickets('ticketName')}>
                             Name
-                            {sortColumn === 'ticket_Name' && <FaSort />}
+                            {sortColumn === 'ticketName' && <FaSort />}
                         </th>
                         <th onClick={() => sortTickets('status')}>
                             Status
@@ -98,23 +98,23 @@ export function ServiceEmployeeMenu() {
                             Machine ID
                             {sortColumn === 'machineID' && <FaSort />}
                         </th>
-                        <th onClick={() => sortTickets('ticket_Date')}>
+                        <th onClick={() => sortTickets('ticketDate')}>
                             Date
-                            {sortColumn === 'ticket_Date' && <FaSort />}
+                            {sortColumn === 'ticketDate' && <FaSort />}
                         </th>
                         <th>See in Detail</th>
                     </tr>
                 </thead>
                 <tbody>
                     {myTickets.map((ticket) => (
-                        <tr key={ticket.ticket_ID}>
-                            <td>{ticket.ticket_ID}</td>
-                            <td>{ticket.ticket_Name}</td>
+                        <tr key={ticket.ticketID}>
+                            <td>{ticket.ticketID}</td>
+                            <td>{ticket.ticketName}</td>
                             <td className={ticket.status ? 'text-success' : 'text-danger'}>
                                 {ticket.status ? 'Open' : 'Closed'}
                             </td>
                             <td>{ticket.machineID}</td>
-                            <td>{ticket.ticket_Date ? new Date(ticket.ticket_Date).toLocaleString() : 'N/A'}</td>
+                            <td>{ticket.ticketDate ? new Date(ticket.ticketDate).toLocaleString() : 'N/A'}</td>
                             <td>
                                 <button onClick={() => goToDetails(ticket)}>See Details<GoTriangleRight /></button>
                             </td>

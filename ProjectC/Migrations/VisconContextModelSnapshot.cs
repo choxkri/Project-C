@@ -23,25 +23,25 @@ namespace ProjectC.Migrations
 
             modelBuilder.Entity("Account", b =>
                 {
-                    b.Property<int>("Account_ID")
+                    b.Property<int>("AccountID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("Account_ID");
+                        .HasColumnName("AccountID");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Account_ID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AccountID"));
 
-                    b.Property<string>("Account_Email")
+                    b.Property<string>("AccountEmail")
                         .HasColumnType("text");
 
-                    b.Property<string>("Account_Name")
+                    b.Property<string>("AccountName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Account_Password")
+                    b.Property<string>("AccountPassword")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Account_Phone")
+                    b.Property<string>("AccountPhone")
                         .HasColumnType("text");
 
                     b.Property<int?>("CustCompanyID")
@@ -53,7 +53,7 @@ namespace ProjectC.Migrations
                     b.Property<int>("TypeAccountID")
                         .HasColumnType("integer");
 
-                    b.HasKey("Account_ID");
+                    b.HasKey("AccountID");
 
                     b.HasIndex("CustCompanyID");
 
@@ -66,99 +66,97 @@ namespace ProjectC.Migrations
 
             modelBuilder.Entity("CustCompany", b =>
                 {
-                    b.Property<int>("CustCompany_ID")
+                    b.Property<int>("CustCompanyID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CustCompany_ID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CustCompanyID"));
 
-                    b.Property<string>("CustCompany_Name")
+                    b.Property<string>("CustCompanyName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("CustCompany_ID");
+                    b.HasKey("CustCompanyID");
 
                     b.ToTable("CustCompany");
                 });
 
             modelBuilder.Entity("Department", b =>
                 {
-                    b.Property<int>("Department_ID")
+                    b.Property<int>("DepartmentID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Department_ID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DepartmentID"));
 
-                    b.Property<string>("Department_Name")
+                    b.Property<string>("DepartmentName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Department_ID");
+                    b.HasKey("DepartmentID");
 
                     b.ToTable("Department");
                 });
 
             modelBuilder.Entity("Machine", b =>
                 {
-                    b.Property<int>("Machine_ID")
+                    b.Property<int>("MachineID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Machine_ID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MachineID"));
 
-                    b.Property<int?>("CustCompany_ID")
+                    b.Property<int?>("CustCompanyID")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Machine_Name")
+                    b.Property<string>("MachineName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Machine_ID");
+                    b.HasKey("MachineID");
 
-                    b.HasIndex("CustCompany_ID");
+                    b.HasIndex("CustCompanyID");
 
                     b.ToTable("Machines");
                 });
 
             modelBuilder.Entity("Ticket", b =>
                 {
-                    b.Property<int>("Ticket_ID")
+                    b.Property<int>("TicketID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("Ticket_ID");
+                        .HasColumnName("TicketID");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Ticket_ID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TicketID"));
 
                     b.Property<int?>("CreatorID")
-                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<int>("MachineID")
                         .HasColumnType("integer");
 
                     b.Property<int?>("SolverID")
-                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("Ticket_Date")
+                    b.Property<DateTime?>("TicketDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Ticket_Message")
+                    b.Property<string>("TicketMessage")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Ticket_Name")
+                    b.Property<string>("TicketName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Ticket_Photo")
+                    b.Property<string>("TicketPhoto")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Ticket_ID");
+                    b.HasKey("TicketID");
 
                     b.HasIndex("CreatorID");
 
@@ -171,17 +169,17 @@ namespace ProjectC.Migrations
 
             modelBuilder.Entity("TypeAccount", b =>
                 {
-                    b.Property<int>("Type_ID")
+                    b.Property<int>("TypeID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Type_ID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TypeID"));
 
-                    b.Property<string>("Type_Name")
+                    b.Property<string>("TypeName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Type_ID");
+                    b.HasKey("TypeID");
 
                     b.ToTable("TypeAccounts");
                 });
@@ -213,16 +211,14 @@ namespace ProjectC.Migrations
                 {
                     b.HasOne("CustCompany", null)
                         .WithMany("Machines")
-                        .HasForeignKey("CustCompany_ID");
+                        .HasForeignKey("CustCompanyID");
                 });
 
             modelBuilder.Entity("Ticket", b =>
                 {
                     b.HasOne("Account", "Creator")
                         .WithMany("CustTicket")
-                        .HasForeignKey("CreatorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CreatorID");
 
                     b.HasOne("Machine", "Machine")
                         .WithMany()
@@ -232,9 +228,7 @@ namespace ProjectC.Migrations
 
                     b.HasOne("Account", "Solver")
                         .WithMany("ViscTicket")
-                        .HasForeignKey("SolverID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SolverID");
 
                     b.Navigation("Creator");
 

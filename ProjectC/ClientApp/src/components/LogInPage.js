@@ -77,7 +77,7 @@ export function LogInPage() {
                 return;
             }
 
-            const response = await fetch(`account/${accountData.account_ID}`);
+            const response = await fetch(`account/${accountData.accountID}`);
             const userType = await response.text();
 
             localStorage.setItem('user', JSON.stringify(accountData));

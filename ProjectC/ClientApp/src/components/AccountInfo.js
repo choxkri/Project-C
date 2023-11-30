@@ -7,7 +7,7 @@ export function AccountInfo() {
 
     const getInfo = async () => {
         try {
-            const response = await fetch(`account/GetAllInfoOfUser/${userData.account_ID}`);
+            const response = await fetch(`account/GetAllInfoOfUser/${userData.accountID}`);
             const data = await response.json();
             if (data) {
                 setAccountInfo(data);

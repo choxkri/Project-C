@@ -11,7 +11,7 @@ export function FieldEmployeeMenu() {
 
     const getMachines = async () => {
         try {
-            const response = await fetch(`account/GetMachinesFromUser/${userData.account_ID}`);
+            const response = await fetch(`account/GetMachinesFromUser/${userData.accountID}`);
             const data = await response.json();
             setAllMachines(data);
             setMachine(data[0]);
@@ -38,7 +38,7 @@ export function FieldEmployeeMenu() {
         const selectedMachineID = parseInt(e.target.value, 10);
         console.log(selectedMachineID);
         console.log(typeof selectedMachineID);
-        const selectedMachine = allMachines.find((machine) => machine.machine_ID === selectedMachineID);
+        const selectedMachine = allMachines.find((machine) => machine.machineID === selectedMachineID);
         console.log(selectedMachine);
         console.log(allMachines);
         setMachine(selectedMachine);
@@ -64,8 +64,8 @@ export function FieldEmployeeMenu() {
                     <label className="form-label"><br />Your Machine:</label>
                     <select className="form-select" onChange={handleMachineChange} >
                         {allMachines.map((machine, index) => (
-                            <option key={index} value={machine.machine_ID}>
-                                {machine.machine_Name}
+                            <option key={index} value={machine.machineID}>
+                                {machine.machineName}
                             </option>
                         ))}
                     </select>

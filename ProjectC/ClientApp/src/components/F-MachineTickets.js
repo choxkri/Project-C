@@ -24,7 +24,7 @@ export function MachineTickets() {
             try {
                 console.log("yowzer");
                 console.log(machine.machine_ID);
-                const response = await fetch(`ticket/GetTicketsByMacineID/${machine.machine_ID}`);
+                const response = await fetch(`ticket/GetTicketsByMacineID/${machine.machineID}`);
                 const data = await response.json();
                 setMyTickets(data);
                 setLoading(false);
@@ -36,7 +36,7 @@ export function MachineTickets() {
     };
     const getMachines = async () => {
         try {
-            const response = await fetch(`account/GetMachinesFromUser/${userData.account_ID}`);
+            const response = await fetch(`account/GetMachinesFromUser/${userData.accountID}`);
             const data = await response.json();
             setAllMachines(data);
             setMachine(data[0]);
@@ -107,7 +107,7 @@ export function MachineTickets() {
 
         console.log(machine.machine_ID);
         const selectedMachineID = parseInt(e.target.value, 10);
-        const selectedMachine = allMachines.find((machine) => machine.machine_ID === selectedMachineID);
+        const selectedMachine = allMachines.find((machine) => machine.machineID === selectedMachineID);
 
         setMachine(selectedMachine);
         localStorage.setItem('machine', JSON.stringify(selectedMachine));
@@ -118,16 +118,16 @@ export function MachineTickets() {
 
     const renderTicketsTable = () => {
         if (machine) {
-            const filteredTickets = myTickets.filter(ticket => ticket.machineID === machine.machine_ID);
+            const filteredTickets = myTickets.filter(ticket => ticket.machineID === machine.machineID);
             return (
                 <table className="table  table-hover" aria-labelledby="tableLabel">
                     <thead className="thead-dark">
                         <tr>
-                            <th onClick={() => sortTickets('ticket_ID')}>
+                            <th onClick={() => sortTickets('ticketID')}>
                                 ID
                                 {sortColumn === 'ticket_ID' && <FaSort />}
                             </th>
-                            <th onClick={() => sortTickets('ticket_Name')}>
+                            <th onClick={() => sortTickets('ticketName')}>
                                 Name
                                 {sortColumn === 'ticket_Name' && <FaSort />}
                             </th>
@@ -139,7 +139,7 @@ export function MachineTickets() {
                                 Machine ID
                                 {sortColumn === 'machineID' && <FaSort />}
                             </th>
-                            <th onClick={() => sortTickets('ticket_Date')}>
+                            <th onClick={() => sortTickets('ticketDate')}>
                                 Date
                                 {sortColumn === 'ticket_Date' && <FaSort />}
                             </th>
@@ -148,14 +148,14 @@ export function MachineTickets() {
                     </thead>
                     <tbody>
                         {filteredTickets.map((ticket) => (
-                            <tr key={ticket.ticket_ID}>
-                                <td>{ticket.ticket_ID}</td>
-                                <td>{ticket.ticket_Name}</td>
+                            <tr key={ticket.ticketID}>
+                                <td>{ticket.ticketID}</td>
+                                <td>{ticket.ticketName}</td>
                                 <td className={ticket.status ? 'text-success' : 'text-danger'}>
                                     {ticket.status ? 'Open' : 'Closed'}
                                 </td>
                                 <td>{ticket.machineID}</td>
-                                <td>{ticket.ticket_Date ? new Date(ticket.ticket_Date).toLocaleString() : 'N/A'}</td>
+                                <td>{ticket.ticketDate ? new Date(ticket.ticketDate).toLocaleString() : 'N/A'}</td>
                                 <td>
                                     <button onClick={() => goToDetails(ticket)}>See Details<GoTriangleRight /></button>
                                 </td>
@@ -179,8 +179,8 @@ export function MachineTickets() {
                 <label className="form-label"><br />Your Machine:</label>
                 <select className="form-select" onChange={handleMachineChange} >
                     {allMachines.map((machine, index) => (
-                        <option key={index} value={machine.machine_ID}>
-                            {machine.machine_Name}
+                        <option key={index} value={machine.machineID}>
+                            {machine.machineName}
                         </option>
                     ))}
                 </select>
