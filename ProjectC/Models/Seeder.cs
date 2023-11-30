@@ -82,7 +82,7 @@ public class Seeder
         Account Account16 = new Account { AccountName = "Klaas", AccountPassword = "KlaasPassword", AccountPhone = "0123456789", AccountEmail = "KlaasCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type2 };
         Account Account17 = new Account { AccountName = "Siebe", AccountPassword = "SiebePassword", AccountPhone = "0123456789", AccountEmail = "SiebeCompain@.Comp", Department = null, CustCompany = Company3, TypeAccount = Type2 };
         Account Account18 = new Account { AccountName = "Tymo", AccountPassword = "TymoPassword", AccountPhone = "0123456789", AccountEmail = "TymoCompain@.Comp", Department = null, CustCompany = Company3, TypeAccount = Type2 };
-
+        Account Account19 = new Account { AccountName = "Tester", AccountEmail = "VisconTesterMail@.Vis", AccountPhone = "125512124", AccountPassword = "TesterPassword", CustCompanyID = null, Department = null, TypeAccount = Type1 };
         db.Accounts.AddRange(new[]
         {
             Account1,Account2,Account3,Account4,Account5,Account6,Account7,Account8,Account9
@@ -90,7 +90,7 @@ public class Seeder
 
         db.Accounts.AddRange(new[]
         {
-           Account10,Account11,Account12,Account13,Account14,Account15,Account16,Account17,Account18
+           Account10,Account11,Account12,Account13,Account14,Account15,Account16,Account17,Account18,Account19
         });
 
         db.SaveChanges();
