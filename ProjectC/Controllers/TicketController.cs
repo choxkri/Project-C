@@ -94,7 +94,7 @@ namespace ProjectC.Controllers
         {
             using (var context = new VisconContext())
             {
-                context.Tickets.Add(new Ticket { TicketName = name,  Status= true, CreatorID = creatorid, TicketMessage = message, TicketPhoto = photo, TicketDate = DateTime.UtcNow, MachineID = machineid, SolverID = 1 });
+                context.Tickets.Add(new Ticket { TicketName = name, Status = true, CreatorID = creatorid, TicketMessage = message, TicketPhoto = photo, TicketDate = DateTime.UtcNow, MachineID = machineid, SolverID = null });
                 var amount = context.SaveChanges();
                 if (amount > 0) { return "Added the ticket"; }
                 else { return "Error occured"; }
@@ -110,12 +110,23 @@ namespace ProjectC.Controllers
                 var amount = context.SaveChanges();
                 if (amount > 0) { return "Edited the ticket"; }
                 else { return "Error occured"; }
-            }  
+            }
         }
 
-
-
-
-
+        [HttpGet("DeleteTicket/{id}")]
+        public string DeleteTicket(int id)
+        {
+            using (var context = new VisconContext())
+            {
+                var TicketToDelete = context.Tickets.Find(id);
+                if (TicketToDelete != null)
+                {
+                    context.Tickets.Remove(TicketToDelete);
+                }
+                var amount = context.SaveChanges();
+                if (amount > 0) { return "Deleted"; }
+                else { return "Not Found"; }
+            }
+        }
     }
 }
