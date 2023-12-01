@@ -8,9 +8,16 @@ export function MakeTicket() {
     const [machine, setMachine] = useState(null);
     const [ticketProblem, setTicketProblem] = useState('');
     const [problemDetails, setProblemDetails] = useState('');
-    const [extraInfo, setExtraInfo] = useState('');
+    const [extraInfo, setExtraInfo] = useState('wwe');
     const [errorMessage, setErrorMessage] = useState('');
     const [userData, setUserData] = useState(null);
+    const [triedExplanation, setTriedExplanation] = useState('');
+    const [expectedResult, setExpectedResult] = useState('');
+
+    const [ticketProblemError, setTicketProblemError] = useState('');
+    const [problemDetailsError, setProblemDetailsError] = useState('');
+    const [triedExplanationError, setTriedExplanationError] = useState('');
+    const [expectedResultError, setExpectedResultError] = useState('');
 
     useEffect(() => {
         const storedUserData = JSON.parse(localStorage.getItem('user'));
@@ -29,10 +36,14 @@ export function MakeTicket() {
             setErrorMessage('Problem Details field is not allowed to be empty.');
         } else if (extraInfo === '') {
             setErrorMessage('Extra Info field is not allowed to be empty.');
-        
+        } else if (triedExplanation === '') {
+            setErrorMessage('Tried Explanation field is not allowed to be empty.');
+        } else if (expectedResult === '') {
+            setErrorMessage('Expected Result field is not allowed to be empty.');
         } else {
             setErrorMessage('');
             createAccount();
+        
             
         }
     };
@@ -56,6 +67,49 @@ export function MakeTicket() {
         }
     };
 
+
+    const validateTicketProblem = (value) => {
+        if (value.length < 6 || value.length > 40) {
+            setTicketProblemError('Ticket Problem must be between 6 and 40 characters.');
+        } else {
+            setTicketProblemError('');
+        }
+    };
+
+   
+
+    const handleTicketProblemChange = (e) => {
+        const value = e.target.value;
+        setTicketProblem(value);
+        validateTicketProblem(value);
+    };
+   
+    const validateField = (value, setErrorFunction, fieldName) => {
+        if (value.length < 5 || value.length > 100) {
+            setErrorFunction(`${fieldName} must be between 5 and 1000 characters.`);
+        } else {
+            setErrorFunction('');
+        }
+    };
+
+    const handleProblemDetailsChange = (e) => {
+        const value = e.target.value;
+        setProblemDetails(value);
+        validateField(value, setProblemDetailsError, 'Problem Details');
+    };
+
+    const handleTriedExplanationChange = (e) => {
+        const value = e.target.value;
+        setTriedExplanation(value);
+        validateField(value, setTriedExplanationError, 'Tried Explanation');
+    };
+
+    const handleExpectedResultChange = (e) => {
+        const value = e.target.value;
+        setExpectedResult(value);
+        validateField(value, setExpectedResultError, 'Expected Result');
+    };
+
     return (
         <div>
             <FieldEmployeeNavMenu />
@@ -63,35 +117,51 @@ export function MakeTicket() {
                 <h1>Create Ticket for {machine ? machine.machine_Name : ''} </h1>
                 <form className="col-md-6 mx-auto">
                     <div className="form-group">
-                        <label><br></br>Ticket Problem</label>
+                        <label><br></br>Ticket Problem: </label>
                         <input
                             type="text"
-                            className="form-control"
-                            placeholder="Enter the ticket problem"
-                            value={ticketProblem}
-                            onChange={(e) => setTicketProblem(e.target.value)}
+                            className={`form-control ${ticketProblemError ? 'is-invalid' : ticketProblem ? 'is-valid' : ''}`}
+                            placeholder="Enter your ticket problem"
+                            onChange={handleTicketProblemChange}
                         />
+                        <div className="invalid-feedback">{ticketProblemError}</div>
                     </div>
                     <div className="form-group">
-                        <label><br></br>Explain Problem in Detail</label>
+                        <label><br />Explain Problem in Detail</label>
                         <textarea
-                            className="form-control"
+                            className={`form-control ${problemDetailsError ? 'is-invalid' : problemDetails ? 'is-valid' : ''}`}
                             rows="3"
                             placeholder="Provide detailed explanation of the problem"
-                            value={problemDetails}
-                            onChange={(e) => setProblemDetails(e.target.value)}
+                           
+                            onChange={handleProblemDetailsChange}
                         ></textarea>
+                        <div className="invalid-feedback">{problemDetailsError}</div>
                     </div>
+
                     <div className="form-group">
-                        <label><br></br>Extra</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter additional information"
-                            value={extraInfo}
-                            onChange={(e) => setExtraInfo(e.target.value)}
-                        />
+                        <label><br />Explain What You Have Tried</label>
+                        <textarea
+                            className={`form-control ${triedExplanationError ? 'is-invalid' : triedExplanation ? 'is-valid' : ''}`}
+                            rows="3"
+                            placeholder="Explain what you have tried to resolve the issue"
+                         
+                            onChange={handleTriedExplanationChange}
+                        ></textarea>
+                        <div className="invalid-feedback">{triedExplanationError}</div>
                     </div>
+
+                    <div className="form-group">
+                        <label><br />Expected Result</label>
+                        <textarea
+                            className={`form-control ${expectedResultError ? 'is-invalid' : expectedResult ? 'is-valid' : ''}`}
+                            rows="3"
+                            placeholder="Describe the result that you expected to happen"
+                         
+                            onChange={handleExpectedResultChange}
+                        ></textarea>
+                        <div className="invalid-feedback">{expectedResultError}</div>
+                    </div>
+
                     <div className="form-group">
                         <label><br></br>Show Machine</label>
                         <input
@@ -99,7 +169,7 @@ export function MakeTicket() {
                             className="form-control"
                             accept=".jpg, .jpeg, .png, "
                         />
-                       
+
                     </div>
                     {/*<button type="submit" className="btn btn-default">*/}
                     {/*    Submit*/}

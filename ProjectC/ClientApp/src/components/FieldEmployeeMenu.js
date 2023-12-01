@@ -1,6 +1,6 @@
 import { FieldEmployeeNavMenu } from './FieldEmployeeNavMenu';
 import { Link } from 'react-router-dom';
-import './F.css';
+
 import React, { useState, useEffect } from 'react';
 
 

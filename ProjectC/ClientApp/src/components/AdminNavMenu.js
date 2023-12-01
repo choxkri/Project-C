@@ -16,8 +16,8 @@ export function AdminNavMenu() {
             <Navbar className="navthingy navbar-expand-sm " container light>
                 <NavbarBrand><img src={logo} alt="Viscon Logo" style={{ width: 58, height: 58 }} /></NavbarBrand>
                 
-                <Collapse className="navthingy2" navbar>
-                    <ul className="navbar-nav">
+               
+                    <ul className="nav nav-tabs">
                         <NavItem>
                             <NavLink tag={Link} className="text-dark" to="/A-MakeAccount">Make Account</NavLink>
                         </NavItem>
@@ -31,7 +31,7 @@ export function AdminNavMenu() {
                             <NavLink tag={Link} className="text-dark" to="/LogInPage" onClick={handleLogout}>Log Out</NavLink>
                         </NavItem>
                     </ul>
-                </Collapse>
+               
             </Navbar>
         </header>
     );

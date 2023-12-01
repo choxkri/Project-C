@@ -26,10 +26,7 @@
     position: relative;
     left: 75px;
 }
-body {
-    background: rgb(0,202,235);
-    background: radial-gradient(circle, rgba(0,202,235,1) 0%, rgba(33,116,158,1) 100%);
-}
+
 
 .visconlogo{
     

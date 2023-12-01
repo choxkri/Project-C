@@ -2,7 +2,8 @@ import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import AppRoutes from './AppRoutes';
 import { Layout } from './components/Layout';
-
+import './components/LogInPage.css';
+import './components/F.css';
 export default function App() {
 
     const userData = JSON.parse(localStorage.getItem('user')) || {};

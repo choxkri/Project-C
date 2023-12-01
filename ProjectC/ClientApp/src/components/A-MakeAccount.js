@@ -17,9 +17,75 @@ export function MakeAccount() {
     const [allDepartments, setAllDepartments] = useState([]);
     const [allTypes, setAllTypes] = useState([]);
 
-    const creatteAccount = () => {
-        console.log(username, password, number, email, company, department, userType);
+    const [usernameError, setUsernameError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [numberError, setNumberError] = useState('');
+
+ 
+
+    const validateUsername = (value) => {
+        if (value.length < 6 || value.length > 40) {
+            setUsernameError('Username must be between 6 and 40 characters.');
+        } else {
+            setUsernameError('');
+        }
     };
+
+    const validatePassword = (value) => {
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
+        if (!passwordRegex.test(value)) {
+            setPasswordError('Password must contain a capital letter, a number, and be at least 6 characters.');
+        } else {
+            setPasswordError('');
+        }
+    };
+
+    const validateEmail = (value) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            setEmailError('Enter a valid email address.');
+        } else {
+            setEmailError('');
+        }
+    };
+
+    const validateNumber = (value) => {
+        const numberRegex = /^\d+$/;
+        if (!numberRegex.test(value)) {
+            setNumberError('Phone number must not contain alphabetic characters.');
+        } else {
+            setNumberError('');
+        }
+    };
+
+    const handleUsernameChange = (e) => {
+        const value = e.target.value;
+        setUsername(value);
+        validateUsername(value);
+    };
+
+    const handlePasswordChange = (e) => {
+        const value = e.target.value;
+        setPassword(value);
+        validatePassword(value);
+        if (passwordError === "") {
+            setPassword(value);
+        }
+    };
+
+    const handleEmailChange = (e) => {
+        const value = e.target.value;
+        setEmail(value);
+        validateEmail(value);
+    };
+
+    const handleNumberChange = (e) => {
+        const value = e.target.value;
+        setNumber(value);
+        validateNumber(value);
+    };
+
 
     const getCompanies = async () => {
         try {
@@ -57,17 +123,17 @@ export function MakeAccount() {
         }
     };
 
+
     const checkFields = () => {
-        if (username === '') {
-            setErrorMessage('Username field is not allowed to be empty.');
-        } else if (password === '') {
-            setErrorMessage('Password field is not allowed to be empty.');
-        } else if (email === '') {
-            setErrorMessage('E-Mail field is not allowed to be empty.');
-        } else if (number === '') {
-            setErrorMessage('Phone Number field is not allowed to be empty.');
-        } else {
+        if (!username || !password || !email || !number) {
+            setErrorMessage('Please fill in all the fields.');
+        }
+        else if (
+            !usernameError && !passwordError &&  !emailError && !numberError
+        ) {
             createAccount();
+        } else {
+            setErrorMessage('Please fix all validation errors before creating an account.');
         }
     };
 
@@ -93,42 +159,46 @@ export function MakeAccount() {
             <AdminNavMenu />
             <div className="rectanglelong">
                 <h1>Create Account</h1>
-                <form>
-                    <div className="col-md-4 mx-auto">
+                <form >
+                    <div className={`col-md-4 mx-auto`}>
                         <label className="form-label"><br></br>Username: *</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className={`form-control ${usernameError ? 'is-invalid' : username ? 'is-valid' : ''}`}
                             placeholder="Enter your username"
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={handleUsernameChange}
                         />
+                        <div className="invalid-feedback">{usernameError}</div>
                     </div>
-                    <div className="col-md-4 mx-auto">
+                    <div className={`col-md-4 mx-auto`}>
                         <label className="form-label"><br></br>Password: *</label>
                         <input
                             type="password"
-                            className="form-control"
+                            className={`form-control ${passwordError ? 'is-invalid' : password ? 'is-valid' : ''}`}
                             placeholder="Enter your password"
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={handlePasswordChange}
                         />
+                        <div className="invalid-feedback">{passwordError}</div>
                     </div>
-                    <div className="col-md-4 mx-auto">
+                    <div className={`col-md-4 mx-auto`}>
                         <label className="form-label"><br></br>E-Mail: *</label>
                         <input
                             type="email"
-                            className="form-control"
+                            className={`form-control ${emailError ? 'is-invalid' : email ? 'is-valid' : ''}`}
                             placeholder="Enter your email"
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={handleEmailChange}
                         />
+                        <div className="invalid-feedback">{emailError}</div>
                     </div>
-                    <div className="col-md-4 mx-auto">
+                    <div className={`col-md-4 mx-auto`}>
                         <label className="form-label"><br></br>Phone Number: *</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className={`form-control ${numberError ? 'is-invalid' : number ? 'is-valid' : ''}`}
                             placeholder="Enter your phone number"
-                            onChange={(e) => setNumber(e.target.value)}
+                            onChange={handleNumberChange}
                         />
+                        <div className="invalid-feedback">{numberError}</div>
                     </div>
                     <div className="col-md-4 mx-auto">
                         <label className="form-label"><br></br>User Type:</label>

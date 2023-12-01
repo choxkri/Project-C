@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './F.css';
+
 
 export function AccountInfo() {
      const [userData, setUserData] = useState(null);

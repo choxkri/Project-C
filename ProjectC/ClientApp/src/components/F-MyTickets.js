@@ -127,16 +127,14 @@ export function MyTickets() {
 
     const contents = loading
         ? <p><em>Loading...</em></p>
-        : renderTicketsTable(myTickets);
+        : <div className="table-container">
+            {renderTicketsTable(myTickets)}
+        </div>
 
     return (
         <div>
             <FieldEmployeeNavMenu />
-            
-               
-            <p> Here you can see the tickets that you have made.</p><FaAccessibleIcon /><FaAccessibleIcon /><FaAccessibleIcon /><FaAccessibleIcon />
-                    {contents}
-           
+             {contents}
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import React, { useState , useEffect} from 'react';
-import './LogInPage.css';
+
 import logo1 from '../images/viscon-group-logo.png';
 import logo2 from '../images/viscon-logo.png';
 import { useNavigate } from 'react-router-dom';
