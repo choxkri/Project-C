@@ -21,6 +21,7 @@ var seeder = new Seeder();
 
 //seeder.Seed();
 //seeder.Clear();
+//seeder.ResetDB();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");

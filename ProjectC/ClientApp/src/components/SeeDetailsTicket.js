@@ -37,7 +37,7 @@ export function SeeDetailsTicket() {
     const changeStatus = async () => {
         try {
           
-            const response = await fetch(`ticket/ChanceStatusTicket/${myTicket.ticket_ID}/${myTicket.status}`);
+            const response = await fetch(`ticket/ChanceStatusTicket/${myTicket.ticketID}/${myTicket.status}`);
             const data = await response.text();
             setSuccessMessage(data);
         } catch (error) {
@@ -52,14 +52,14 @@ export function SeeDetailsTicket() {
                 <h1>See problem in detail (not done)</h1>
                 {myTicket && (
                     <>
-                        <p>ID: {myTicket.ticket_ID}</p>
-                        <p>ticket name: {myTicket.ticket_Name}</p>
+                        <p>ID: {myTicket.ticketID}</p>
+                        <p>ticket name: {myTicket.ticketName}</p>
                         <p>
                             Status: <span id="status">{myTicket.status ? 'Open' : 'Closed'}</span>
                         </p>
-                        <p>ticket message: {myTicket.ticket_Message}</p>
+                        <p>ticket message: {myTicket.ticketMessage}</p>
                         <p>Creator (just id for now): {myTicket.creatorID}</p>
-                        <p>ticket date: {myTicket.ticket_Date}</p>
+                        <p>ticket date: {myTicket.ticketDate}</p>
                         <p>Machine (just id for now): {myTicket.machineID}</p>
                     </>
                 )}

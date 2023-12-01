@@ -29,7 +29,7 @@ namespace ProjectC.Controllers
         {
             using (var context = new VisconContext())
             {
-                List<Account> user = context.Accounts.Where(_ => _.Account_Name == name && _.Account_Password == password).ToList();
+                List<Account> user = context.Accounts.Where(_ => _.AccountName == name && _.AccountPassword == password).ToList();
                 if (user.Count == 0)
                 {
                     return null;
@@ -48,9 +48,9 @@ namespace ProjectC.Controllers
             using (var context = new VisconContext())
             {
                 string type = (from acc in context.Accounts
-                               join typse in context.TypeAccounts on acc.TypeAccountID equals typse.Type_ID
-                               where acc.Account_ID == id
-                               select typse.Type_Name).FirstOrDefault()!;
+                               join typse in context.TypeAccounts on acc.TypeAccountID equals typse.TypeID
+                               where acc.AccountID == id
+                               select typse.TypeName).FirstOrDefault()!;
                 return type;
                 
 
@@ -63,18 +63,18 @@ namespace ProjectC.Controllers
             using(var context = new VisconContext())
             {
                 var allInfo = from acc in context.Accounts
-                              join typ in context.TypeAccounts on acc.TypeAccountID equals typ.Type_ID
-                              join dep in context.Department on acc.DepartmentID equals dep.Department_ID
-                              where acc.Account_ID == myid
+                              join typ in context.TypeAccounts on acc.TypeAccountID equals typ.TypeID
+                              join dep in context.Department on acc.DepartmentID equals dep.DepartmentID
+                              where acc.AccountID == myid
                               select new
                               {
-                                  id = acc.Account_ID,
-                                  name = acc.Account_Name,
-                                  password = acc.Account_Password,
-                                  number = acc.Account_Phone,
-                                  email = acc.Account_Email,
-                                  department = dep.Department_Name,
-                                  type = typ.Type_Name,
+                                  id = acc.AccountID,
+                                  name = acc.AccountName,
+                                  password = acc.AccountPassword,
+                                  number = acc.AccountPhone,
+                                  email = acc.AccountEmail,
+                                  department = dep.DepartmentName,
+                                  type = typ.TypeName,
                               };
                 var arr = allInfo.ToArray()[0];
                 return arr;
@@ -89,7 +89,7 @@ namespace ProjectC.Controllers
             using (var context = new VisconContext())
             {
                 if(departmentid == 0) { departmentid = null; }
-                context.Accounts.Add(new Account { Account_Name = name, Account_Password = password, Account_Email = email, Account_Phone = phone, CustCompanyID = companyid, DepartmentID = departmentid, TypeAccountID = typeaccountid });
+                context.Accounts.Add(new Account { AccountName = name, AccountPassword = password, AccountEmail = email, AccountPhone = phone, CustCompanyID = companyid, DepartmentID = departmentid, TypeAccountID = typeaccountid });
                 var amount = context.SaveChanges();
                 if (amount > 0) { return "Added the account"; }
                 else { return "Error occured"; }
@@ -102,8 +102,8 @@ namespace ProjectC.Controllers
             using (var context = new VisconContext())
             {
                 var getMachines = (from acc in context.Accounts
-                                   join cus in context.CustCompany on acc.CustCompanyID equals cus.CustCompany_ID
-                                   where acc.Account_ID == id
+                                   join cus in context.CustCompany on acc.CustCompanyID equals cus.CustCompanyID
+                                   where acc.AccountID == id
                                    select cus.Machines).FirstOrDefault(); // Get the Machines collection
 
                 // Check if getMachines is not null before converting to array
@@ -123,21 +123,21 @@ namespace ProjectC.Controllers
             }
         }
 
-        //[HttpGet("{id}")]
-        //public string Deleteee(int id)
-        //{
-        //    using (var context = new VisconContext())
-        //    {
-        //        var accountToDelete = context.Accounts.Find(id);
-        //        if (accountToDelete != null)
-        //        {
-        //            context.Accounts.Remove(accountToDelete);
-        //        }
-        //        var amount = context.SaveChanges();
-        //        if (amount > 0) { return "Deleted"; }
-        //        else { return "Not Found"; }
-        //    }
-        //}
+        [HttpGet("Delete/{id}")]
+        public string Delete(int id)
+        {
+            using (var context = new VisconContext())
+            {
+                var accountToDelete = context.Accounts.Find(id);
+                if (accountToDelete != null)
+                {
+                    context.Accounts.Remove(accountToDelete);
+                }
+                var amount = context.SaveChanges();
+                if (amount > 0) { return "Deleted"; }
+                else { return "Not Found"; }
+            }
+        }
     }
 
 

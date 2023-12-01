@@ -204,8 +204,8 @@ export function MakeAccount() {
                         <label className="form-label"><br></br>User Type:</label>
                         <select className="form-select" onChange={(e) => setUserType(e.target.value)}>
                             {allTypes.map((type, index) => (
-                                <option key={index} value={type.type_ID}>
-                                    {type.type_Name}
+                                <option key={index} value={type.typeID}>
+                                    {type.typeName}
                                 </option>
                             ))}
                         </select>
@@ -214,8 +214,8 @@ export function MakeAccount() {
                         <label className="form-label"><br></br>Department:</label>
                         <select className="form-select" onChange={(e) => setDepartment(e.target.value)}>
                             {allDepartments.map((department, index) => (
-                                <option key={index} value={department.department_ID}>
-                                    {department.department_Name}
+                                <option key={index} value={department.departmentID}>
+                                    {department.departmentName}
                                 </option>
                             ))}
                         </select>
@@ -226,8 +226,8 @@ export function MakeAccount() {
 
                         <select className="form-select" onChange={(e) => setCompany(e.target.value)}>
                             {allCompanies.map((company, index) => (
-                                <option key={index} value={company.custCompany_ID}>
-                                    {company.custCompany_Name}
+                                <option key={index} value={company.custCompanyID}>
+                                    {company.custCompanyName}
                                 </option>
                             ))}
                         </select>

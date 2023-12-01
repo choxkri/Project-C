@@ -6,16 +6,16 @@ using System.Text.RegularExpressions;
 public class Department
 {
     [Key]
-    public int Department_ID { get; set; }
-    public string Department_Name { get; set; }
+    public int DepartmentID { get; set; }
+    public string DepartmentName { get; set; }
 
 }
 
 public class TypeAccount
 {
     [Key]
-    public int Type_ID { get; set; }
-    public string Type_Name { get; set; }
+    public int TypeID { get; set; }
+    public string TypeName { get; set; }
 }
 
 public class CustCompany
@@ -26,8 +26,8 @@ public class CustCompany
     }
 
     [Key]
-    public int CustCompany_ID { get; set; }
-    public string CustCompany_Name { get; set; }
+    public int CustCompanyID { get; set; }
+    public string CustCompanyName { get; set; }
 
     public virtual ICollection<Machine> Machines { get; set; }
 
@@ -36,20 +36,20 @@ public class CustCompany
 public class Machine
 {
     [Key]
-    public int Machine_ID { get; set; }
-    public string Machine_Name { get; set; }
+    public int MachineID { get; set; }
+    public string MachineName { get; set; }
 }
 
 public class Account
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [Column("Account_ID")]
-    public int Account_ID { get; set; }
-    public string Account_Name { get; set; }
-    public string Account_Password { get; set; }
-    public string? Account_Email { get; set; }
-    public string? Account_Phone { get; set; }
+    [Column("AccountID")]
+    public int AccountID { get; set; }
+    public string AccountName { get; set; }
+    public string AccountPassword { get; set; }
+    public string? AccountEmail { get; set; }
+    public string? AccountPhone { get; set; }
 
 
     public int? DepartmentID { get; set; }
@@ -73,13 +73,13 @@ public class Ticket
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [Column("Ticket_ID")]
-    public int Ticket_ID { get; set; }
-    public string Ticket_Name { get; set; }
+    [Column("TicketID")]
+    public int TicketID { get; set; }
+    public string TicketName { get; set; }
 
     public bool Status { get; set; }
-    public string Ticket_Message { get; set; }
-    public string Ticket_Photo { get; set; }
+    public string TicketMessage { get; set; }
+    public string TicketPhoto { get; set; }
 
     public int? CreatorID { get; set; }
     [ForeignKey("CreatorID"), Column(Order = 0)]
@@ -93,6 +93,6 @@ public class Ticket
     [ForeignKey("SolverID"), Column(Order = 1)]
     public Account? Solver { get; set; }
 
-    public DateTime? Ticket_Date { get; set; }
+    public DateTime? TicketDate { get; set; }
 }
 

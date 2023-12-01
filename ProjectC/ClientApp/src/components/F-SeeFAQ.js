@@ -7,7 +7,7 @@ export function SeeFAQ() {
     const machine = machineParam ? JSON.parse(decodeURIComponent(machineParam)) : null;
     const creatteAccount = () => {
         console.log(machine);
-        console.log(machine.machine_Name);
+        console.log(machine.machineName);
     };
 
     return (

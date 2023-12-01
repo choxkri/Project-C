@@ -51,13 +51,13 @@ export function MakeTicket() {
         console.log(`Ticket Problem: ${ticketProblem}`);
         console.log(`Problem Details: ${problemDetails}`);
         console.log(`Extra Info: ${extraInfo}`);
-        console.log(userData.account_ID);
-        console.log(machine.machine_ID);
+        console.log(userData.accountID);
+        console.log(machine.machineID);
         console.log(machine);
         try {
 
             //const response = await fetch(`/ticket/${ticketProblem}/${problemDetails}/${userData.account_ID}/${machine.machine_ID}`);
-            const response = await fetch(`/ticket/${ticketProblem}/${problemDetails}/${extraInfo}/${userData.account_ID}/${machine.machine_ID}`);
+            const response = await fetch(`/ticket/${ticketProblem}/${problemDetails}/${extraInfo}/${userData.accountID}/${machine.machineID}`);
             //const response = await fetch(`ticket/GetTicketsByAccountID/${userData.account_ID}`);
     
             const data = await response.text();
@@ -114,7 +114,7 @@ export function MakeTicket() {
         <div>
             <FieldEmployeeNavMenu />
             <div className="rectanglelong">
-                <h1>Create Ticket for {machine ? machine.machine_Name : ''} </h1>
+                <h1>Create Ticket for {machine ? machine.machineName : ''} </h1>
                 <form className="col-md-6 mx-auto">
                     <div className="form-group">
                         <label><br></br>Ticket Problem: </label>

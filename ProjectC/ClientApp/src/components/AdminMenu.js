@@ -33,9 +33,9 @@ export function AdminMenu() {
                 <tbody>
                     {forecasts.map(forecast =>
                         //first letter of field must be NOT caps (even though it is in your class)
-                        <tr key={forecast.department_ID}>
-                            <td>{forecast.department_ID}</td>
-                            <td>{forecast.department_Name}</td>
+                        <tr key={forecast.departmentID}>
+                            <td>{forecast.departmentID}</td>
+                            <td>{forecast.departmentName}</td>
                         </tr>
                     )}
                 </tbody>
@@ -62,9 +62,9 @@ export function AdminMenu() {
                 <tbody>
                     {forecasts.map(forecast =>
                         //first letter of field must be NOT caps (even though it is in your class)
-                        <tr key={forecast.department_ID}>
-                            <td>{forecast.department_ID}</td>
-                            <td>{forecast.department_Name}</td>
+                        <tr key={forecast.departmentID}>
+                            <td>{forecast.departmentID}</td>
+                            <td>{forecast.departmentName}</td>
                         </tr>
                     )}
                 </tbody>
