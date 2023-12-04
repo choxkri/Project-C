@@ -16,6 +16,8 @@ export function MachineTickets() {
 
     const [machine, setMachine] = useState(null);
     const [allMachines, setAllMachines] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedStatus, setSelectedStatus] = useState('Open');
 
     const navigate = useNavigate();
 
@@ -52,11 +54,11 @@ export function MachineTickets() {
     }, []);
 
     useEffect(() => {
-        if (allMachines) {
+        if (machine) {
             getTickets();
-            
         }
-    }, [allMachines]);
+    }, [machine]);
+
 
     useEffect(() => {
         if (userData) {
@@ -69,6 +71,12 @@ export function MachineTickets() {
 
         localStorage.setItem('ticket', JSON.stringify(ticket));
         navigate(`/SeeDetailsTicket`);
+    };
+
+    const handleMachineChange = (e) => {
+        const selectedMachineID = e.target.value;
+        const selectedMachine = allMachines.find(machine => machine.machineID === selectedMachineID);
+        setMachine(selectedMachine);
     };
 
     const sortTickets = (column) => {
@@ -103,45 +111,77 @@ export function MachineTickets() {
         setMyTickets(sortedTickets);
     };
 
-    const handleMachineChange = async (e) => {
-
-        console.log(machine.machine_ID);
-        const selectedMachineID = parseInt(e.target.value, 10);
-        const selectedMachine = allMachines.find((machine) => machine.machineID === selectedMachineID);
-
-        setMachine(selectedMachine);
-        localStorage.setItem('machine', JSON.stringify(selectedMachine));
-        setLoading (true);
-        
-        await getTickets();
-    };
-
+   
     const renderTicketsTable = () => {
-        if (machine) {
-            const filteredTickets = myTickets.filter(ticket => ticket.machineID === machine.machineID);
-            return (
+
+        const filteredTickets = myTickets
+            .filter((ticket) =>
+                Object.values(ticket)
+                    .some((value) =>
+                        value && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+                    )
+            )
+            .filter((ticket) => selectedStatus === 'All' || (ticket.status && selectedStatus === 'Open') || (!ticket.status && selectedStatus === 'Closed'));
+
+        return (
+            <div>
+                <div className="row">
+                    <div className="col-md-4">
+                        <div className="input-group mb-3">
+                            <span className="input-group-text">
+                                Search:
+                            </span>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Search by Ticket/Machine Name"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-md-2">
+                        <div className="input-group mb-3">
+                            <label className="input-group-text" >
+                                Status:
+                            </label>
+                            <select
+                                className="form-select"
+                                value={selectedStatus}
+                                onChange={(e) => setSelectedStatus(e.target.value)}
+                            >
+                                <option value="Open">Open</option>
+                                <option value="Closed">Closed</option>
+                                <option value="All">All</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
                 <table className="table  table-hover" aria-labelledby="tableLabel">
                     <thead className="thead-dark">
                         <tr>
                             <th onClick={() => sortTickets('ticketID')}>
                                 ID
-                                {sortColumn === 'ticket_ID' && <FaSort />}
+                                {sortColumn === 'ticketID' && <FaSort />}
                             </th>
                             <th onClick={() => sortTickets('ticketName')}>
                                 Name
-                                {sortColumn === 'ticket_Name' && <FaSort />}
+                                {sortColumn === 'ticketName' && <FaSort />}
                             </th>
                             <th onClick={() => sortTickets('status')}>
                                 Status
                                 {sortColumn === 'status' && <FaSort />}
                             </th>
-                            <th onClick={() => sortTickets('machineID')}>
-                                Machine ID
-                                {sortColumn === 'machineID' && <FaSort />}
+                            <th onClick={() => sortTickets('machineName')}>
+                                Machine Name
+                                {sortColumn === 'machineName' && <FaSort />}
                             </th>
                             <th onClick={() => sortTickets('ticketDate')}>
                                 Date
-                                {sortColumn === 'ticket_Date' && <FaSort />}
+                                {sortColumn === 'ticketDate' && <FaSort />}
                             </th>
                             <th>See in Detail</th>
                         </tr>
@@ -154,7 +194,7 @@ export function MachineTickets() {
                                 <td className={ticket.status ? 'text-success' : 'text-danger'}>
                                     {ticket.status ? 'Open' : 'Closed'}
                                 </td>
-                                <td>{ticket.machineID}</td>
+                                <td>{ticket.machineName}</td>
                                 <td>{ticket.ticketDate ? new Date(ticket.ticketDate).toLocaleString() : 'N/A'}</td>
                                 <td>
                                     <button onClick={() => goToDetails(ticket)}>See Details<GoTriangleRight /></button>
@@ -163,27 +203,39 @@ export function MachineTickets() {
                         ))}
                     </tbody>
                 </table>
-            );
-        }
+            </div>
+        );
     };
-
     const contents = loading
         ? <p><em>Loading...</em></p>
-        : renderTicketsTable(myTickets);
+        : <div className="table-container">
+            {renderTicketsTable(myTickets)}
+        </div>
 
     return (
         <div>
             <FieldEmployeeNavMenu />
-            <p> here you can see the tickets that are linked to one of your machines. not working properly yet.</p>
             <div className="col-md-4 mx-auto">
-                <label className="form-label"><br />Your Machine:</label>
-                <select className="form-select" onChange={handleMachineChange} >
+                <div className="input-group mb-3">
+                <span className="input-group-text">
+                    Machine:
+                    </span>
+                
+                <select
+                    className="form-select"
+                    onChange={(e) => {
+                        const selectedMachineID = parseInt(e.target.value, 10);
+                        const selectedMachine = allMachines.find(machine => machine.machineID === selectedMachineID);
+                        setMachine(selectedMachine);
+                    }}
+                >
                     {allMachines.map((machine, index) => (
                         <option key={index} value={machine.machineID}>
                             {machine.machineName}
                         </option>
                     ))}
                 </select>
+                </div>
             </div>
             {contents}
         </div>

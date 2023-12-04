@@ -26,7 +26,7 @@ namespace ProjectC.Controllers
         {
             using (var context = new VisconContext())
             {
-                var querry = context.Tickets.Where(_ => _.SolverID == 1).ToArray();
+                var querry = context.Tickets.Where(_ => _.SolverID == null).ToArray();
                 return querry;
             }
         }
@@ -62,15 +62,45 @@ namespace ProjectC.Controllers
         }
 
         [HttpGet("GetTicketsByAccountID/{id}")]
-        public Ticket[] GetTicketsByAccountID(int id)
+        public Object[] GetTicketsByAccountID(int id)
         {
             using (var context = new VisconContext())
             {
-                var tickets = context.Tickets.Where(_ => _.CreatorID == id).ToList();
-                var tickets1 = context.Tickets.Where(_ => _.SolverID == id).ToList();
-                List<Ticket> listoftickets = new List<Ticket>();
+                //var tickets = context.Tickets.Where(_ => _.CreatorID == id).ToList();
+                //var tickets1 = context.Tickets.Where(_ => _.SolverID == id).ToList();
+                //List<Ticket> listoftickets = new List<Ticket>();
+                //listoftickets.AddRange(tickets1);
+                //listoftickets.AddRange(tickets);
+                //return listoftickets.ToArray();
+
+                var tickets1 = (from tick in context.Tickets
+                               join mach in context.Machines on tick.MachineID equals mach.MachineID
+                               where tick.CreatorID == id
+                                orderby tick.TicketDate  descending
+                                select new
+                               {
+                                   TicketID = tick.TicketID,
+                                   TicketName = tick.TicketName,
+                                   Status = tick.Status,
+                                   MachineName = mach.MachineName,
+                                   TicketDate = tick.TicketDate
+                               }).ToList();
+
+                var tickets2 = (from tick in context.Tickets
+                                join mach in context.Machines on tick.MachineID equals mach.MachineID
+                                where tick.SolverID == id
+                                orderby tick.TicketDate  descending
+                                select new
+                                {
+                                    TicketID = tick.TicketID,
+                                    TicketName = tick.TicketName,
+                                    Status = tick.Status,
+                                    MachineName = mach.MachineName,
+                                    TicketDate = tick.TicketDate
+                                }).ToList();
+                List<Object> listoftickets = new List<Object>();
                 listoftickets.AddRange(tickets1);
-                listoftickets.AddRange(tickets);
+                listoftickets.AddRange(tickets2);
                 return listoftickets.ToArray();
             }
         }

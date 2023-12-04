@@ -72,10 +72,21 @@ export function FieldEmployeeMenu() {
                 </div>
 
                 <div className="text-center mt-3">
-                   
-                    <Link to={`/F-SeeFAQ`} className="btn btn-primary">See recurring problems works</Link>
-                    
+                    {machine && (
+                        <Link to={`/F-SeeFAQ`} className="btn btn-primary">
+                            See recent problems of {machine.machineName}
+                        </Link>
+                    )}
                 </div>
+
+                <div className="text-center mt-3">
+                    {machine && (
+                        <Link to={`/F-SeeFAQ`} className="btn btn-primary">
+                            Make Ticket
+                        </Link>
+                    )}
+                </div>
+
             </div>
         </div>
     );

@@ -12,13 +12,15 @@ export function MyTickets() {
 
     const [sortColumn, setSortColumn] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc');
-
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedStatus, setSelectedStatus] = useState('Open');
     const navigate = useNavigate();
 
     const getTickets = async () => {
         try {
             const response = await fetch(`ticket/GetTicketsByAccountID/${userData.accountID}`);
             const data = await response.json();
+            console.log(data);
             setMyTickets(data);
             setLoading(false);
             
@@ -49,36 +51,89 @@ export function MyTickets() {
         const order = sortColumn === column && sortOrder === 'asc' ? 'desc' : 'asc';
         setSortColumn(column);
         setSortOrder(order);
-        if (column === 'status') {
-            sortedTickets = [...myTickets].sort((a, b) => {
-                const statusA = a[column] ? 'Open' : 'Closed';
-                const statusB = b[column] ? 'Open' : 'Closed';
+        sortedTickets = [...myTickets].sort((a, b) => {
+            if (order === 'asc') {
+                return a[column] > b[column] ? 1 : -1;
+            } else {
+                return a[column] < b[column] ? 1 : -1;
+            }
+        });
+        //if (column === 'status') {
+        //    sortedTickets = [...myTickets].sort((a, b) => {
+        //        const statusA = a[column] ? 'Open' : 'Closed';
+        //        const statusB = b[column] ? 'Open' : 'Closed';
 
-                if (sortOrder === 'asc') {
-                    return statusA < statusB ? 1 : -1; // Reverse the order here
-                } else {
-                    return statusA > statusB ? 1 : -1; // Reverse the order here
-                }
-            });
-        } else {
-            // For other columns, perform the generic sorting
+        //        if (sortOrder === 'asc') {
+        //            return statusA < statusB ? 1 : -1; // Reverse the order here
+        //        } else {
+        //            return statusA > statusB ? 1 : -1; // Reverse the order here
+        //        }
+        //    });
+        //} else {
+        //    // For other columns, perform the generic sorting
             
 
-            sortedTickets = [...myTickets].sort((a, b) => {
-                if (order === 'asc') {
-                    return a[column] > b[column] ? 1 : -1;
-                } else {
-                    return a[column] < b[column] ? 1 : -1;
-                }
-            });
-        }
+        //    sortedTickets = [...myTickets].sort((a, b) => {
+        //        if (order === 'asc') {
+        //            return a[column] > b[column] ? 1 : -1;
+        //        } else {
+        //            return a[column] < b[column] ? 1 : -1;
+        //        }
+        //    });
+        //}
 
         setMyTickets(sortedTickets);
     };
 
 
     const renderTicketsTable = () => {
+
+        const filteredTickets = myTickets
+            .filter((ticket) =>
+                Object.values(ticket)
+                    .some((value) =>
+                        value && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+                    )
+            )
+            .filter((ticket) => selectedStatus === 'All' || (ticket.status && selectedStatus === 'Open') || (!ticket.status && selectedStatus === 'Closed'));
+
         return (
+            <div>
+                <div className="row">
+                    <div className="col-md-4">
+                        <div className="input-group mb-3">
+                            <span className="input-group-text">
+                                Search:
+                            </span>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Search by Ticket/Machine Name"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-md-2">
+                        <div className="input-group mb-3">
+                            <label className="input-group-text" >
+                                Status:
+                            </label>
+                            <select
+                                className="form-select"
+                                value={selectedStatus}
+                                onChange={(e) => setSelectedStatus(e.target.value)}
+                            >
+                                <option value="Open">Open</option>
+                                <option value="Closed">Closed</option>
+                                <option value="All">All</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+           
             <table className="table  table-hover" aria-labelledby="tableLabel">
                 <thead className="thead-dark">
                     <tr>
@@ -94,9 +149,9 @@ export function MyTickets() {
                             Status 
                             {sortColumn === 'status' && <FaSort />}
                         </th>
-                        <th onClick={() => sortTickets('machineID')}>
-                            Machine ID
-                            {sortColumn === 'machineID' && <FaSort />}
+                        <th onClick={() => sortTickets('machineName')}>
+                            Machine Name
+                            {sortColumn === 'machineName' && <FaSort />}
                         </th>
                         <th onClick={() => sortTickets('ticketDate')}>
                             Date
@@ -106,14 +161,14 @@ export function MyTickets() {
                     </tr>
                 </thead>
                 <tbody>
-                    {myTickets.map((ticket) => (
+                        {filteredTickets.map((ticket) => (
                         <tr key={ticket.ticketID}>
                             <td>{ticket.ticketID}</td>
                             <td>{ticket.ticketName}</td>
                             <td className={ticket.status ? 'text-success' : 'text-danger'}>
                                 {ticket.status ? 'Open' : 'Closed'}
                             </td>
-                            <td>{ticket.machineID}</td>
+                            <td>{ticket.machineName}</td>
                             <td>{ticket.ticketDate ? new Date(ticket.ticketDate).toLocaleString() : 'N/A'}</td>
                             <td>
                                 <button onClick={() => goToDetails(ticket)}>See Details<GoTriangleRight /></button>
@@ -121,7 +176,8 @@ export function MyTickets() {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+                </table>
+            </div>
         );
     };
 
