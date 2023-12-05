@@ -53,11 +53,12 @@ export function MakeTicket() {
         console.log(`Extra Info: ${extraInfo}`);
         console.log(userData.accountID);
         console.log(machine.machineID);
-        console.log(machine);
+        console.log(triedExplanation);
+        console.log(expectedResult);
         try {
 
             //const response = await fetch(`/ticket/${ticketProblem}/${problemDetails}/${userData.account_ID}/${machine.machine_ID}`);
-            const response = await fetch(`/ticket/${ticketProblem}/${problemDetails}/${extraInfo}/${userData.accountID}/${machine.machineID}`);
+            const response = await fetch(`/ticket/${ticketProblem}/${problemDetails}/${extraInfo}/${userData.accountID}/${machine.machineID}/${triedExplanation}/${expectedResult}`);
             //const response = await fetch(`ticket/GetTicketsByAccountID/${userData.account_ID}`);
     
             const data = await response.text();
@@ -85,7 +86,7 @@ export function MakeTicket() {
     };
    
     const validateField = (value, setErrorFunction, fieldName) => {
-        if (value.length < 5 || value.length > 100) {
+        if (value.length < 5 || value.length > 1000) {
             setErrorFunction(`${fieldName} must be between 5 and 1000 characters.`);
         } else {
             setErrorFunction('');

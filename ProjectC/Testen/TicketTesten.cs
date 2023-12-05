@@ -55,7 +55,7 @@ namespace ProjectC.Tests
                 var controller = new TicketController();
 
                 int TesterUserId = context.Accounts.Where(_ => _.AccountName == "Tester").Select(_ => _.AccountID).FirstOrDefault();
-                var result = controller.CreateTicket("Problem9951", "yes", "alot", TesterUserId, 1);
+                var result = controller.CreateTicket("Problem9951", "yes", "alot", TesterUserId, 1, "woop", "bloop");
 
                 Assert.IsInstanceOfType(result, typeof(string));
                 Assert.AreEqual("Added the ticket", result);

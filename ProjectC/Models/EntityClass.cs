@@ -94,5 +94,10 @@ public class Ticket
     public Account? Solver { get; set; }
 
     public DateTime? TicketDate { get; set; }
+    public string TriedExplanation { get; set; }
+
+    public string ExpectedResultExplanation { get; set; }
+
+    public string HowToFixExplanation { get; set; }
 }
 

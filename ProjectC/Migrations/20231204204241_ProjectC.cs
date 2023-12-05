@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ProjectC.Migrations
 {
     /// <inheritdoc />
-    public partial class test : Migration
+    public partial class ProjectC : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -118,7 +118,10 @@ namespace ProjectC.Migrations
                     CreatorID = table.Column<int>(type: "integer", nullable: true),
                     MachineID = table.Column<int>(type: "integer", nullable: false),
                     SolverID = table.Column<int>(type: "integer", nullable: true),
-                    TicketDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    TicketDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    TriedExplanation = table.Column<string>(type: "text", nullable: false),
+                    ExpectedResultExplanation = table.Column<string>(type: "text", nullable: false),
+                    HowToFixExplanation = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

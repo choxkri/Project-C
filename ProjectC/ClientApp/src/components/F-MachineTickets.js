@@ -175,10 +175,10 @@ export function MachineTickets() {
                                 Status
                                 {sortColumn === 'status' && <FaSort />}
                             </th>
-                            <th onClick={() => sortTickets('machineName')}>
-                                Machine Name
-                                {sortColumn === 'machineName' && <FaSort />}
-                            </th>
+                            {/*<th onClick={() => sortTickets('machineName')}>*/}
+                            {/*    Machine Name*/}
+                            {/*    {sortColumn === 'machineName' && <FaSort />}*/}
+                            {/*</th>*/}
                             <th onClick={() => sortTickets('ticketDate')}>
                                 Date
                                 {sortColumn === 'ticketDate' && <FaSort />}
@@ -194,7 +194,7 @@ export function MachineTickets() {
                                 <td className={ticket.status ? 'text-success' : 'text-danger'}>
                                     {ticket.status ? 'Open' : 'Closed'}
                                 </td>
-                                <td>{ticket.machineName}</td>
+                                {/*<td>{ticket.machineName}</td>*/}
                                 <td>{ticket.ticketDate ? new Date(ticket.ticketDate).toLocaleString() : 'N/A'}</td>
                                 <td>
                                     <button onClick={() => goToDetails(ticket)}>See Details<GoTriangleRight /></button>

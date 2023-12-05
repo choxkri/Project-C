@@ -51,14 +51,7 @@ export function FieldEmployeeMenu() {
             <FieldEmployeeNavMenu />
             <div className="rectanglesmall">
                 <h1>Make A Ticket</h1>
-                <div className="text-container">
-                    <p>
-                        Before making a ticket, you will answer a couple of frequently asked problems to see if you can already fix the issue yourself.
-                    </p>
-                    <p>
-                        First, select the machine you want to make a ticket for. 
-                    </p>
-                </div>
+                
 
                 <div className="col-md-4 mx-auto">
                     <label className="form-label"><br />Your Machine:</label>
@@ -70,15 +63,7 @@ export function FieldEmployeeMenu() {
                         ))}
                     </select>
                 </div>
-
-                <div className="text-center mt-3">
-                    {machine && (
-                        <Link to={`/F-SeeFAQ`} className="btn btn-primary">
-                            See recent problems of {machine.machineName}
-                        </Link>
-                    )}
-                </div>
-
+                <p> <br></br><br></br><br></br></p>
                 <div className="text-center mt-3">
                     {machine && (
                         <Link to={`/F-SeeFAQ`} className="btn btn-primary">
@@ -86,6 +71,16 @@ export function FieldEmployeeMenu() {
                         </Link>
                     )}
                 </div>
+
+                <div className="text-center mt-3">
+                    {machine && (
+                        <Link to={`/F-SeeFAQ`} className="btn btn-secondary">
+                            See recent problems of {machine.machineName}
+                        </Link>
+                    )}
+                </div>
+
+                
 
             </div>
         </div>

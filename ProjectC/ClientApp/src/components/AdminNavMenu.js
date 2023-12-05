@@ -21,12 +21,7 @@ export function AdminNavMenu() {
                         <NavItem>
                             <NavLink tag={Link} className="text-dark" to="/A-MakeAccount">Make Account</NavLink>
                         </NavItem>
-                        <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/">NOT IMPLEMENTE</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/">NOT IMPLEMENTED</NavLink>
-                        </NavItem>
+                        
                         <NavItem>
                             <NavLink tag={Link} className="text-dark" to="/LogInPage" onClick={handleLogout}>Log Out</NavLink>
                         </NavItem>

@@ -16,7 +16,7 @@ namespace ProjectC.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -132,6 +132,14 @@ namespace ProjectC.Migrations
                     b.Property<int?>("CreatorID")
                         .HasColumnType("integer");
 
+                    b.Property<string>("ExpectedResultExplanation")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("HowToFixExplanation")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("MachineID")
                         .HasColumnType("integer");
 
@@ -153,6 +161,10 @@ namespace ProjectC.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("TicketPhoto")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TriedExplanation")
                         .IsRequired()
                         .HasColumnType("text");
 

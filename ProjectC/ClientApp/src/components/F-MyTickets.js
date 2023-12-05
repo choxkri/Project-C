@@ -134,7 +134,7 @@ export function MyTickets() {
                 </div>
 
            
-            <table className="table  table-hover" aria-labelledby="tableLabel">
+            <table className="table  table-hover" >
                 <thead className="thead-dark">
                     <tr>
                         <th onClick={() => sortTickets('ticketID')}>

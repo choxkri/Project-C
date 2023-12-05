@@ -1,7 +1,7 @@
 ﻿
 .rectangle {
     width: 465px;
-    height: 653px;
+    height: 640px;
     padding: 8px 8px 8px 8px;
     background: #ffffff;
     border-color: #000000;
@@ -51,7 +51,7 @@
     text-align: center;
 
     position: relative;
-    top: 150px;
+    top: 120px;
     left: 70px;
 }
 

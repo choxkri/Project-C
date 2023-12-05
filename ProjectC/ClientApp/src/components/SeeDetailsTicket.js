@@ -17,27 +17,34 @@ export function SeeDetailsTicket() {
     }, []);
 
     const test = () => {
-        console.log("My Ticket:", myTicket);
-        console.log("User Data:", userData);
+        console.log('My Ticket:', myTicket);
+        console.log('User Data:', userData);
     };
 
     const handleNavigateBack = () => {
         navigate(-1);
     };
 
-    const handleFixStatus = () => {
+    const handleFixStatus = async () => {
+      
+        let newStatus
+        if (myTicket.status == true) {
+            newStatus = false;
+        } else {
+            newStatus = true;
+        }
         setMyTicket((prevTicket) => ({
             ...prevTicket,
-            status: false,
+            status: newStatus,
         }));
-        console.log(myTicket);
         changeStatus();
     };
 
     const changeStatus = async () => {
         try {
-          
-            const response = await fetch(`ticket/ChanceStatusTicket/${myTicket.ticketID}/${myTicket.status}`);
+            const response = await fetch(
+                `ticket/ChanceStatusTicket/${myTicket.ticketID}/${myTicket.status}`
+            );
             const data = await response.text();
             setSuccessMessage(data);
         } catch (error) {
@@ -48,30 +55,67 @@ export function SeeDetailsTicket() {
     return (
         <div>
             <FieldEmployeeNavMenu />
-            <div className="rectanglesmall">
-                <h1>See problem in detail (not done)</h1>
+            <div className="rectanglelong">
+                <h1>Ticket Details</h1>
                 {myTicket && (
                     <>
-                        <p>ID: {myTicket.ticketID}</p>
-                        <p>ticket name: {myTicket.ticketName}</p>
-                        <p>
-                            Status: <span id="status">{myTicket.status ? 'Open' : 'Closed'}</span>
-                        </p>
-                        <p>ticket message: {myTicket.ticketMessage}</p>
-                        <p>Creator (just id for now): {myTicket.creatorID}</p>
-                        <p>ticket date: {myTicket.ticketDate}</p>
-                        <p>Machine (just id for now): {myTicket.machineID}</p>
+                        <table className="table  table-hover" aria-labelledby="tableLabel">
+                            <tbody>
+                                <tr>
+                                    <td>ID:</td>
+                                    <td>{myTicket.ticketID}</td>
+                                </tr>
+                                <tr>
+                                    <td>Ticket Name:</td>
+                                    <td>{myTicket.ticketName}</td>
+                                </tr>
+                                <tr>
+                                    <td>Status:</td>
+                                    <td>
+                                        <span id="status">{myTicket.status ? 'Open' : 'Closed'}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ticker Creator:</td>
+                                    <td>{myTicket.accountName}</td>
+                                </tr>
+                                <tr>
+                                    <td>Ticket Date:</td>
+                                    <td>{myTicket.ticketDate}</td>
+                                </tr>
+                                <tr>
+                                    <td>Machine Name :</td>
+                                    <td>{myTicket.machineName}</td>
+                                </tr>
+                                <tr>
+                                    <td>Explanation of problem:</td>
+                                    <td>{myTicket.ticketMessage}</td>
+                                </tr>
+                                <tr>
+                                    <td>Things { myTicket.accountName} has tried: </td>
+                                    <td>{myTicket.triedExplanation}</td>
+                                </tr>
+                                <tr>
+                                    <td>Expected Result: </td>
+                                    <td>{myTicket.expectedResultExplanation}</td>
+                                </tr>
+                                <tr>
+                                    <td>Potential Solution: </td>
+                                    <td>{myTicket.howToFixExplanation}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </>
                 )}
                 {userData && userData.typeAccountID === 1 && (
                     <>
-                        <button onClick={handleFixStatus}>Fix Status (click twice for now) </button>
+                        <button onClick={handleFixStatus}>Toggle Status</button>
                         <p className="mt-3 text-success">{successMessage}</p>
                     </>
                 )}
                 <button onClick={handleNavigateBack}>Go Back</button>
-                <button onClick={test}>Test</button>
             </div>
+            
         </div>
     );
 }

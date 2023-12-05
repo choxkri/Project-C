@@ -75,6 +75,7 @@ namespace ProjectC.Controllers
 
                 var tickets1 = (from tick in context.Tickets
                                join mach in context.Machines on tick.MachineID equals mach.MachineID
+                               join acc in context.Accounts on tick.CreatorID equals acc.AccountID
                                where tick.CreatorID == id
                                 orderby tick.TicketDate  descending
                                 select new
@@ -83,11 +84,17 @@ namespace ProjectC.Controllers
                                    TicketName = tick.TicketName,
                                    Status = tick.Status,
                                    MachineName = mach.MachineName,
-                                   TicketDate = tick.TicketDate
-                               }).ToList();
+                                   TicketDate = tick.TicketDate,
+                                   TicketMessage = tick.TicketMessage,
+                                   AccountName = acc.AccountName,
+                                    TriedExplanation = tick.TriedExplanation,
+                                    ExpectedResultExplanation = tick.ExpectedResultExplanation,
+                                    HowToFixExplanation = tick.HowToFixExplanation
+                                }).ToList();
 
                 var tickets2 = (from tick in context.Tickets
                                 join mach in context.Machines on tick.MachineID equals mach.MachineID
+                                join acc in context.Accounts on tick.SolverID equals acc.AccountID
                                 where tick.SolverID == id
                                 orderby tick.TicketDate  descending
                                 select new
@@ -96,7 +103,13 @@ namespace ProjectC.Controllers
                                     TicketName = tick.TicketName,
                                     Status = tick.Status,
                                     MachineName = mach.MachineName,
-                                    TicketDate = tick.TicketDate
+                                    TicketDate = tick.TicketDate,
+                                    TicketMessage = tick.TicketMessage,
+                                    AccountName = acc.AccountName,
+                                    TriedExplanation = tick.TriedExplanation,
+                                    ExpectedResultExplanation = tick.ExpectedResultExplanation,
+                                    HowToFixExplanation = tick.HowToFixExplanation
+                                    
                                 }).ToList();
                 List<Object> listoftickets = new List<Object>();
                 listoftickets.AddRange(tickets1);
@@ -118,13 +131,15 @@ namespace ProjectC.Controllers
                 else { return "nothing changed"; }
             }
         }
-
-        [HttpGet("{name}/{message}/{photo}/{creatorid}/{machineid}")]
-        public string CreateTicket(string name, string message, string photo, int creatorid, int machineid)
+    
+        [HttpGet("{name}/{message}/{photo}/{creatorid}/{machineid}/{triedExplanition}/{expectedResultExplanation}")]
+        public string CreateTicket(string name, string message, string photo, int creatorid, int machineid, string triedExplanition, string expectedResultExplanation)
         {
             using (var context = new VisconContext())
             {
-                context.Tickets.Add(new Ticket { TicketName = name, Status = true, CreatorID = creatorid, TicketMessage = message, TicketPhoto = photo, TicketDate = DateTime.UtcNow, MachineID = machineid, SolverID = null });
+                context.Tickets.Add(new Ticket { TicketName = name, Status = true, CreatorID = creatorid, TicketMessage = message, TicketPhoto = photo,
+                                                 TicketDate = DateTime.UtcNow, MachineID = machineid, SolverID = null, TriedExplanation = triedExplanition,
+                                                 ExpectedResultExplanation =  expectedResultExplanation , HowToFixExplanation = "No Potential Solution Available" });
                 var amount = context.SaveChanges();
                 if (amount > 0) { return "Added the ticket"; }
                 else { return "Error occured"; }
