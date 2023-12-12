@@ -31,7 +31,17 @@ namespace ProjectC.Controllers
             }
         }
 
-        [HttpGet("AssignTicketToSelf/{accountid}/{ticketid}")]
+        [HttpGet("GetSolvedTicketsByMachineID/{id}")]
+        public Ticket[] GetSolvedTicketsByMachineID(int id)
+        {
+            using (var context = new VisconContext())
+            {
+                var querry = context.Tickets.Where(_ => _.MachineID == id && _.Status == true).ToArray();
+                return querry;
+            }
+        }
+
+            [HttpGet("AssignTicketToSelf/{accountid}/{ticketid}")]
         public string AssignTicketToSelf(int accountid, int ticketid)
         {
             using (var context = new VisconContext())

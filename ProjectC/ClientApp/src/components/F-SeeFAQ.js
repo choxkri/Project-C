@@ -45,9 +45,6 @@ export function SeeFAQ() {
                     <div className="mb-3">
                         <Link to="/FieldEmployeeMenu" className="btn btn-secondary">Go Back</Link>
                     </div>
-                    <button type="button" className="btn btn-primary mt-3" onClick={creatteAccount}>
-                        console log test
-                    </button>
                 </div>
             </div>
         </div>
