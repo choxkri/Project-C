@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ProjectC.Migrations
 {
     [DbContext(typeof(VisconContext))]
-    [Migration("20231205092621_test")]
+    [Migration("20231217121041_test")]
     partial class test
     {
         /// <inheritdoc />
@@ -163,8 +163,10 @@ namespace ProjectC.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("TicketPhoto")
-                        .IsRequired()
+                    b.Property<byte[]>("TicketPhoto")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("TicketSolvedMessage")
                         .HasColumnType("text");
 
                     b.Property<string>("TriedExplanation")

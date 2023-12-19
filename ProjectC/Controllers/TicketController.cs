@@ -4,6 +4,7 @@ using System.Transactions;
 using System.Xml.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System;
 
 namespace ProjectC.Controllers
 {
@@ -11,6 +12,8 @@ namespace ProjectC.Controllers
     [Route("[controller]")]
     public class TicketController : Controller
     {
+
+
         [HttpGet("GetTicketsByMacineID/{id}")]
         public Ticket[] GetTicketsByMacineID(int id)
         {
@@ -143,7 +146,7 @@ namespace ProjectC.Controllers
         }
     
         [HttpGet("{name}/{message}/{photo}/{creatorid}/{machineid}/{triedExplanition}/{expectedResultExplanation}")]
-        public string CreateTicket(string name, string message, string photo, int creatorid, int machineid, string triedExplanition, string expectedResultExplanation)
+        public string CreateTicket(string name, string message, byte[]? photo, int creatorid, int machineid, string triedExplanition, string expectedResultExplanation)
         {
             using (var context = new VisconContext())
             {

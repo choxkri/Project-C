@@ -22,6 +22,7 @@ export function SeeDetailsTicket() {
     };
 
     const handleNavigateBack = () => {
+        test();
         navigate(-1);
     };
 

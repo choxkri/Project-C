@@ -160,8 +160,10 @@ namespace ProjectC.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("TicketPhoto")
-                        .IsRequired()
+                    b.Property<byte[]>("TicketPhoto")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("TicketSolvedMessage")
                         .HasColumnType("text");
 
                     b.Property<string>("TriedExplanation")

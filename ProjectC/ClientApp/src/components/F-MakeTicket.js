@@ -8,7 +8,7 @@ export function MakeTicket() {
     const [machine, setMachine] = useState(null);
     const [ticketProblem, setTicketProblem] = useState('');
     const [problemDetails, setProblemDetails] = useState('');
-    const [extraInfo, setExtraInfo] = useState('wwe');
+    const [photo, setPhoto] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [userData, setUserData] = useState(null);
     const [triedExplanation, setTriedExplanation] = useState('');
@@ -33,9 +33,7 @@ export function MakeTicket() {
         if (ticketProblem === '') {
             setErrorMessage('Ticket Problem  field is not allowed to be empty.');
         } else if (problemDetails === '') {
-            setErrorMessage('Problem Details field is not allowed to be empty.');
-        } else if (extraInfo === '') {
-            setErrorMessage('Extra Info field is not allowed to be empty.');
+            setErrorMessage('Problem Details field is not allowed to be empty.'); 
         } else if (triedExplanation === '') {
             setErrorMessage('Tried Explanation field is not allowed to be empty.');
         } else if (expectedResult === '') {
@@ -50,7 +48,7 @@ export function MakeTicket() {
     const createAccount = async () => {
         console.log(`Ticket Problem: ${ticketProblem}`);
         console.log(`Problem Details: ${problemDetails}`);
-        console.log(`Extra Info: ${extraInfo}`);
+        console.log(photo);
         console.log(userData.accountID);
         console.log(machine.machineID);
         console.log(triedExplanation);
@@ -58,7 +56,7 @@ export function MakeTicket() {
         try {
 
             //const response = await fetch(`/ticket/${ticketProblem}/${problemDetails}/${userData.account_ID}/${machine.machine_ID}`);
-            const response = await fetch(`/ticket/${ticketProblem}/${problemDetails}/${extraInfo}/${userData.accountID}/${machine.machineID}/${triedExplanation}/${expectedResult}`);
+            const response = await fetch(`/ticket/${ticketProblem}/${problemDetails}/${photo}/${userData.accountID}/${machine.machineID}/${triedExplanation}/${expectedResult}`);
             //const response = await fetch(`ticket/GetTicketsByAccountID/${userData.account_ID}`);
     
             const data = await response.text();
@@ -109,6 +107,23 @@ export function MakeTicket() {
         const value = e.target.value;
         setExpectedResult(value);
         validateField(value, setExpectedResultError, 'Expected Result');
+    };
+
+    const handleExpectedPhotoChange = async (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const byteArray = new Uint8Array(arrayBuffer);
+
+                setPhoto(byteArray);
+            } catch (error) {
+                console.error('Error reading file:', error);
+            }
+        } else {
+            setPhoto(null);
+        }
     };
 
     return (
@@ -167,8 +182,10 @@ export function MakeTicket() {
                         <label><br></br>Show Machine</label>
                         <input
                             type="file"
+                            name="photo"
                             className="form-control"
                             accept=".jpg, .jpeg, .png, "
+                            onChange={handleExpectedPhotoChange}
                         />
 
                     </div>

@@ -79,7 +79,7 @@ public class Ticket
 
     public bool Status { get; set; }
     public string TicketMessage { get; set; }
-    public string TicketPhoto { get; set; }
+    public byte[]? TicketPhoto { get; set; }
 
     public string? TicketSolvedMessage { get; set; }
 
