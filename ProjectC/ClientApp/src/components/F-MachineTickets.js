@@ -116,10 +116,8 @@ export function MachineTickets() {
 
         const filteredTickets = myTickets
             .filter((ticket) =>
-                Object.values(ticket)
-                    .some((value) =>
-                        value && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-                    )
+                (ticket.ticketName && ticket.ticketName.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
+                (ticket.machineName && ticket.machineName.toString().toLowerCase().includes(searchTerm.toLowerCase()))
             )
             .filter((ticket) => selectedStatus === 'All' || (ticket.status && selectedStatus === 'Open') || (!ticket.status && selectedStatus === 'Closed'));
 

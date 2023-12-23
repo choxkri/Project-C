@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { AdminNavMenu } from './AdminNavMenu';
+import {  useLocation, useNavigate } from 'react-router-dom';
 
 export function MakeAccount() {
     const [username, setUsername] = useState('');
@@ -10,6 +11,7 @@ export function MakeAccount() {
     const [userType, setUserType] = useState(1);
     const [company, setCompany] = useState(1);
     const [department, setDepartment] = useState(1);
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -21,8 +23,12 @@ export function MakeAccount() {
     const [passwordError, setPasswordError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [numberError, setNumberError] = useState('');
-
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
  
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const recentlyCreated = location.state && location.state.recentlyCreated;
 
     const validateUsername = (value) => {
         if (value.length < 6 || value.length > 40) {
@@ -59,6 +65,19 @@ export function MakeAccount() {
         }
     };
 
+    const validateConfirmPassword = (value) => {
+        if (value !== password) {
+            setConfirmPasswordError('Passwords do not match.');
+        } else {
+            setConfirmPasswordError('');
+        }
+    };
+
+    const handleConfirmPasswordChange = (e) => {
+        const value = e.target.value;
+        setConfirmPassword(value);
+        validateConfirmPassword(value);
+    };
     const handleUsernameChange = (e) => {
         const value = e.target.value;
         setUsername(value);
@@ -125,11 +144,11 @@ export function MakeAccount() {
 
 
     const checkFields = () => {
-        if (!username || !password || !email || !number) {
+        if (!username || !password || !email || !number || !confirmPassword) {
             setErrorMessage('Please fill in all the fields.');
         }
         else if (
-            !usernameError && !passwordError &&  !emailError && !numberError
+            !usernameError && !passwordError &&  !emailError && !numberError && !confirmPasswordError
         ) {
             createAccount();
         } else {
@@ -141,7 +160,7 @@ export function MakeAccount() {
         try {
             const response = await fetch(`account/${username}/${password}/${number}/${email}/${company}/${department}/${userType}`);
             const data = await response.text();
-            setErrorMessage(data);
+            navigate(`/A-MakeAccount`, { state: { recentlyCreated: true } });
         } catch (error) {
             console.error('Error fetching account data:', error);
         }
@@ -157,6 +176,11 @@ export function MakeAccount() {
     return (
         <div>
             <AdminNavMenu />
+            {recentlyCreated&& (
+                <div className="alert alert-success" role="alert">
+                    Account created successfully!
+                </div>
+            )}
             <div className="rectanglelong">
                 <h1>Create Account</h1>
                 <form >
@@ -179,6 +203,16 @@ export function MakeAccount() {
                             onChange={handlePasswordChange}
                         />
                         <div className="invalid-feedback">{passwordError}</div>
+                    </div>
+                    <div className={`col-md-4 mx-auto`}>
+                        <label className="form-label"><br></br>Confirm Password: *</label>
+                        <input
+                            type="password"
+                            className={`form-control ${confirmPasswordError ? 'is-invalid' : confirmPassword ? 'is-valid' : ''}`}
+                            placeholder="Confirm your password"
+                            onChange={handleConfirmPasswordChange}
+                        />
+                        <div className="invalid-feedback">{confirmPasswordError}</div>
                     </div>
                     <div className={`col-md-4 mx-auto`}>
                         <label className="form-label"><br></br>E-Mail: *</label>

@@ -1,9 +1,11 @@
 import { FieldEmployeeNavMenu } from './FieldEmployeeNavMenu';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CombinedNavMenu } from './NavMenuCombined';
 
 export function SeeDetailsTicket() {
     const [myTicket, setMyTicket] = useState([]);
+  
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
@@ -13,15 +15,32 @@ export function SeeDetailsTicket() {
         const storedUserData = JSON.parse(localStorage.getItem('user'));
         setUserData(storedUserData);
         const storedTicketData = JSON.parse(localStorage.getItem('ticket'));
-        setMyTicket(storedTicketData);
+        getDetailedTicket(storedTicketData)
     }, []);
 
+    const getDetailedTicket = async (storedticketData ) => {
+        try {
+            console.log("woof");
+            console.log(storedticketData.ticketID);
+            const response = await fetch(`ticket/GetDetailedTicket/${storedticketData.ticketID}`);
+            const data = await response.json();
+            console.log("cat");
+            console.log(data);
+            setMyTicket(data);
+            setLoading(false);
+
+        } catch (error) {
+            console.error('Error fetching account data:', error);
+        }
+    };
     const test = () => {
+        console.log(typeof myTicket);
         console.log('My Ticket:', myTicket);
         console.log('User Data:', userData);
     };
 
     const handleNavigateBack = () => {
+        test();
         navigate(-1);
     };
 
@@ -51,10 +70,12 @@ export function SeeDetailsTicket() {
             console.error('Error fetching account data:', error);
         }
     };
-
+    
     return (
         <div>
-            <FieldEmployeeNavMenu />
+            {userData && (
+                <CombinedNavMenu user={userData} />
+            )}
             <div className="rectanglelong">
                 <h1>Ticket Details</h1>
                 {myTicket && (
@@ -107,7 +128,7 @@ export function SeeDetailsTicket() {
                         </table>
                     </>
                 )}
-                {userData && userData.typeAccountID === 1 && (
+                {userData && userData.typeAccountID === 1 && myTicket.solverID !== null && (
                     <>
                         <button onClick={handleFixStatus}>Toggle Status</button>
                         <p className="mt-3 text-success">{successMessage}</p>

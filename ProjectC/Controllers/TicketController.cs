@@ -43,6 +43,28 @@ namespace ProjectC.Controllers
                 else { return "Something went wrong"; }
             }
         }
+
+        [HttpGet("GetTicketGroupedByDate/{accountid}/{machineid}")]
+        public Ticket[] GetTicketGroupedByDate(int accountid, int machineid)
+        {
+            using(var context = new VisconContext())
+            {
+                var groupedTickets = (from tick in context.Tickets
+                                     where tick.MachineID == machineid 
+                                     select tick).ToArray();
+                return groupedTickets;
+                                           //var groupedTickets = from tick in context.Tickets
+                                           //                     where tick.MachineID == machineid && tick.CreatorID == accountid
+
+                                           //                     group tick by tick.TicketDate.Value.Date into grouped
+                                           //                     select new
+                                           //                     {
+                                           //                         Day = grouped.Key,
+                                           //                         Tickets = grouped.ToList()
+                                    // };
+                //return groupedTickets;
+            }
+        }
         public Ticket[] GetTicketsByDepartmentID(int id)
         {
             using (var context = new VisconContext())
@@ -61,42 +83,19 @@ namespace ProjectC.Controllers
             }
         }
 
-        [HttpGet("GetTicketsByAccountID/{id}")]
-        public Object[] GetTicketsByAccountID(int id)
+
+        [HttpGet("GetDetailedTicket/{ticketid}")]
+
+        public Object GetDetailedTicket(int ticketid)
         {
-            using (var context = new VisconContext())
+            using var context = new VisconContext();
             {
-                //var tickets = context.Tickets.Where(_ => _.CreatorID == id).ToList();
-                //var tickets1 = context.Tickets.Where(_ => _.SolverID == id).ToList();
-                //List<Ticket> listoftickets = new List<Ticket>();
-                //listoftickets.AddRange(tickets1);
-                //listoftickets.AddRange(tickets);
-                //return listoftickets.ToArray();
 
                 var tickets1 = (from tick in context.Tickets
-                               join mach in context.Machines on tick.MachineID equals mach.MachineID
-                               join acc in context.Accounts on tick.CreatorID equals acc.AccountID
-                               where tick.CreatorID == id
-                                orderby tick.TicketDate  descending
-                                select new
-                               {
-                                   TicketID = tick.TicketID,
-                                   TicketName = tick.TicketName,
-                                   Status = tick.Status,
-                                   MachineName = mach.MachineName,
-                                   TicketDate = tick.TicketDate,
-                                   TicketMessage = tick.TicketMessage,
-                                   AccountName = acc.AccountName,
-                                    TriedExplanation = tick.TriedExplanation,
-                                    ExpectedResultExplanation = tick.ExpectedResultExplanation,
-                                    HowToFixExplanation = tick.HowToFixExplanation
-                                }).ToList();
-
-                var tickets2 = (from tick in context.Tickets
                                 join mach in context.Machines on tick.MachineID equals mach.MachineID
-                                join acc in context.Accounts on tick.SolverID equals acc.AccountID
-                                where tick.SolverID == id
-                                orderby tick.TicketDate  descending
+                                join acc in context.Accounts on tick.CreatorID equals acc.AccountID
+                                where tick.TicketID == ticketid
+                                orderby tick.TicketDate descending
                                 select new
                                 {
                                     TicketID = tick.TicketID,
@@ -109,12 +108,64 @@ namespace ProjectC.Controllers
                                     TriedExplanation = tick.TriedExplanation,
                                     ExpectedResultExplanation = tick.ExpectedResultExplanation,
                                     HowToFixExplanation = tick.HowToFixExplanation
-                                    
-                                }).ToList();
-                List<Object> listoftickets = new List<Object>();
+                                });
+                return tickets1.ToArray()[0];
+            }
+        }
+        [HttpGet("GetTicketsByAccountID/{id}")]
+        public Object[] GetTicketsByAccountID(int id)
+        {
+            using (var context = new VisconContext())
+            {
+                var tickets = context.Tickets.Where(_ => _.CreatorID == id).ToList();
+                var tickets1 = context.Tickets.Where(_ => _.SolverID == id).ToList();
+                List<Ticket> listoftickets = new List<Ticket>();
                 listoftickets.AddRange(tickets1);
-                listoftickets.AddRange(tickets2);
+                listoftickets.AddRange(tickets);
                 return listoftickets.ToArray();
+
+                //var tickets1 = (from tick in context.Tickets
+                //               join mach in context.Machines on tick.MachineID equals mach.MachineID
+                //               join acc in context.Accounts on tick.CreatorID equals acc.AccountID
+                //               where tick.CreatorID == id
+                //                orderby tick.TicketDate  descending
+                //                select new
+                //               {
+                //                   TicketID = tick.TicketID,
+                //                   TicketName = tick.TicketName,
+                //                   Status = tick.Status,
+                //                   MachineName = mach.MachineName,
+                //                   TicketDate = tick.TicketDate,
+                //                   TicketMessage = tick.TicketMessage,
+                //                   AccountName = acc.AccountName,
+                //                    TriedExplanation = tick.TriedExplanation,
+                //                    ExpectedResultExplanation = tick.ExpectedResultExplanation,
+                //                    HowToFixExplanation = tick.HowToFixExplanation
+                //                }).ToList();
+
+                //var tickets2 = (from tick in context.Tickets
+                //                join mach in context.Machines on tick.MachineID equals mach.MachineID
+                //                join acc in context.Accounts on tick.SolverID equals acc.AccountID
+                //                where tick.SolverID == id
+                //                orderby tick.TicketDate  descending
+                //                select new
+                //                {
+                //                    TicketID = tick.TicketID,
+                //                    TicketName = tick.TicketName,
+                //                    Status = tick.Status,
+                //                    MachineName = mach.MachineName,
+                //                    TicketDate = tick.TicketDate,
+                //                    TicketMessage = tick.TicketMessage,
+                //                    AccountName = acc.AccountName,
+                //                    TriedExplanation = tick.TriedExplanation,
+                //                    ExpectedResultExplanation = tick.ExpectedResultExplanation,
+                //                    HowToFixExplanation = tick.HowToFixExplanation
+
+                //                }).ToList();
+                //List<Object> listoftickets = new List<Object>();
+                //listoftickets.AddRange(tickets1);
+                //listoftickets.AddRange(tickets2);
+                //return listoftickets.ToArray();
             }
         }
 

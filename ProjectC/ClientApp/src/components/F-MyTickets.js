@@ -1,6 +1,6 @@
 import { FieldEmployeeNavMenu } from './FieldEmployeeNavMenu';
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaSort } from 'react-icons/fa';
 import { FaAccessibleIcon } from "react-icons/fa";
 import { GoTriangleRight } from "react-icons/go";
@@ -15,6 +15,11 @@ export function MyTickets() {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedStatus, setSelectedStatus] = useState('Open');
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+  
+    const fromMakeTicket = location.state && location.state.fromMakeTicket;
 
     const getTickets = async () => {
         try {
@@ -90,10 +95,9 @@ export function MyTickets() {
 
         const filteredTickets = myTickets
             .filter((ticket) =>
-                Object.values(ticket)
-                    .some((value) =>
-                        value && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-                    )
+                (ticket.ticketName && ticket.ticketName.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
+                (ticket.machineName && ticket.machineName.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
+                (ticket.ticketID && ticket.ticketID.toString().toLowerCase().includes(searchTerm.toLowerCase()))
             )
             .filter((ticket) => selectedStatus === 'All' || (ticket.status && selectedStatus === 'Open') || (!ticket.status && selectedStatus === 'Closed'));
 
@@ -190,6 +194,11 @@ export function MyTickets() {
     return (
         <div>
             <FieldEmployeeNavMenu />
+            {fromMakeTicket && (
+                <div className="alert alert-success" role="alert">
+                    Ticket created successfully!
+                </div>
+            )}
              {contents}
         </div>
     );

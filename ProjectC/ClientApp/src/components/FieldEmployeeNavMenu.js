@@ -8,9 +8,7 @@ import user from '../images/User.png';
 export function FieldEmployeeNavMenu() {
     
     const handleLogout = () => {
-
-        localStorage.setItem('user', JSON.stringify(null));
-
+        localStorage.clear();
     };
 
     return (

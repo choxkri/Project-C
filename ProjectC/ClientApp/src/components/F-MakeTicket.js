@@ -1,10 +1,11 @@
 import React, { useState , useEffect } from 'react';
 import { FieldEmployeeNavMenu } from './FieldEmployeeNavMenu';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 
 export function MakeTicket() {
     const location = useLocation();
-   
+    const navigate = useNavigate();
     const [machine, setMachine] = useState(null);
     const [ticketProblem, setTicketProblem] = useState('');
     const [problemDetails, setProblemDetails] = useState('');
@@ -42,12 +43,12 @@ export function MakeTicket() {
             setErrorMessage('Expected Result field is not allowed to be empty.');
         } else {
             setErrorMessage('');
-            createAccount();
+            createTicket();
         
             
         }
     };
-    const createAccount = async () => {
+    const createTicket = async () => {
         console.log(`Ticket Problem: ${ticketProblem}`);
         console.log(`Problem Details: ${problemDetails}`);
         console.log(`Extra Info: ${extraInfo}`);
@@ -63,6 +64,7 @@ export function MakeTicket() {
     
             const data = await response.text();
             setErrorMessage(data);
+            navigate(`/F-MyTickets`, { state: { fromMakeTicket: true } });
         } catch (error) {
             console.error('Error fetching account data:', error);
         }
@@ -169,6 +171,7 @@ export function MakeTicket() {
                             type="file"
                             className="form-control"
                             accept=".jpg, .jpeg, .png, "
+
                         />
 
                     </div>

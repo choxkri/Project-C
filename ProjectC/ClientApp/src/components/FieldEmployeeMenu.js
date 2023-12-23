@@ -31,6 +31,7 @@ export function FieldEmployeeMenu() {
     useEffect(() => {
         if (userData) {
             getMachines();
+            console.log(userData);
         }
     }, [userData]);
 
@@ -66,7 +67,7 @@ export function FieldEmployeeMenu() {
                 <p> <br></br><br></br><br></br></p>
                 <div className="text-center mt-3">
                     {machine && (
-                        <Link to={`/F-SeeFAQ`} className="btn btn-primary">
+                        <Link to={`/F-MakeTicket`} className="btn btn-primary">
                             Make Ticket
                         </Link>
                     )}

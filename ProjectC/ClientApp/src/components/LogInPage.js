@@ -9,6 +9,7 @@ export function LogInPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [account, setAccount] = useState(null);
+    const [token, setToken] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
 

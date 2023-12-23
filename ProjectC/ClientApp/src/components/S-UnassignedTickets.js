@@ -14,6 +14,8 @@ export function UnassignedTickets() {
 
     const [sortColumn, setSortColumn] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc');
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedStatus, setSelectedStatus] = useState('Open');
 
     const navigate = useNavigate();
 
@@ -83,8 +85,49 @@ export function UnassignedTickets() {
     };
 
     const renderTicketsTable = () => {
+        const filteredTickets = myTickets
+            .filter((ticket) =>
+                (ticket.ticketName && ticket.ticketName.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
+                (ticket.machineName && ticket.machineName.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
+                (ticket.ticketID && ticket.ticketID.toString().toLowerCase().includes(searchTerm.toLowerCase()))
+            )
+            .filter((ticket) => selectedStatus === 'All' || (ticket.status && selectedStatus === 'Open') || (!ticket.status && selectedStatus === 'Closed'));
         return (
-            <table className="table  table-hover" aria-labelledby="tableLabel">
+            <div>
+                <div className="row">
+                    <div className="col-md-4">
+                        <div className="input-group mb-3">
+                            <span className="input-group-text">
+                                Search:
+                            </span>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Search by Ticket/Machine Name"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    {/*<div className="col-md-2">*/}
+                    {/*    <div className="input-group mb-3">*/}
+                    {/*        <label className="input-group-text" >*/}
+                    {/*            Status:*/}
+                    {/*        </label>*/}
+                    {/*        <select*/}
+                    {/*            className="form-select"*/}
+                    {/*            value={selectedStatus}*/}
+                    {/*            onChange={(e) => setSelectedStatus(e.target.value)}*/}
+                    {/*        >*/}
+                    {/*            <option value="Open">Open</option>*/}
+                    {/*            <option value="Closed">Closed</option>*/}
+                    {/*            <option value="All">All</option>*/}
+                    {/*        </select>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                </div>
+                <table className="table  table-hover">
                 <thead className="thead-dark">
                     <tr>
                         <th onClick={() => sortTickets('ticketID')}>
@@ -103,15 +146,12 @@ export function UnassignedTickets() {
                             Date
                             {sortColumn === 'ticketDate' && <FaSort />}
                         </th>
-                        <th onClick={() => sortTickets('assign')}>
-                            Assign
-                            {sortColumn === 'assign' && <FaSort />}
-                        </th>
+                        <th> Assign </th>
                         <th>See in Detail</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {myTickets.map((ticket) => (
+                        {filteredTickets.map((ticket) => (
                         <tr key={ticket.ticketID}>
                             <td>{ticket.ticketID}</td>
                             <td>{ticket.ticketName}</td>
@@ -126,18 +166,20 @@ export function UnassignedTickets() {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+                </table>
+            </div>
         );
     };
 
     const contents = loading
         ? <p><em>Loading...</em></p>
-        : renderTicketsTable(myTickets);
+        : <div className="table-container">
+            {renderTicketsTable(myTickets)}
+        </div>
 
     return (
         <div>
             <ServiceEmployeeNavMenu />
-            <p> Here you can see the tickets that are unassigned.</p><FaAccessibleIcon /><FaAccessibleIcon /><FaAccessibleIcon /><FaAccessibleIcon />
             {contents}
             <p className="mt-3 text-success">{successMessage}</p>
         </div>
