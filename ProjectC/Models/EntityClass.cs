@@ -81,6 +81,8 @@ public class Ticket
     public string TicketMessage { get; set; }
     public string TicketPhoto { get; set; }
 
+    public string? TicketSolvedMessage { get; set; }
+
     public int? CreatorID { get; set; }
     [ForeignKey("CreatorID"), Column(Order = 0)]
     public Account? Creator { get; set; }

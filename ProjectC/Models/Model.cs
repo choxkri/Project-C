@@ -8,7 +8,7 @@ public class VisconContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
-        builder.UseNpgsql("User ID=postgres;password=gio;Host=localhost;Port=5432;Database=ProjectC;Pooling=true;Include Error Detail=true;");
+        builder.UseNpgsql("User ID=postgres;password=1234;Host=localhost;Port=5432;Database=ProjectC;Pooling=true;Include Error Detail=true;");
         builder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Debug);
     }
 
