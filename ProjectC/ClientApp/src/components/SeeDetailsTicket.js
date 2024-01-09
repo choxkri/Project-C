@@ -11,6 +11,9 @@ export function SeeDetailsTicket() {
     const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();
 
+    const [expectedSolution, setExpectedSolution] = useState('');
+    const [expectedSolutionError, setExpectedSolutionError] = useState('');
+    const [sucessfullyCreated, setSucessfullyCreated] =  useState(false);
     useEffect(() => {
         const storedUserData = JSON.parse(localStorage.getItem('user'));
         setUserData(storedUserData);
@@ -38,37 +41,57 @@ export function SeeDetailsTicket() {
         console.log('My Ticket:', myTicket);
         console.log('User Data:', userData);
     };
+    const handleExpectedSolution = (e) => {
+        const value = e.target.value;
+        setExpectedSolution(value);
+        validateField(value, setExpectedSolutionError, 'Expected Result');
+    };
 
+    const validateField = (value, setErrorFunction, fieldName) => {
+        if (value.length < 5 || value.length > 1000) {
+            setErrorFunction(`${fieldName} must be between 5 and 1000 characters.`);
+        } else {
+            setErrorFunction('');
+        }
+    };
     const handleNavigateBack = () => {
         test();
         navigate(-1);
     };
 
     const handleFixStatus = async () => {
-      
-        let newStatus
-        if (myTicket.status == true) {
-            newStatus = false;
-        } else {
-            newStatus = true;
-        }
-        setMyTicket((prevTicket) => ({
-            ...prevTicket,
-            status: newStatus,
-        }));
+
+        console.log(myTicket);
+        //let newStatus
+        //if (myTicket.status == true) {
+        //    newStatus = false;
+        //} else {
+        //    newStatus = true;
+        //}
+        //setMyTicket((prevTicket) => ({
+        //    ...prevTicket,
+        //    status: newStatus,
+        //}));
         changeStatus();
+        
     };
 
     const changeStatus = async () => {
-        try {
-            const response = await fetch(
-                `ticket/ChanceStatusTicket/${myTicket.ticketID}/${myTicket.status}`
-            );
-            const data = await response.text();
-            setSuccessMessage(data);
-        } catch (error) {
-            console.error('Error fetching account data:', error);
+        if ( expectedSolutionError === "") {
+            try {
+                const newStatus = !myTicket.status;
+                const response = await fetch(
+                    `ticket/ChanceStatusTicket/${myTicket.ticketID}/${newStatus}/${expectedSolution}`
+                );
+                const data = await response.text();
+                setSuccessMessage(data);
+                setSucessfullyCreated(true);
+                getDetailedTicket(myTicket);
+            } catch (error) {
+                console.error('Error fetching account data:', error);
+            }
         }
+        
     };
     
     return (
@@ -128,11 +151,28 @@ export function SeeDetailsTicket() {
                         </table>
                     </>
                 )}
-                {userData && userData.typeAccountID === 1 && myTicket.solverID !== null && (
+                {userData && userData.typeAccountID === 1 && myTicket.solverId !== null &&  myTicket.status === true && (
                     <>
-                        <button onClick={handleFixStatus}>Toggle Status</button>
+
+                        <div className="form-group">
+                            <label><br />Solution: </label>
+                            <textarea
+                                className={`form-control ${expectedSolutionError ? 'is-invalid' : expectedSolution ? 'is-valid' : ''}`}
+                                rows="3"
+                                placeholder="Write the solution for this problem in here"
+
+                                onChange={handleExpectedSolution}
+                            ></textarea>
+                            <div className="invalid-feedback">{expectedSolutionError}</div>
+                        </div>
+                        <button onClick={handleFixStatus}>Update solution</button>
                         <p className="mt-3 text-success">{successMessage}</p>
                     </>
+                )}
+                {sucessfullyCreated  && (
+                    <div className="alert alert-success" role="alert">
+                        Solution sucessfully updated!
+                    </div>
                 )}
                 <button onClick={handleNavigateBack}>Go Back</button>
             </div>

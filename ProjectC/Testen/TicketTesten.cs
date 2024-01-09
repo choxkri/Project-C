@@ -70,7 +70,7 @@ namespace ProjectC.Tests
                 var controller = new TicketController();
 
                 var TicketId = context.Tickets.Where(_ => _.TicketName == "Problem9951").Select(_ => _.TicketID).FirstOrDefault();
-                var result = controller.ChanceStatusTicket(TicketId, false);
+                var result = controller.ChanceStatusTicket(TicketId, false, "sol");
 
                 Assert.IsInstanceOfType(result, typeof(string));
                 Assert.AreEqual("Status has changed to False", result);
