@@ -106,8 +106,8 @@ export function LogInPage() {
 
 
     const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent default form submission
-        handleLogin(); // Call your handleLogin function
+        e.preventDefault(); 
+        handleLogin();
     };
     return (
         <div>
