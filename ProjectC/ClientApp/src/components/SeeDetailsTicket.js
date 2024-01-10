@@ -155,7 +155,7 @@ export function SeeDetailsTicket() {
                     <>
 
                         <div className="form-group">
-                            <label><br />Solution: </label>
+                            <label><br />Solution:  </label>
                             <textarea
                                 className={`form-control ${expectedSolutionError ? 'is-invalid' : expectedSolution ? 'is-valid' : ''}`}
                                 rows="3"
@@ -165,6 +165,7 @@ export function SeeDetailsTicket() {
                             ></textarea>
                             <div className="invalid-feedback">{expectedSolutionError}</div>
                         </div>
+                        <br></br>
                         <button onClick={handleFixStatus}>Update solution</button>
                         <p className="mt-3 text-success">{successMessage}</p>
                     </>
