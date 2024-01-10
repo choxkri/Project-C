@@ -105,43 +105,10 @@ export function LogInPage() {
     };
 
 
-
-    //This thing should handle the login. It should get the employee from the database that correspons with the inputted username and password.
-    //then it will be sent to the correct path (based on user type)
-    //const handleLogin = () => { 
-
-    //console.log("gfd");
-    //setErrorMessage('nonrggto');
-    //const response = fetch(`accountviscon/${username}/${password}`);
-    //const data =  response.json();
-    //setAccount(data);
-    //const response2 = fetch(`accountviscon/${account}`);
-    //if (account == null) {
-    //    setErrorMessage('nono');
-    //}
-    //console.log("gfd");
-    //console.log(account);
-
-
-
-    //// Check if the username and password match your criteria
-    //if (username === 'a' && password === 'a') {
-
-    //    navigate('/AdminMenu');
-    //}
-    //else if (username === 'f' && password === 'f') {
-    //    navigate('/FieldEmployeeMenu');
-    //}
-    //else if (username === 's' && password === 's') {
-    //    navigate('/ServiceEmployeeMenu');
-    //} else {
-    //    // If it is incorrect, set an error message
-    //    setErrorMessage('Invalid username or password. Please try again.');
-    //}
-
-
-    // };
-
+    const handleSubmit = (e) => {
+        e.preventDefault(); // Prevent default form submission
+        handleLogin(); // Call your handleLogin function
+    };
     return (
         <div>
             <div className="visconlogo">
@@ -154,7 +121,7 @@ export function LogInPage() {
                     <p>Welcome to Viscon Platform:</p>
                 </div>
 
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div>
                         <input
                             type="text"
@@ -178,12 +145,9 @@ export function LogInPage() {
                         />
                     </div>
 
-
-
-                    <button type="button" className="loginbutton" onClick={handleLogin}>
+                    <button type="submit" className="loginbutton">
                         Login
                     </button>
-
                 </form>
                 <p className={errorMessage === 'Loading...' ? 'loading-message' : 'error-message'}>
                     {errorMessage}

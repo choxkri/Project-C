@@ -110,7 +110,7 @@ export function SeeDetailsTicket() {
     };
 
     const changeStatus = async () => {
-        if ( expectedSolutionError === "") {
+        if ( expectedSolutionError === "" && expectedSolution !== "") {
             try {
                 const newStatus = !myTicket.status;
                 const response = await fetch(
@@ -184,7 +184,7 @@ export function SeeDetailsTicket() {
                         </table>
                     </>
                 )}
-                {userData && userData.typeAccountID === 1 && (
+                {userData && userData.typeAccountID === 1 && myTicket.status === true  && (
                     <div className="col-md-4 mx-auto">
                         <label className="form-label"><br></br>Account:</label>
 
@@ -200,6 +200,7 @@ export function SeeDetailsTicket() {
                         <p className="mt-3 text-success">{successMessage}</p>
                 </div>
                 )}
+
                 {userData && userData.typeAccountID === 1 && myTicket.solverId !== null &&  myTicket.status === true && (
                     <>
 
@@ -216,7 +217,7 @@ export function SeeDetailsTicket() {
                         </div>
                         <br></br>
                         <button onClick={handleFixStatus}>Update solution</button>
-                        <p className="mt-3 text-success">{successMessage}</p>
+                         <p className="mt-3 text-success">{}</p>
                     </>
                 )}
                 {sucessfullyCreated  && (
