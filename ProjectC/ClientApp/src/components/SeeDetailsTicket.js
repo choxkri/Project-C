@@ -9,13 +9,17 @@ export function SeeDetailsTicket() {
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
+    const [OtherAccount, setOtherAccount] = useState(null);
+    const [allOtherAccount, setAllOtherAccount] = useState([]);
     const navigate = useNavigate();
+
 
     useEffect(() => {
         const storedUserData = JSON.parse(localStorage.getItem('user'));
         setUserData(storedUserData);
         const storedTicketData = JSON.parse(localStorage.getItem('ticket'));
-        getDetailedTicket(storedTicketData)
+        getDetailedTicket(storedTicketData);
+        getOtherAccount(storedUserData);
     }, []);
 
     const getDetailedTicket = async (storedticketData ) => {
@@ -33,6 +37,20 @@ export function SeeDetailsTicket() {
             console.error('Error fetching account data:', error);
         }
     };
+
+    const getOtherAccount = async (storedUserdata) => {
+        try {
+            setOtherAccount(storedUserdata.accountID);
+            const response = await fetch(`account/Departmentwithid/${storedUserdata.departmentID}/${storedUserdata.accountID}`);
+            const data = await response.json();
+            if (data) {
+                setAllOtherAccount(data);
+            }
+        } catch (error) {
+            console.error('Error fetching account data:', error);
+        }
+    };
+
     const test = () => {
         console.log(typeof myTicket);
         console.log('My Ticket:', myTicket);
@@ -57,6 +75,22 @@ export function SeeDetailsTicket() {
             status: newStatus,
         }));
         changeStatus();
+    };
+
+    const handleassignTicket = async () => {
+        try {
+            setSuccessMessage();
+            console.log(myTicket.ticketID);
+            console.log(userData.account_ID);
+            const response = await fetch(`ticket/AssignTicketToSelf/${OtherAccount}/${myTicket.ticketID}`);
+            const data = await response.text();
+            setSuccessMessage(data);
+        } catch (error) {
+            console.error('Error fetching account data:', error);
+        }
+        await getDetailedTicket();
+
+        navigate(-1);
     };
 
     const changeStatus = async () => {
@@ -128,7 +162,23 @@ export function SeeDetailsTicket() {
                         </table>
                     </>
                 )}
-                {userData && userData.typeAccountID === 1 && myTicket.solverID !== null && (
+                {userData && userData.typeAccountID === 1 && (
+                    <div className="col-md-4 mx-auto">
+                        <label className="form-label"><br></br>Account:</label>
+
+                        <select className="form-select" onChange={(e) => setOtherAccount(e.target.value)}>
+                            {allOtherAccount.map((account, index) => (
+                                <option key={index} value={account.accountID}>
+                                    {account.accountName}
+                                </option>
+                            ))}
+                        </select>
+
+                        <button onClick={handleassignTicket}>Assign</button>
+                        <p className="mt-3 text-success">{successMessage}</p>
+                </div>
+                )}
+                {userData && userData.typeAccountID === 1 && myTicket.solver !== null && (
                     <>
                         <button onClick={handleFixStatus}>Toggle Status</button>
                         <p className="mt-3 text-success">{successMessage}</p>

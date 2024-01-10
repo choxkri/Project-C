@@ -117,7 +117,8 @@ namespace ProjectC.Controllers
                                     AccountName = acc.AccountName,
                                     TriedExplanation = tick.TriedExplanation,
                                     ExpectedResultExplanation = tick.ExpectedResultExplanation,
-                                    HowToFixExplanation = tick.HowToFixExplanation
+                                    HowToFixExplanation = tick.HowToFixExplanation,
+                                    Solver = tick.Solver
                                 });
                 return tickets1.ToArray()[0];
             }
@@ -187,8 +188,17 @@ namespace ProjectC.Controllers
                 var ticket = context.Tickets.Where(_ => _.TicketID == id).SingleOrDefault();
                 ticket.Status = status;
                 var amount = context.SaveChanges();
+                string Status = "?";
+                if(status == true)
+                {
+                    Status = "Closed";
+                }
+                if (status == false)
+                {
+                    Status = "Open";
+                }
 
-                if (amount > 0) { return $"Status has changed to {status}"; }
+                if (amount > 0) { return $"Status has changed to {Status}"; }
                 else { return "nothing changed"; }
             }
         }

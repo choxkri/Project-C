@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace ProjectC.Controllers
 {
@@ -40,6 +41,21 @@ namespace ProjectC.Controllers
                 }
             }
 
+        }
+
+        [HttpGet("Departmentwithid/{id}/{otherid}")]
+        public Account[] Departmentwithid(int id, int otherid)
+        {
+            using (var context = new VisconContext())
+            {
+                var test = context.Accounts.Where(_ => _.DepartmentID == id && _.AccountID != otherid).ToArray();
+                var stuff = context.Accounts.Where(_ => _.AccountID == otherid).FirstOrDefault();
+                stuff.AccountName = "Myself";
+                var combinedArray = new[] { stuff }.Concat(test).ToArray();
+
+                return combinedArray;
+
+            }
         }
 
         [HttpGet("{id}")]
