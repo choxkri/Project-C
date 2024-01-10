@@ -118,7 +118,7 @@ namespace ProjectC.Controllers
                                     TriedExplanation = tick.TriedExplanation,
                                     ExpectedResultExplanation = tick.ExpectedResultExplanation,
                                     HowToFixExplanation = tick.HowToFixExplanation,
-                                    Solver = tick.Solver
+                                    SolverId = tick.SolverID
                                 });
                 return tickets1.ToArray()[0];
             }
@@ -135,58 +135,18 @@ namespace ProjectC.Controllers
                 listoftickets.AddRange(tickets);
                 return listoftickets.ToArray();
 
-                //var tickets1 = (from tick in context.Tickets
-                //               join mach in context.Machines on tick.MachineID equals mach.MachineID
-                //               join acc in context.Accounts on tick.CreatorID equals acc.AccountID
-                //               where tick.CreatorID == id
-                //                orderby tick.TicketDate  descending
-                //                select new
-                //               {
-                //                   TicketID = tick.TicketID,
-                //                   TicketName = tick.TicketName,
-                //                   Status = tick.Status,
-                //                   MachineName = mach.MachineName,
-                //                   TicketDate = tick.TicketDate,
-                //                   TicketMessage = tick.TicketMessage,
-                //                   AccountName = acc.AccountName,
-                //                    TriedExplanation = tick.TriedExplanation,
-                //                    ExpectedResultExplanation = tick.ExpectedResultExplanation,
-                //                    HowToFixExplanation = tick.HowToFixExplanation
-                //                }).ToList();
-
-                //var tickets2 = (from tick in context.Tickets
-                //                join mach in context.Machines on tick.MachineID equals mach.MachineID
-                //                join acc in context.Accounts on tick.SolverID equals acc.AccountID
-                //                where tick.SolverID == id
-                //                orderby tick.TicketDate  descending
-                //                select new
-                //                {
-                //                    TicketID = tick.TicketID,
-                //                    TicketName = tick.TicketName,
-                //                    Status = tick.Status,
-                //                    MachineName = mach.MachineName,
-                //                    TicketDate = tick.TicketDate,
-                //                    TicketMessage = tick.TicketMessage,
-                //                    AccountName = acc.AccountName,
-                //                    TriedExplanation = tick.TriedExplanation,
-                //                    ExpectedResultExplanation = tick.ExpectedResultExplanation,
-                //                    HowToFixExplanation = tick.HowToFixExplanation
-
-                //                }).ToList();
-                //List<Object> listoftickets = new List<Object>();
-                //listoftickets.AddRange(tickets1);
-                //listoftickets.AddRange(tickets2);
-                //return listoftickets.ToArray();
+                
             }
         }
 
-        [HttpGet("ChanceStatusTicket/{id}/{status}")]
-        public string ChanceStatusTicket(int id, bool status)
+        [HttpGet("ChanceStatusTicket/{id}/{status}/{expectedsolution}")]
+        public string ChanceStatusTicket(int id, bool status, string expectedsolution)
         {
             using (var context = new VisconContext())
             {
                 var ticket = context.Tickets.Where(_ => _.TicketID == id).SingleOrDefault();
                 ticket.Status = status;
+                ticket.HowToFixExplanation = expectedsolution;
                 var amount = context.SaveChanges();
                 string Status = "?";
                 if(status == true)

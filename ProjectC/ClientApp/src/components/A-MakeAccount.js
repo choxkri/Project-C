@@ -150,16 +150,19 @@ export function MakeAccount() {
         else if (
             !usernameError && !passwordError &&  !emailError && !numberError && !confirmPasswordError
         ) {
+            setErrorMessage("");
             createAccount();
         } else {
             setErrorMessage('Please fix all validation errors before creating an account.');
         }
     };
+  
 
     const createAccount = async () => {
         try {
             const response = await fetch(`account/${username}/${password}/${number}/${email}/${company}/${department}/${userType}`);
             const data = await response.text();
+            window.location.reload();
             navigate(`/A-MakeAccount`, { state: { recentlyCreated: true } });
         } catch (error) {
             console.error('Error fetching account data:', error);
