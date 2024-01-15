@@ -39,7 +39,7 @@ export function SeeDetailsTicket() {
     const getOtherAccount = async (storedUserdata) => {
         try {
             setOtherAccount(storedUserdata.accountID);
-            const response = await fetch(`account/Departmentwithid/${storedUserdata.departmentID}/${storedUserdata.accountID}`);
+            const response = await fetch(`account/DepartmentWithId/${storedUserdata.departmentID}/${storedUserdata.accountID}`);
             const data = await response.json();
             if (data) {
                 setAllOtherAccount(data);

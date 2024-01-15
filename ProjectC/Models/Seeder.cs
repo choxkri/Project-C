@@ -1,4 +1,5 @@
 ﻿using System;
+using ProjectC.Security;
 
 public class Seeder
 {
@@ -63,26 +64,26 @@ public class Seeder
         {
            Company1, Company2, Company3 , Company4, Company5, Company6
         });
-
-        Account Account1 = new Account { AccountName = "Jeff", AccountEmail = "VisconJeffMail@.Vis", AccountPhone = "125512124", AccountPassword = "JeffPassword", CustCompanyID = null, Department = department1, TypeAccount = Type1 };
-        Account Account2 = new Account { AccountName = "Jim", AccountEmail = "VisconJimMail@.Vis", AccountPhone = "125512124", AccountPassword = "JimPassword", CustCompanyID = null, Department = department1, TypeAccount = Type1 };
-        Account Account3 = new Account { AccountName = "Jank", AccountEmail = "VisconJankMail@.Vis", AccountPhone = "125512124", AccountPassword = "JankPassword", CustCompanyID = null, Department = department1, TypeAccount = Type3 };
-        Account Account4 = new Account { AccountName = "Sara", AccountEmail = "VisconSaraMail@.Vis", AccountPhone = "125512124", AccountPassword = "SaraPassword", CustCompanyID = null, Department = department2, TypeAccount = Type1 };
-        Account Account5 = new Account { AccountName = "Sem", AccountEmail = "VisconSemMail@.Vis", AccountPhone = "125512124", AccountPassword = "SemPassword", CustCompanyID = null, Department = department2, TypeAccount = Type1 };
-        Account Account6 = new Account { AccountName = "Seff", AccountEmail = "VisconSeffMail@.Vis", AccountPhone = "125512124", AccountPassword = "SeffPassword", CustCompanyID = null, Department = department2, TypeAccount = Type3 };
-        Account Account7 = new Account { AccountName = "Tim", AccountEmail = "VisconTimMail@.Vis", AccountPhone = "125512124", AccountPassword = "TimPassword", CustCompanyID = null, Department = department3, TypeAccount = Type1 };
-        Account Account8 = new Account { AccountName = "Tom", AccountEmail = "VisconTomMail@.Vis", AccountPhone = "125512124", AccountPassword = "TomPassword", CustCompanyID = null, Department = department3, TypeAccount = Type1 };
-        Account Account9 = new Account { AccountName = "Tap", AccountEmail = "VisconTapMail@.Vis", AccountPhone = "125512124", AccountPassword = "TapPassword", CustCompanyID = null, Department = department3, TypeAccount = Type3 };
-        Account Account10 = new Account { AccountName = "Umar", AccountPassword = "UmarPassword", AccountPhone = "0123456789", AccountEmail = "UmarCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type2 };
-        Account Account11 = new Account { AccountName = "Henk", AccountPassword = "HenkPassword", AccountPhone = "0123456789", AccountEmail = "HenkCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type2 };
-        Account Account12 = new Account { AccountName = "Bink", AccountPassword = "BinkPassword", AccountPhone = "0123456789", AccountEmail = "BinkCompain@.Comp", Department = null, CustCompany = Company1, TypeAccount = Type2 };
-        Account Account13 = new Account { AccountName = "Piet", AccountPassword = "PietPassword", AccountPhone = "0123456789", AccountEmail = "PietCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type2 };
-        Account Account14 = new Account { AccountName = "Sam", AccountPassword = "SamPassword", AccountPhone = "0123456789", AccountEmail = "SamCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type2 };
-        Account Account15 = new Account { AccountName = "Sem", AccountPassword = "SemPassword", AccountPhone = "0123456789", AccountEmail = "SemCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type2 };
-        Account Account16 = new Account { AccountName = "Klaas", AccountPassword = "KlaasPassword", AccountPhone = "0123456789", AccountEmail = "KlaasCompain@.Comp", Department = null, CustCompany = Company2, TypeAccount = Type2 };
-        Account Account17 = new Account { AccountName = "Siebe", AccountPassword = "SiebePassword", AccountPhone = "0123456789", AccountEmail = "SiebeCompain@.Comp", Department = null, CustCompany = Company3, TypeAccount = Type2 };
-        Account Account18 = new Account { AccountName = "Tymo", AccountPassword = "TymoPassword", AccountPhone = "0123456789", AccountEmail = "TymoCompain@.Comp", Department = null, CustCompany = Company3, TypeAccount = Type2 };
-        Account Account19 = new Account { AccountName = "Tester", AccountEmail = "VisconTesterMail@.Vis", AccountPhone = "125512124", AccountPassword = "TesterPassword", CustCompanyID = null, Department = null, TypeAccount = Type1 };
+ 
+        Account Account1 = new Account { AccountName = "Jeff", AccountEmail = "VisconJeffMail@.Vis", AccountPhone = "125512124", AccountPassword = Security.EncodePasswordToBase64("JeffPassword"), CustCompanyID = null, Department = department1, TypeAccount = Type1 };
+        Account Account2 = new Account { AccountName = "Jim", AccountEmail = "VisconJimMail@.Vis", AccountPhone = "125512124", AccountPassword = Security.EncodePasswordToBase64("JimPassword"), CustCompanyID = null, Department = department1, TypeAccount = Type1 };
+        Account Account3 = new Account { AccountName = "Jank", AccountEmail = "VisconJankMail@.Vis", AccountPhone = "125512124", AccountPassword = Security.EncodePasswordToBase64("JankPassword"), CustCompanyID = null, Department = department1, TypeAccount = Type3 };
+        Account Account4 = new Account { AccountName = "Sara", AccountEmail = "VisconSaraMail@.Vis", AccountPhone = "125512124", AccountPassword = Security.EncodePasswordToBase64("SaraPassword"), CustCompanyID = null, Department = department2, TypeAccount = Type1 };
+        Account Account5 = new Account { AccountName = "Sem", AccountEmail = "VisconSemMail@.Vis", AccountPhone = "125512124", AccountPassword = Security.EncodePasswordToBase64("SemPassword"), CustCompanyID = null, Department = department2, TypeAccount = Type1 };
+        Account Account6 = new Account { AccountName = "Seff", AccountEmail = "VisconSeffMail@.Vis", AccountPhone = "125512124", AccountPassword = Security.EncodePasswordToBase64("SeffPassword"), CustCompanyID = null, Department = department2, TypeAccount = Type3 };
+        Account Account7 = new Account { AccountName = "Tim", AccountEmail = "VisconTimMail@.Vis", AccountPhone = "125512124", AccountPassword = Security.EncodePasswordToBase64("TimPassword"), CustCompanyID = null, Department = department3, TypeAccount = Type1 };
+        Account Account8 = new Account { AccountName = "Tom", AccountEmail = "VisconTomMail@.Vis", AccountPhone = "125512124", AccountPassword = Security.EncodePasswordToBase64("TomPassword"), CustCompanyID = null, Department = department3, TypeAccount = Type1 };
+        Account Account9 = new Account { AccountName = "Tap", AccountEmail = "VisconTapMail@.Vis", AccountPhone = "125512124", AccountPassword = Security.EncodePasswordToBase64("TapPassword"), CustCompanyID = null, Department = department3, TypeAccount = Type3 };
+        Account Account10 = new Account { AccountName = "Umar", AccountPassword = "UmarPassword", AccountPhone = "0123456789", AccountEmail = Security.EncodePasswordToBase64("UmarCompain@.Comp"), Department = null, CustCompany = Company1, TypeAccount = Type2 };
+        Account Account11 = new Account { AccountName = "Henk", AccountPassword = "HenkPassword", AccountPhone = "0123456789", AccountEmail = Security.EncodePasswordToBase64("HenkCompain@.Comp"), Department = null, CustCompany = Company1, TypeAccount = Type2 };
+        Account Account12 = new Account { AccountName = "Bink", AccountPassword = "BinkPassword", AccountPhone = "0123456789", AccountEmail = Security.EncodePasswordToBase64("BinkCompain@.Comp"), Department = null, CustCompany = Company1, TypeAccount = Type2 };
+        Account Account13 = new Account { AccountName = "Piet", AccountPassword = "PietPassword", AccountPhone = "0123456789", AccountEmail = Security.EncodePasswordToBase64("PietCompain@.Comp"), Department = null, CustCompany = Company2, TypeAccount = Type2 };
+        Account Account14 = new Account { AccountName = "Sam", AccountPassword = "SamPassword", AccountPhone = "0123456789", AccountEmail = Security.EncodePasswordToBase64("SamCompain@.Comp"), Department = null, CustCompany = Company2, TypeAccount = Type2 };
+        Account Account15 = new Account { AccountName = "Sem", AccountPassword = "SemPassword", AccountPhone = "0123456789", AccountEmail = Security.EncodePasswordToBase64("SemCompain@.Comp"), Department = null, CustCompany = Company2, TypeAccount = Type2 };
+        Account Account16 = new Account { AccountName = "Klaas", AccountPassword = "KlaasPassword", AccountPhone = "0123456789", AccountEmail = Security.EncodePasswordToBase64("KlaasCompain@.Comp"), Department = null, CustCompany = Company2, TypeAccount = Type2 };
+        Account Account17 = new Account { AccountName = "Siebe", AccountPassword = "SiebePassword", AccountPhone = "0123456789", AccountEmail = Security.EncodePasswordToBase64("SiebeCompain@.Comp"), Department = null, CustCompany = Company3, TypeAccount = Type2 };
+        Account Account18 = new Account { AccountName = "Tymo", AccountPassword = "TymoPassword", AccountPhone = "0123456789", AccountEmail = Security.EncodePasswordToBase64("TymoCompain@.Comp"), Department = null, CustCompany = Company3, TypeAccount = Type2 };
+        Account Account19 = new Account { AccountName = "Tester", AccountEmail = "VisconTesterMail@.Vis", AccountPhone = "125512124", AccountPassword = Security.EncodePasswordToBase64("TesterPassword"), CustCompanyID = null, Department = null, TypeAccount = Type1 };
         db.Accounts.AddRange(new[]
         {
             Account1,Account2,Account3,Account4,Account5,Account6,Account7,Account8,Account9
