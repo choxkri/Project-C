@@ -9,7 +9,6 @@ namespace ProjectC.Controllers
 
 
         [HttpGet]
-        //Used for testing to see how it goes from database to front-end
         public Department[] Get()
         {
             using (var context = new VisconContext())

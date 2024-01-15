@@ -53,7 +53,7 @@ public class Account
 
 
     public int? DepartmentID { get; set; }
-    // Define navigation property
+
     [ForeignKey("DepartmentID")]
     public Department? Department { get; set; }
 

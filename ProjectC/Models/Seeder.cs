@@ -84,6 +84,7 @@ public class Seeder
         Account Account17 = new Account { AccountName = "Siebe", AccountPassword = "SiebePassword", AccountPhone = "0123456789", AccountEmail = Security.EncodePasswordToBase64("SiebeCompain@.Comp"), Department = null, CustCompany = Company3, TypeAccount = Type2 };
         Account Account18 = new Account { AccountName = "Tymo", AccountPassword = "TymoPassword", AccountPhone = "0123456789", AccountEmail = Security.EncodePasswordToBase64("TymoCompain@.Comp"), Department = null, CustCompany = Company3, TypeAccount = Type2 };
         Account Account19 = new Account { AccountName = "Tester", AccountEmail = "VisconTesterMail@.Vis", AccountPhone = "125512124", AccountPassword = Security.EncodePasswordToBase64("TesterPassword"), CustCompanyID = null, Department = null, TypeAccount = Type1 };
+      
         db.Accounts.AddRange(new[]
         {
             Account1,Account2,Account3,Account4,Account5,Account6,Account7,Account8,Account9

@@ -129,13 +129,6 @@ namespace ProjectC.Controllers
         {
             using (var context = new VisconContext())
             {
-                //var tickets = context.Tickets.Where(_ => _.CreatorID == id).ToList();
-                //var tickets1 = context.Tickets.Where(_ => _.SolverID == id).ToList();
-                //List<Ticket> listoftickets = new List<Ticket>();
-                //listoftickets.AddRange(tickets1);
-                //listoftickets.AddRange(tickets);
-                //return listoftickets.ToArray();
-
                 var tickets1 = (from tick in context.Tickets
                                 join mach in context.Machines on tick.MachineID equals mach.MachineID
                                 join acc in context.Accounts on tick.CreatorID equals acc.AccountID

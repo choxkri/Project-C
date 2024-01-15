@@ -7,23 +7,6 @@ namespace ProjectC.Controllers
     [Route("[controller]")]
     public class AccountController : ControllerBase
     {
-
-
-       
-
-        //[HttpGet]
-        //Used for testing to see how it goes from database to front-end
-        //public AccountViscon[] Get()
-        //{
-        //    using (var context = new VisconContext())
-        //    {
-        //        var test = context.AccountViscon.ToArray();
-        //        return test;
-        //    }
-
-
-        //}
-
         [HttpGet("{name}/{password}")]
 
         public Account LogIn(string name, string password)
@@ -120,9 +103,7 @@ namespace ProjectC.Controllers
                 var getMachines = (from acc in context.Accounts
                                    join cus in context.CustCompany on acc.CustCompanyID equals cus.CustCompanyID
                                    where acc.AccountID == id
-                                   select cus.Machines).FirstOrDefault(); // Get the Machines collection
-
-                // Check if getMachines is not null before converting to array
+                                   select cus.Machines).FirstOrDefault(); 
                 return getMachines?.ToArray() ?? Array.Empty<Machine>();
             }
         }
