@@ -1,15 +1,13 @@
 import React, { useState , useEffect } from 'react';
-import { FieldEmployeeNavMenu } from './FieldEmployeeNavMenu';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
+import { CombinedNavMenu } from './NavMenuCombined';
 
 
 export function MakeTicket() {
-    const location = useLocation();
     const navigate = useNavigate();
     const [machine, setMachine] = useState(null);
     const [ticketProblem, setTicketProblem] = useState('');
     const [problemDetails, setProblemDetails] = useState('');
-    const [extraInfo, setExtraInfo] = useState('wwe');
     const [errorMessage, setErrorMessage] = useState('');
     const [userData, setUserData] = useState(null);
     const [triedExplanation, setTriedExplanation] = useState('');
@@ -22,22 +20,20 @@ export function MakeTicket() {
 
     useEffect(() => {
         const storedUserData = JSON.parse(localStorage.getItem('user'));
-        console.log(storedUserData);
+       
         setUserData(storedUserData);
         const storedMachine = JSON.parse(localStorage.getItem('machine'));
         setMachine(storedMachine);
-        console.log(storedMachine);
     }, []);
 
     const checkFields = () => {
-        console.log(machine);
+
         if (ticketProblem === '') {
             setErrorMessage('Ticket Problem  field is not allowed to be empty.');
         } else if (problemDetails === '') {
             setErrorMessage('Problem Details field is not allowed to be empty.');
-        } else if (extraInfo === '') {
-            setErrorMessage('Extra Info field is not allowed to be empty.');
-        } else if (triedExplanation === '') {
+        }
+          else if (triedExplanation === '') {
             setErrorMessage('Tried Explanation field is not allowed to be empty.');
         } else if (expectedResult === '') {
             setErrorMessage('Expected Result field is not allowed to be empty.');
@@ -49,18 +45,12 @@ export function MakeTicket() {
         }
     };
     const createTicket = async () => {
-        console.log(`Ticket Problem: ${ticketProblem}`);
-        console.log(`Problem Details: ${problemDetails}`);
-        console.log(`Extra Info: ${extraInfo}`);
-        console.log(userData.accountID);
-        console.log(machine.machineID);
-        console.log(triedExplanation);
-        console.log(expectedResult);
+    
         try {
 
-            //const response = await fetch(`/ticket/${ticketProblem}/${problemDetails}/${userData.account_ID}/${machine.machine_ID}`);
-            const response = await fetch(`/ticket/${ticketProblem}/${problemDetails}/${extraInfo}/${userData.accountID}/${machine.machineID}/${triedExplanation}/${expectedResult}`);
-            //const response = await fetch(`ticket/GetTicketsByAccountID/${userData.account_ID}`);
+            
+            const response = await fetch(`/ticket/${ticketProblem}/${problemDetails}/${userData.accountID}/${machine.machineID}/${triedExplanation}/${expectedResult}`);
+        
     
             const data = await response.text();
             setErrorMessage(data);
@@ -115,7 +105,7 @@ export function MakeTicket() {
 
     return (
         <div>
-            <FieldEmployeeNavMenu />
+            <CombinedNavMenu />
             <div className="rectanglelong">
                 <h1>Create Ticket for {machine ? machine.machineName : ''} </h1>
                 <form className="col-md-6 mx-auto">
@@ -165,19 +155,8 @@ export function MakeTicket() {
                         <div className="invalid-feedback">{expectedResultError}</div>
                     </div>
 
-                    <div className="form-group">
-                        <label><br></br>Show Machine</label>
-                        <input
-                            type="file"
-                            className="form-control"
-                            accept=".jpg, .jpeg, .png, "
-
-                        />
-
-                    </div>
-                    {/*<button type="submit" className="btn btn-default">*/}
-                    {/*    Submit*/}
-                    {/*</button>*/}
+                  
+                 
                     <button type="button" className="btn btn-primary mt-3" onClick={checkFields}>
                         Create Ticket
                     </button>

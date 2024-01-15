@@ -1,6 +1,7 @@
-import { FieldEmployeeNavMenu } from './FieldEmployeeNavMenu';
-import { Link , useLocation } from 'react-router-dom';
+
+import { Link  } from 'react-router-dom';
 import { useEffect , useState } from 'react';
+import { CombinedNavMenu } from './NavMenuCombined';
 
 
 export function SeeFAQ() {
@@ -9,8 +10,7 @@ export function SeeFAQ() {
     const [ticketsPerDay, setTicketsPerDay] = useState([]);
     const [userData, setUserData] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
-    const [selectedTicket, setSelectedTicket] = useState(null); // Updated state for selected ticket ID
-    const location = useLocation();
+    const [selectedTicket, setSelectedTicket] = useState(null); 
 
     const uniqueDates = [...new Set(myTickets.map(ticket => ticket.ticketDate.substring(0, 10)))].sort((a, b) => new Date(b) - new Date(a));
 
@@ -33,13 +33,13 @@ export function SeeFAQ() {
 
         const selectedDateTickets = myTickets.filter(ticket => ticket.ticketDate.startsWith(selectedDate));
         setTicketsPerDay(selectedDateTickets);
-        setSelectedTicket(null); // Reset selected ticket ID when date changes
+        setSelectedTicket(null); 
     };
 
     const handleTicketChange = (e) => {
-        console.log(e.target.value);
+      
         const selectedTicketID = parseInt(e.target.value, 10);
-        console.log(selectedTicketID);
+       
         const selectedTicket = ticketsPerDay.find((ticket) => ticket.ticketID === selectedTicketID);
         setSelectedTicket(selectedTicket);
     };
@@ -47,7 +47,7 @@ export function SeeFAQ() {
 
     const getTicketsByMachineID = async () => {
         try {
-            const response = await fetch(`ticket/GetTicketGroupedByDate/${userData.accountID}/${machine.machineID}`);
+            const response = await fetch(`ticket/GetSolvedTicketsByMachineID/${machine.machineID}`);
             const data = await response.json();
             setMyTickets(data);
         } catch (error) {
@@ -58,7 +58,7 @@ export function SeeFAQ() {
     return (
         <div>
            
-            <FieldEmployeeNavMenu />
+            <CombinedNavMenu />
 
             <div className="rectangletiny">
             <label> Date of Ticket:</label>
@@ -128,10 +128,9 @@ export function SeeFAQ() {
                 
             </div>
             <div>
-                {/*{selectedTicket && (*/}
-                {/*    <> */}
+              
                         <div className="rectanglelong container">
-                            {/*<p className="text-center"> Select a date and then select a problem</p>*/}
+                          
                             <br></br>
                             <div className="d-flex flex-column align-items-center">
                                 <div className="mb-3">
@@ -142,8 +141,7 @@ export function SeeFAQ() {
                                 </div>
                             </div>
                         </div>
-                    {/*</>*/}
-                {/*)}*/}
+                 
 
             </div>
              

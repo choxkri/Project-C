@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { AdminNavMenu } from './AdminNavMenu';
 import {  useLocation, useNavigate } from 'react-router-dom';
+import { CombinedNavMenu } from './NavMenuCombined';
 
 export function MakeAccount() {
     const [username, setUsername] = useState('');
@@ -161,7 +161,6 @@ export function MakeAccount() {
     const createAccount = async () => {
         try {
             const response = await fetch(`account/${username}/${password}/${number}/${email}/${company}/${department}/${userType}`);
-            const data = await response.text();
             window.location.reload();
             navigate(`/A-MakeAccount`, { state: { recentlyCreated: true } });
         } catch (error) {
@@ -178,7 +177,7 @@ export function MakeAccount() {
 
     return (
         <div>
-            <AdminNavMenu />
+            <CombinedNavMenu />
             {recentlyCreated&& (
                 <div className="alert alert-success" role="alert">
                     Account created successfully!

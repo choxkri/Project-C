@@ -8,42 +8,39 @@ export function LogInPage() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [account, setAccount] = useState(null);
-    const [token, setToken] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user')) || {};
 
-        console.log(user?.typeAccountID); // Use optional chaining to handle potential null or undefined
-        //window.location.reload();
+      
         if (user) {
             if (user.typeAccountID === 3) {
-                console.log('adm');
-                navigate('/AdminMenu');
+                
+                navigate('/A-MakeAccount');
             } else if (user.typeAccountID === 1) {
-                console.log('emp');
+              
                 navigate('/ServiceEmployeeMenu');
             } else if (user.typeAccountID === 2) {
-                console.log('ter');
+                
                 navigate('/FieldEmployeeMenu');
             } else {
-                // Handle other cases or show an error message
-                console.log("uo");
+               
+               
             }
         } else {
-            // Handle the case when there is no user data
-            console.log("uyyyyo");
+          
+        
         }
 
     }, []);
 
     const handleLogin = async () => {
-        if (username == "") {
+        if (username === "") {
             setErrorMessage("Username field must not be empty.");
         }
-        else if (password == "") {
+        else if (password === "") {
             setErrorMessage("Password field must not be empty.")
 
         }
@@ -56,14 +53,11 @@ export function LogInPage() {
                     setErrorMessage("Invalid Credentials");
                 } else {
                     const data = JSON.parse(toText);
-                    setAccount(data);
-                    console.log(data);
-                    console.log(account);
+                    localStorage.setItem('user', JSON.stringify(data));
+                 
+                    
+                    window.location.reload();
 
-
-
-                    // Call handleLogin2 after setting the account
-                    handleLogin2(data);
                 }
             } catch (error) {
                 console.error('Error fetching account data:', error);
@@ -71,38 +65,7 @@ export function LogInPage() {
         }
     };
 
-    const handleLogin2 = async (accountData) => {
-        try {
-            if (!accountData) {
-                console.error('No account data available');
-                return;
-            }
-
-            const response = await fetch(`account/${accountData.accountID}`);
-            const userType = await response.text();
-
-            localStorage.setItem('user', JSON.stringify(accountData));
-
-            // Define a map of user types to corresponding paths
-            const userTypeToPath = {
-                'Employee': '/ServiceEmployeeMenu',
-                'Admin': '/AdminMenu',
-                'Customer': '/FieldEmployeeMenu'
-                // Add more user types as needed
-            };
-            window.location.reload();
-
-            // Check if the userType is defined in the map
-            if (userTypeToPath[userType]) {
-                navigate(userTypeToPath[userType]);
-            } else {
-                console.log("Unknown user type");
-                // You can redirect to a default page or handle this case as needed
-            }
-        } catch (error) {
-            console.error('Error getting type of user:', error);
-        }
-    };
+    
 
 
     const handleSubmit = (e) => {

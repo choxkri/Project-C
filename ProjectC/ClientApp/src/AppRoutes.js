@@ -1,14 +1,10 @@
 import { MakeAccount } from "./components/A-MakeAccount";
-import { AccountInfo } from "./components/AccountInfo";
-import { AdminMenu } from "./components/AdminMenu";
-import { Counter } from "./components/Counter";
 import { MachineTickets } from "./components/F-MachineTickets";
 import { MakeTicket } from "./components/F-MakeTicket";
 import { MyTickets } from "./components/F-MyTickets";
 import { SeeFAQ } from "./components/F-SeeFAQ";
-import { FetchData } from "./components/FetchData";
+import { NoAuth } from "./components/no-auth";
 import { FieldEmployeeMenu } from "./components/FieldEmployeeMenu";
-import { Home } from "./components/Home";
 import { LogInPage } from "./components/LogInPage";
 import { SeeDetailsTicket } from "./components/SeeDetailsTicket";
 import { ServiceEmployeeMenu } from "./components/ServiceEmployeeMenu";
@@ -16,27 +12,18 @@ import { UnassignedTickets } from "./components/S-UnassignedTickets";
 
 //For the required Roles: 1 = Employee, 2 = Customer, 3 = Admin
 const AppRoutes = [
-  {
-    index: true,
-        element: <Home />
+   {
+        index: true,
+        path: '/LogInPage',
+        element: <LogInPage/>
+
   },
   {
-    path: '/counter',
-    element: <Counter />
-  },
-  {
-    path: '/fetch-data',
-    element: <FetchData />
+    path: '/no-auth',
+    element: <NoAuth />
     },
-  {
-    path: '/LogInPage',
-    element: <LogInPage />
-    },
-  {
-    path: '/AdminMenu',
-      element: <AdminMenu />,
-     requiredRole: 3, 
-    },
+  
+  
   {
     path: '/FieldEmployeeMenu',
       element: <FieldEmployeeMenu />,
@@ -45,7 +32,7 @@ const AppRoutes = [
   {
     path: '/ServiceEmployeeMenu',
       element: <ServiceEmployeeMenu />,
-      requiredRole: 1,
+      requiredRole: [3, 1], 
     },
   {
     path: '/F-MakeTicket',
@@ -57,10 +44,7 @@ const AppRoutes = [
       element: <SeeFAQ />,
       requiredRole: 2,
     },
-  {
-    path: '/AccountInfo',
-    element: <AccountInfo />
-  },
+ 
   {
     path: '/A-MakeAccount',
       element: <MakeAccount />,
@@ -79,13 +63,13 @@ const AppRoutes = [
   {
       path: '/SeeDetailsTicket',
       element: <SeeDetailsTicket />,
-     // requiredRole: 1 || 2 || 3
+      requiredRole: [1, 2,3], 
       
   },
     {
         path: '/S-UnassignedTickets',
         element: <UnassignedTickets />,
-        requiredRole: 1,
+        requiredRole: [3, 1], 
   },
 ];
 

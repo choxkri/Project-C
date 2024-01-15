@@ -1,10 +1,9 @@
 
-import { FieldEmployeeNavMenu } from './FieldEmployeeNavMenu';
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaSort } from 'react-icons/fa';
-import { FaAccessibleIcon } from "react-icons/fa";
 import { GoTriangleRight } from "react-icons/go";
+import { CombinedNavMenu } from './NavMenuCombined';
 
 export function MachineTickets() {
     const [myTickets, setMyTickets] = useState([]);
@@ -24,8 +23,7 @@ export function MachineTickets() {
     const getTickets = async () => {
         if (machine) {
             try {
-                console.log("yowzer");
-                console.log(machine.machine_ID);
+            
                 const response = await fetch(`ticket/GetTicketsByMacineID/${machine.machineID}`);
                 const data = await response.json();
                 setMyTickets(data);
@@ -73,11 +71,7 @@ export function MachineTickets() {
         navigate(`/SeeDetailsTicket`);
     };
 
-    const handleMachineChange = (e) => {
-        const selectedMachineID = e.target.value;
-        const selectedMachine = allMachines.find(machine => machine.machineID === selectedMachineID);
-        setMachine(selectedMachine);
-    };
+   
 
     const sortTickets = (column) => {
         let sortedTickets;
@@ -90,14 +84,13 @@ export function MachineTickets() {
                 const statusB = b[column] ? 'Open' : 'Closed';
 
                 if (sortOrder === 'asc') {
-                    return statusA < statusB ? 1 : -1; // Reverse the order here
+                    return statusA < statusB ? 1 : -1;
                 } else {
-                    return statusA > statusB ? 1 : -1; // Reverse the order here
+                    return statusA > statusB ? 1 : -1; 
                 }
             });
         } else {
-            // For other columns, perform the generic sorting
-
+           
 
             sortedTickets = [...myTickets].sort((a, b) => {
                 if (order === 'asc') {
@@ -173,10 +166,7 @@ export function MachineTickets() {
                                 Status
                                 {sortColumn === 'status' && <FaSort />}
                             </th>
-                            {/*<th onClick={() => sortTickets('machineName')}>*/}
-                            {/*    Machine Name*/}
-                            {/*    {sortColumn === 'machineName' && <FaSort />}*/}
-                            {/*</th>*/}
+                  
                             <th onClick={() => sortTickets('ticketDate')}>
                                 Date
                                 {sortColumn === 'ticketDate' && <FaSort />}
@@ -192,7 +182,7 @@ export function MachineTickets() {
                                 <td className={ticket.status ? 'text-success' : 'text-danger'}>
                                     {ticket.status ? 'Open' : 'Closed'}
                                 </td>
-                                {/*<td>{ticket.machineName}</td>*/}
+                         
                                 <td>{ticket.ticketDate ? new Date(ticket.ticketDate).toLocaleString() : 'N/A'}</td>
                                 <td>
                                     <button onClick={() => goToDetails(ticket)}>See Details<GoTriangleRight /></button>
@@ -212,7 +202,7 @@ export function MachineTickets() {
 
     return (
         <div>
-            <FieldEmployeeNavMenu />
+            <CombinedNavMenu />
             <div className="col-md-4 mx-auto">
                 <div className="input-group mb-3">
                 <span className="input-group-text">

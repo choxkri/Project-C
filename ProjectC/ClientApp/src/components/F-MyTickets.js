@@ -1,9 +1,9 @@
-import { FieldEmployeeNavMenu } from './FieldEmployeeNavMenu';
+
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import {  useNavigate, useLocation } from 'react-router-dom';
 import { FaSort } from 'react-icons/fa';
-import { FaAccessibleIcon } from "react-icons/fa";
 import { GoTriangleRight } from "react-icons/go";
+import { CombinedNavMenu } from './NavMenuCombined';
 
 export function MyTickets() {
     const [myTickets, setMyTickets] = useState([]);
@@ -23,9 +23,9 @@ export function MyTickets() {
 
     const getTickets = async () => {
         try {
-            const response = await fetch(`ticket/GetTicketsByAccountID/${userData.accountID}`);
+            const response = await fetch(`ticket/GetTicketsWithMachineName/${userData.accountID}`);
             const data = await response.json();
-            console.log(data);
+           
             setMyTickets(data);
             setLoading(false);
             
@@ -63,29 +63,7 @@ export function MyTickets() {
                 return a[column] < b[column] ? 1 : -1;
             }
         });
-        //if (column === 'status') {
-        //    sortedTickets = [...myTickets].sort((a, b) => {
-        //        const statusA = a[column] ? 'Open' : 'Closed';
-        //        const statusB = b[column] ? 'Open' : 'Closed';
-
-        //        if (sortOrder === 'asc') {
-        //            return statusA < statusB ? 1 : -1; // Reverse the order here
-        //        } else {
-        //            return statusA > statusB ? 1 : -1; // Reverse the order here
-        //        }
-        //    });
-        //} else {
-        //    // For other columns, perform the generic sorting
-            
-
-        //    sortedTickets = [...myTickets].sort((a, b) => {
-        //        if (order === 'asc') {
-        //            return a[column] > b[column] ? 1 : -1;
-        //        } else {
-        //            return a[column] < b[column] ? 1 : -1;
-        //        }
-        //    });
-        //}
+      
 
         setMyTickets(sortedTickets);
     };
@@ -193,7 +171,7 @@ export function MyTickets() {
 
     return (
         <div>
-            <FieldEmployeeNavMenu />
+            <CombinedNavMenu/>
             {fromMakeTicket && (
                 <div className="alert alert-success" role="alert">
                     Ticket created successfully!

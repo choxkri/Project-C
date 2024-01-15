@@ -1,24 +1,23 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { NavMenu } from './NavMenu';
 
-export function FetchData() {
+export function NoAuth() {
     const navigate = useNavigate();
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user')) || {};
 
-        console.log(user?.typeAccountID);
+       
         if (user) {
             if (user.typeAccountID === 3) {
-                console.log('adm');
-                navigate('/AdminMenu');
+                
+                navigate('/A-MakeAccount');
             } else if (user.typeAccountID === 1) {
-                console.log('emp');
+               
                 navigate('/ServiceEmployeeMenu');
             } else if (user.typeAccountID === 2) {
-                console.log('ter');
+              
                 navigate('/FieldEmployeeMenu');
             } else {
                 navigate('/LogInPage');
@@ -28,18 +27,12 @@ export function FetchData() {
         }
     }, []);
 
-    const handleGoBack = () => {
-        navigate(-1);
-    };
+ 
 
     return (
         <div>
-            <NavMenu />
             <h1 id="tableLabel">You are NOT supposed to be here!</h1>
           
-
-            {/* Button to go back */}
-            <button onClick={handleGoBack}>Go Back</button>
         </div>
     );
 }

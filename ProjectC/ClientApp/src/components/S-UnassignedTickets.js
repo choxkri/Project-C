@@ -1,9 +1,9 @@
-import { ServiceEmployeeNavMenu } from './ServiceEmployeeNavMenu';
+
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaSort } from 'react-icons/fa';
-import { FaAccessibleIcon } from "react-icons/fa";
 import { GoTriangleRight } from "react-icons/go";
+import { CombinedNavMenu } from './NavMenuCombined';
 
 export function UnassignedTickets() {
     const [myTickets, setMyTickets] = useState([]);
@@ -21,7 +21,7 @@ export function UnassignedTickets() {
 
     const getTickets = async () => {
         try {
-            const response = await fetch(`ticket/GetUnassignedTickets`);
+            const response = await fetch(`ticket/GetUnassignedTickets/${userData.departmentID}`);
             const data = await response.json();
             setMyTickets(data);
             setLoading(false);
@@ -73,8 +73,7 @@ export function UnassignedTickets() {
     const assignTicket = async (ticketId) => {
         try {
             setSuccessMessage();
-            console.log(ticketId);
-            console.log(userData.account_ID);
+
             const response = await fetch(`ticket/AssignTicketToSelf/${userData.accountID}/${ticketId}`);
             const data = await response.text();
             setSuccessMessage(data);
@@ -110,22 +109,7 @@ export function UnassignedTickets() {
                         </div>
                     </div>
 
-                    {/*<div className="col-md-2">*/}
-                    {/*    <div className="input-group mb-3">*/}
-                    {/*        <label className="input-group-text" >*/}
-                    {/*            Status:*/}
-                    {/*        </label>*/}
-                    {/*        <select*/}
-                    {/*            className="form-select"*/}
-                    {/*            value={selectedStatus}*/}
-                    {/*            onChange={(e) => setSelectedStatus(e.target.value)}*/}
-                    {/*        >*/}
-                    {/*            <option value="Open">Open</option>*/}
-                    {/*            <option value="Closed">Closed</option>*/}
-                    {/*            <option value="All">All</option>*/}
-                    {/*        </select>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+                 
                 </div>
                 <table className="table  table-hover">
                 <thead className="thead-dark">
@@ -138,9 +122,9 @@ export function UnassignedTickets() {
                             Name
                             {sortColumn === 'ticketName' && <FaSort />}
                         </th>
-                        <th onClick={() => sortTickets('machineID')}>
-                            Machine ID
-                            {sortColumn === 'machineID' && <FaSort />}
+                        <th onClick={() => sortTickets('machineName')}>
+                            Machine Name
+                            {sortColumn === 'machineName' && <FaSort />}
                         </th>
                         <th onClick={() => sortTickets('ticketDate')}>
                             Date
@@ -155,7 +139,7 @@ export function UnassignedTickets() {
                         <tr key={ticket.ticketID}>
                             <td>{ticket.ticketID}</td>
                             <td>{ticket.ticketName}</td>
-                            <td>{ticket.machineID}</td>
+                            <td>{ticket.machineName}</td>
                             <td>{ticket.ticketDate ? new Date(ticket.ticketDate).toLocaleString() : 'N/A'}</td>
                             <td>
                                 <button onClick={() => assignTicket(ticket.ticketID)}>Assign</button>
@@ -179,7 +163,7 @@ export function UnassignedTickets() {
 
     return (
         <div>
-            <ServiceEmployeeNavMenu />
+            <CombinedNavMenu/>
             {contents}
             <p className="mt-3 text-success">{successMessage}</p>
         </div>

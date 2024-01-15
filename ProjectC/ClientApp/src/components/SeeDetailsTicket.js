@@ -1,12 +1,11 @@
-import { FieldEmployeeNavMenu } from './FieldEmployeeNavMenu';
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CombinedNavMenu } from './NavMenuCombined';
 
 export function SeeDetailsTicket() {
     const [myTicket, setMyTicket] = useState([]);
-  
-    const [loading, setLoading] = useState(true);
+
     const [userData, setUserData] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
     const [OtherAccount, setOtherAccount] = useState(null);
@@ -26,14 +25,11 @@ export function SeeDetailsTicket() {
 
     const getDetailedTicket = async (storedticketData ) => {
         try {
-            console.log("woof");
-            console.log(storedticketData.ticketID);
+           
             const response = await fetch(`ticket/GetDetailedTicket/${storedticketData.ticketID}`);
             const data = await response.json();
-            console.log("cat");
-            console.log(data);
+         
             setMyTicket(data);
-            setLoading(false);
 
         } catch (error) {
             console.error('Error fetching account data:', error);
@@ -53,11 +49,6 @@ export function SeeDetailsTicket() {
         }
     };
 
-    const test = () => {
-        console.log(typeof myTicket);
-        console.log('My Ticket:', myTicket);
-        console.log('User Data:', userData);
-    };
     const handleExpectedSolution = (e) => {
         const value = e.target.value;
         setExpectedSolution(value);
@@ -72,23 +63,13 @@ export function SeeDetailsTicket() {
         }
     };
     const handleNavigateBack = () => {
-        test();
+        
         navigate(-1);
     };
 
     const handleFixStatus = async () => {
 
-        console.log(myTicket);
-        //let newStatus
-        //if (myTicket.status == true) {
-        //    newStatus = false;
-        //} else {
-        //    newStatus = true;
-        //}
-        //setMyTicket((prevTicket) => ({
-        //    ...prevTicket,
-        //    status: newStatus,
-        //}));
+       
         changeStatus();
         
     };
@@ -96,8 +77,7 @@ export function SeeDetailsTicket() {
     const handleassignTicket = async () => {
         try {
             setSuccessMessage();
-            console.log(myTicket.ticketID);
-            console.log(userData.account_ID);
+          
             const response = await fetch(`ticket/AssignTicketToSelf/${OtherAccount}/${myTicket.ticketID}`);
             const data = await response.text();
             setSuccessMessage(data);
@@ -130,7 +110,7 @@ export function SeeDetailsTicket() {
     return (
         <div>
             {userData && (
-                <CombinedNavMenu user={userData} />
+                <CombinedNavMenu  />
             )}
             <div className="rectanglelong">
                 <h1>Ticket Details</h1>
@@ -140,7 +120,7 @@ export function SeeDetailsTicket() {
                             <tbody>
                                 <tr>
                                     <td>ID:</td>
-                                    <td>{myTicket.ticketID}</td>
+                                    <td > {myTicket.ticketID}</td>
                                 </tr>
                                 <tr>
                                     <td>Ticket Name:</td>
@@ -158,7 +138,7 @@ export function SeeDetailsTicket() {
                                 </tr>
                                 <tr>
                                     <td>Ticket Date:</td>
-                                    <td>{myTicket.ticketDate}</td>
+                                    <td>{myTicket.ticketDate ? new Date(myTicket.ticketDate).toLocaleString() : 'N/A'}</td>
                                 </tr>
                                 <tr>
                                     <td>Machine Name :</td>

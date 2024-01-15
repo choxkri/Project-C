@@ -1,9 +1,9 @@
-import { ServiceEmployeeNavMenu } from './ServiceEmployeeNavMenu';
+
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaSort } from 'react-icons/fa';
-import { FaAccessibleIcon } from "react-icons/fa";
 import { GoTriangleRight } from "react-icons/go";
+import { CombinedNavMenu } from './NavMenuCombined';
 
 export function ServiceEmployeeMenu() {
     const [myTickets, setMyTickets] = useState([]);
@@ -19,7 +19,7 @@ export function ServiceEmployeeMenu() {
 
     const getTickets = async () => {
         try {
-            const response = await fetch(`ticket/GetTicketsByAccountID/${userData.accountID}`);
+            const response = await fetch(`ticket/GetTicketsWithMachineName/${userData.accountID}`);
             const data = await response.json();
             setMyTickets(data);
             setLoading(false);
@@ -57,13 +57,12 @@ export function ServiceEmployeeMenu() {
                 const statusB = b[column] ? 'Open' : 'Closed';
 
                 if (sortOrder === 'asc') {
-                    return statusA < statusB ? 1 : -1; // Reverse the order here
+                    return statusA < statusB ? 1 : -1;
                 } else {
-                    return statusA > statusB ? 1 : -1; // Reverse the order here
+                    return statusA > statusB ? 1 : -1;
                 }
             });
         } else {
-            // For other columns, perform the generic sorting
 
 
             sortedTickets = [...myTickets].sort((a, b) => {
@@ -177,7 +176,7 @@ export function ServiceEmployeeMenu() {
         </div>
     return (
         <div>
-            <ServiceEmployeeNavMenu />
+            <CombinedNavMenu />
             
             {contents}
         </div>

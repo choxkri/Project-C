@@ -1,7 +1,8 @@
-import { FieldEmployeeNavMenu } from './FieldEmployeeNavMenu';
+
 import { Link } from 'react-router-dom';
 
 import React, { useState, useEffect } from 'react';
+import { CombinedNavMenu } from './NavMenuCombined';
 
 
 export function FieldEmployeeMenu() {
@@ -37,11 +38,9 @@ export function FieldEmployeeMenu() {
 
     const handleMachineChange = (e) => {
         const selectedMachineID = parseInt(e.target.value, 10);
-        console.log(selectedMachineID);
-        console.log(typeof selectedMachineID);
+
         const selectedMachine = allMachines.find((machine) => machine.machineID === selectedMachineID);
-        console.log(selectedMachine);
-        console.log(allMachines);
+
         setMachine(selectedMachine);
         localStorage.setItem('machine', JSON.stringify(selectedMachine));
     };
@@ -49,7 +48,7 @@ export function FieldEmployeeMenu() {
 
     return (
         <div>
-            <FieldEmployeeNavMenu />
+            <CombinedNavMenu />
             <div className="rectanglesmall">
                 <h1>Make A Ticket</h1>
                 
