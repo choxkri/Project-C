@@ -73,7 +73,7 @@ namespace ProjectC.Tests
                 var result = controller.ChanceStatusTicket(TicketId, false, "sol");
 
                 Assert.IsInstanceOfType(result, typeof(string));
-                Assert.AreEqual("Status has changed to False", result);
+                Assert.AreEqual("Status has changed to Open", result);
             }
         }
 
