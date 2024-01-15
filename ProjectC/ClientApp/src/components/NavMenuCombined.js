@@ -24,7 +24,7 @@ export function CombinedNavMenu() {
                     <NavbarBrand><img src={logo} alt="Viscon Logo" style={{ width: 58, height: 58 }} /></NavbarBrand>
 
                     <Collapse className="navthingy2" navbar>
-                        <ul className="navbar-nav">
+                        <ul className="nav nav-tabs">
                             {user.typeAccountID === 3 && (
                                 <>
                                     <NavItem>
