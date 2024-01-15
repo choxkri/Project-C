@@ -164,7 +164,7 @@ export function SeeDetailsTicket() {
                         </table>
                     </>
                 )}
-                {userData && userData.typeAccountID === 1 && myTicket.status === true  && (
+                {userData && userData.typeAccountID !== 2 && myTicket.status === true  && (
                     <div className="col-md-4 mx-auto">
                         <label className="form-label"><br></br>Account:</label>
 
@@ -181,7 +181,7 @@ export function SeeDetailsTicket() {
                 </div>
                 )}
 
-                {userData && userData.typeAccountID === 1 && myTicket.solverId !== null &&  myTicket.status === true && (
+                {userData && userData.typeAccountID !== 2 && myTicket.solverId !== null &&  myTicket.status === true && (
                     <>
 
                         <div className="form-group">
