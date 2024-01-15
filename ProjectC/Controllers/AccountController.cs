@@ -30,7 +30,7 @@ namespace ProjectC.Controllers
         {
             using (var context = new VisconContext())
             {
-                List<Account> user = context.Accounts.Where(_ => _.AccountName == name && _.AccountPassword == password).ToList();
+                List<Account> user = context.Accounts.Where(_ => _.AccountName == name && _.AccountPassword == ProjectC.Security.Security.EncodePasswordToBase64(password)).ToList();
                 if (user.Count == 0)
                 {
                     return null;
@@ -43,8 +43,8 @@ namespace ProjectC.Controllers
 
         }
 
-        [HttpGet("Departmentwithid/{id}/{otherid}")]
-        public Account[] Departmentwithid(int id, int otherid)
+        [HttpGet("DepartmentWithId/{id}/{otherid}")]
+        public Account[] DepartmentWithId(int id, int otherid)
         {
             using (var context = new VisconContext())
             {
