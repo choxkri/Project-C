@@ -8,7 +8,7 @@ export default function App() {
 
     const userData = JSON.parse(localStorage.getItem('user')) || {};
 
-    console.log(userData); 
+     
     const hasPermission = (requiredRoles) => {
         if (!userData) {
             return false; 
